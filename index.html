@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Financial Consultant Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+
+    <!-- Header / Navigation -->
+    <header class="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md shadow-sm z-50 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
+                <i class="fa-solid fa-chart-line-up text-emerald-600"></i>
+                <span>Aayden Ng Cheng Khiang</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+                <a href="#about" class="hover:text-emerald-600 transition-colors">About</a>
+                <a href="#services" class="hover:text-emerald-600 transition-colors">Services</a>
+                <a href="#philosophy" class="hover:text-emerald-600 transition-colors">Philosophy</a>
+                <a href="#contact" class="bg-emerald-600 text-white px-5 py-2.5 rounded-lg hover:bg-emerald-700 transition-all shadow-sm shadow-emerald-600/20">Book a Consultation</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 md:pt-44 md:pb-32 px-6 bg-gradient-to-b from-slate-100 via-white to-slate-50">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 mb-6 border border-emerald-200">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Available for Consultations
+            </span>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+                Securing Your Future Through <span class="text-emerald-600">Smart Planning</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed">
+                As a dedicated financial consultant, I provide tailored strategies designed to protect your wealth, optimize investments, and bring clarity to your long-term goals.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#contact" class="w-full sm:w-auto bg-slate-900 text-white px-8 py-4 rounded-xl font-medium hover:bg-slate-800 transition-all shadow-lg shadow-slate-900/10 text-center">
+                    Schedule Free Discovery Call
+                </a>
+                <a href="#services" class="w-full sm:w-auto bg-white text-slate-700 px-8 py-4 rounded-xl font-medium border border-slate-200 hover:bg-slate-50 transition-all text-center">
+                    Explore Services
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-6 max-w-5xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <!-- Professional Placeholder Image -->
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
+                <div class="relative bg-slate-200 aspect-[3/4] rounded-2xl overflow-hidden flex items-center justify-center border border-slate-200 shadow-md">
+                    <i class="fa-solid fa-user-tie text-6xl text-slate-400"></i>
+                    <span class="absolute bottom-4 text-xs font-mono text-slate-500 bg-white/80 px-3 py-1 rounded-full backdrop-blur-sm">[ Replace with Headshot ]</span>
+                </div>
+            </div>
+            <div>
+                <h2 class="text-3xl font-bold text-slate-900 mb-6 tracking-tight">Hi, I'm [Your Name].</h2>
+                <p class="text-slate-600 mb-4 leading-relaxed">
+                    The financial world can be confusing and overwhelming. That's why I entered this industry—to cut through the noise and offer clear, fiduciary, transparent guidance tailored specifically to you. 
+                </p>
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    Whether you are just starting your wealth accumulation journey, navigating business financials, or securing a legacy for your family, I focus on building structures that stand the test of time.
+                </p>
+                <div class="grid grid-cols-2 gap-4 border-t border-slate-200 pt-6">
+                    <div>
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Focus Areas</h4>
+                        <p class="text-sm font-semibold text-slate-800">Wealth Building & Protection</p>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Philosophy</h4>
+                        <p class="text-sm font-semibold text-slate-800">Client-First Transparency</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 px-6 bg-slate-100 border-y border-slate-200">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold text-slate-900 tracking-tight mb-4">Strategic Financial Services</h2>
+                <p class="text-slate-600">Every plan is built from scratch around your specific life stage, risk appetite, and goals.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 text-xl">
+                            <i class="fa-solid fa-seedling"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Wealth Management</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Tailored asset allocation and holistic strategy management to optimize your long-term growth portfolio.</p>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 text-xl">
+                            <i class="fa-solid fa-umbrella"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Retirement & Protection</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Mitigate structural risks with robust insurance planning alongside optimized income plans for a stress-free retirement.</p>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 text-xl">
+                            <i class="fa-solid fa-building-columns"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Tax & Estate Strategies</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Structure your investments efficiently to maximize dynamic tax advantages and seamlessly pass wealth onto the next generation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section id="philosophy" class="py-20 px-6 max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-slate-900 tracking-tight mb-12">The Guiding Principles</h2>
+        <div class="grid md:grid-cols-2 gap-10 text-left">
+            <div class="flex gap-4">
+                <div class="text-emerald-600 text-xl font-bold">01</div>
+                <div>
+                    <h4 class="font-bold text-slate-900 mb-1">Clear Education First</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">I won't just pitch you a strategy; I will explain the mechanics behind it so you feel completely confident in every decision.</p>
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <div class="text-emerald-600 text-xl font-bold">02</div>
+                <div>
+                    <h4 class="font-bold text-slate-900 mb-1">Fiduciary Duty</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">As your consultant, my recommendations are strictly tied to your best outcomes. Your growth is my only benchmark.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact/Booking Section -->
+    <section id="contact" class="py-20 px-6 bg-slate-900 text-white rounded-t-[2.5rem]">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Let's Build Your Plan</h2>
+            <p class="text-slate-400 max-w-lg mx-auto mb-12">Ready to take control of your financial destiny? Let's connect for an introductory discovery call.</p>
+            
+            <!-- Booking Box Placement -->
+            <div class="bg-slate-800 p-8 rounded-2xl max-w-xl mx-auto border border-slate-700 shadow-xl">
+                <i class="fa-regular fa-calendar-check text-4xl text-emerald-400 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Book directly onto my calendar</h3>
+                <p class="text-slate-400 text-sm mb-6">Pick a date and time that fits your schedule best.</p>
+                
+                <!-- Placeholder for Scheduling Widget (e.g., Calendly embed) -->
+                <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-700/50 flex flex-col items-center justify-center gap-3">
+                    <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest">[ Integration Option Available ]</span>
+                    <p class="text-xs text-slate-500">You can embed a Calendly widget right here, or link to your personal booking flow.</p>
+                    <a href="mailto:youremail@example.com" class="mt-2 text-sm text-white underline hover:text-emerald-400 transition-colors">Or email directly: youremail@example.com</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-500 text-xs py-8 px-6 text-center border-t border-slate-900">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p>&copy; 2026 Aayden Ng Cheng Khiang Financial Consulting. All rights reserved.</p>
+            <p class="text-slate-600">Disclaimer: All financial strategies carry risk. Past performances do not guarantee future returns.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
