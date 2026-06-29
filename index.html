@@ -152,111 +152,137 @@
     <!-- Contact/Booking Section -->
     <section id="contact" class="py-20 px-6 bg-slate-900 text-white rounded-t-[2.5rem]">
         <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Let's Build Your Plan</h2>
-            <p class="text-slate-400 max-w-lg mx-auto mb-12">Ready to take control of your financial destiny? Let's connect for an introductory discovery call.</p>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">From Strangers to Friends</h2>
+            <p class="text-slate-400 max-w-lg mx-auto mb-12">Every friendship starts with a first greeting.</p>
             
             <!-- Booking Box Placement -->
             <div class="bg-slate-800 p-8 rounded-2xl max-w-xl mx-auto border border-slate-700 shadow-xl">
-                <i class="fa-regular fa-calendar-check text-4xl text-emerald-400 mb-4"></i>
-                <h3 class="text-xl font-bold mb-2">Book directly onto my calendar</h3>
-                <p class="text-slate-400 text-sm mb-6">Pick a date and time that fits your schedule best.</p>
+                <i class="fa-regular fa-handshake text-4xl text-emerald-400 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Real impact, told by the people who matter most.</h3>
                 
                 <!-- Placeholder for Testimonials -->
-               import React, { useState } from 'react';
+               <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Stories Carousel</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-50 py-12 px-4">
 
-const testimonials = [
-  { quote: "Sierra helped me with my basic insurance plans...", name: "Jun Jie", title: "Software Engineer", initials: "JJ" },
-  { quote: "I find Sierra nice and very professional...", name: "Yvonne", title: "Teacher", initials: "YV" },
-  { quote: "My wife and I loved Sierra's pleasant and patient personality...", name: "Moni", title: "Banker", initials: "MN" },
-  { quote: "She is a sincere and patient consultant...", name: "Raviin", title: "Marketing Manager", initials: "RV" },
-  { quote: "She was studying full-time while working...", name: "Lynda", title: "Admin Manager", initials: "LY" },
-  { quote: "Sierra was one of my students...", name: "Mr Tan", title: "Manager (Former Teacher)", initials: "MT" },
-  { quote: "Sierra has been my go-to agent since 2018...", name: "Zwe", title: "Computer Engineer", initials: "ZW" },
-  { quote: "Even when I relocated to Hong Kong...", name: "Jason Brian", title: "Software Engineer", initials: "JB" },
-  { quote: "We are very thankful to have Sierra...", name: "Serena & Jeremy", title: "Nurse", initials: "SJ" },
-  { quote: "Meeting Sierra at Suntec City was truly serendipitous...", name: "Clint", title: "Manager", initials: "CL" }
-];
-
-export default function ClientStories() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsPerPage = 2; // Number of cards visible on desktop
-
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) => {
-      // Loop back to start if we reach the end
-      if (prevIndex + itemsPerPage >= testimonials.length) {
-        return 0;
-      }
-      return prevIndex + itemsPerPage;
-    });
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) => {
-      // Loop to the end chunk if sliding back from 0
-      if (prevIndex - itemsPerPage < 0) {
-        return testimonials.length - itemsPerPage;
-      }
-      return prevIndex - itemsPerPage;
-    });
-  };
-
-  // Current page calculation (e.g., 1 / 5)
-  const currentPage = Math.floor(currentIndex / itemsPerPage) + 1;
-  const totalPages = Math.ceil(testimonials.length / itemsPerPage);
-
-  return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-12">
+  <div class="w-full max-w-6xl mx-auto">
+    
+    <!-- Header section with controls -->
+    <div class="flex items-center justify-between mb-8">
+      <h2 class="text-3xl font-bold">Client Stories</h2>
       
-      {/* Header controls section */}
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="text-3xl font-bold">Client Stories</h2>
-        
-        {/* Navigation Arrows & Counter */}
-        <div className="flex items-center space-x-4">
-          <button 
-            onClick={prevSlide}
-            className="w-10 h-10 border border-gray-400 flex items-center justify-center hover:bg-gray-100 transition"
-          >
-            ←
-          </button>
-          <span className="text-sm font-mono tracking-wider">
-            {currentPage} / {totalPages}
-          </span>
-          <button 
-            onClick={nextSlide}
-            className="w-10 h-10 border border-gray-400 flex items-center justify-center hover:bg-gray-100 transition"
-          >
-            →
-          </button>
-        </div>
+      <!-- Navigation Arrows & Counter -->
+      <div class="flex items-center space-x-4">
+        <button 
+          onclick="prevSlide()"
+          class="w-10 h-10 border border-gray-400 flex items-center justify-center hover:bg-gray-100 transition cursor-pointer"
+        >
+          ←
+        </button>
+        <span id="carousel-counter" class="text-sm font-mono tracking-wider">
+          1 / 5
+        </span>
+        <button 
+          onclick="nextSlide()"
+          class="w-10 h-10 border border-gray-400 flex items-center justify-center hover:bg-gray-100 transition cursor-pointer"
+        >
+          →
+        </button>
       </div>
+    </div>
 
-      {/* Responsive Grid/Carousel Viewport */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {testimonials.slice(currentIndex, currentIndex + itemsPerPage).map((item, index) => (
-          <div 
-            key={index} 
-            className="border border-gray-200 p-8 flex flex-col justify-between min-h-[320px] bg-white"
-          >
-            <p className="text-gray-600 italic leading-relaxed">
-              "{item.quote}"
+    <!-- Carousel Viewport (Grid container) -->
+    <div id="carousel-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Cards will be dynamically injected here by JavaScript -->
+    </div>
+
+  </div>
+
+  <script>
+    // All 10 testimonials from your site
+    const testimonials = [
+      { quote: "Sierra helped me with my basic insurance plans, understanding my financial situation and recommending the most suitable plans. She always goes above and beyond — even advising me on my first property purchase. I really appreciate her willingness and sincerity to help whenever I have a financial dilemma.", name: "Jun Jie", title: "Software Engineer", initials: "JJ" },
+      { quote: "I find Sierra nice and very professional. She maintains a high level of service standard even among friends. She is diligent with follow-ups and is always thinking one step ahead for her clients. She is very positive and honest with her work. Thankful to be under her care!", name: "Yvonne", title: "Teacher", initials: "YV" },
+      { quote: "My wife and I loved Sierra's pleasant and patient personality and her professionalism in answering all our queries. Most importantly, Sierra keeps in touch socially after the initial sale and keeps us updated about suitable opportunities. It is a pleasure to know her as an advisor and as a friend.", name: "Moni", title: "Banker", initials: "MN" },
+      { quote: "She is a sincere and patient consultant who was willing to take the time to understand my needs and walk me through the various products. She is always available and constantly in touch to ensure the well-being of her clients. Thank you for going the extra mile to fight for my exclusion clauses.", name: "Raviin", title: "Marketing Manager", initials: "RV" },
+      { quote: "She was studying full-time while working as a financial consultant concurrently. She always explained everything clearly so that I understood my options. She is never pushy, always diligent in follow-up. She even offered to consolidate all my Prudential policies so I could have a clear perspective.", name: "Lynda", title: "Admin Manager", initials: "LY" },
+      { quote: "Sierra was one of my students. She is responsible and always strives to do what she wants. I usually don't trust insurance agents, but Sierra has been different — dedicated and trustable. She is goal driven and a genuine girl who always tries her utmost best to help her clients. Keep up the good work!", name: "Mr Tan", title: "Manager (Former Teacher)", initials: "MT" },
+      { quote: "Sierra has been my go-to agent since 2018. Despite her young age, she is very knowledgeable and could easily point out gaps I can improve on. Through our yearly reviews, she is always clear in her explanations and recommends a mix of policies tailored to my needs. I'm grateful to entrust my financial planning to her.", name: "Zwe", title: "Computer Engineer", initials: "ZW" },
+      { quote: "Even when I relocated to Hong Kong for 2 years, she still diligently kept me updated on changes and cared for my well-being. She is meticulous and goes the extra mile to bring the greatest satisfaction to her clients. I'm sure whoever has her as their Financial Consultant will feel the same way and be well protected.", name: "Jason Brian", title: "Software Engineer", initials: "JB" },
+      { quote: "We are very thankful to have Sierra as our financial consultant. She is a very sincere person and genuinely cares for our family. She is super thoughtful and caring — coming bearing handwritten cards and gifts on special occasions. She is definitely not pushy compared to other agents. Keep up the good work!", name: "Serena & Jeremy", title: "Nurse", initials: "SJ" },
+      { quote: "Meeting Sierra at Suntec City was truly serendipitous. Her kindness, cheerfulness, and knowledge about life insurance left me thoroughly impressed. She explained everything in a friendly and approachable manner. It was evident she genuinely cares about helping people make the right decisions for their future.", name: "Clint", title: "Manager", initials: "CL" }
+    ];
+
+    let currentIndex = 0;
+    const itemsPerPage = 2; // Displays 2 cards at a time on desktop
+
+    function renderCarousel() {
+      const grid = document.getElementById('carousel-grid');
+      const counter = document.getElementById('carousel-counter');
+      
+      // Clear current visible items
+      grid.innerHTML = '';
+
+      // Slice array to get the 2 active cards
+      const activeItems = testimonials.slice(currentIndex, currentIndex + itemsPerPage);
+
+      // Generate HTML template for each visible card
+      activeItems.forEach(item => {
+        const cardHtml = `
+          <div class="border border-gray-200 p-8 flex flex-col justify-between min-h-[320px] bg-white">
+            <p class="text-gray-600 italic leading-relaxed">
+              "${item.quote}"
             </p>
-            
-            <div className="flex items-center space-x-3 mt-6 pt-4 border-t border-gray-100">
-              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold">
-                {item.initials}
+            <div class="flex items-center space-x-3 mt-6 pt-4 border-t border-gray-100">
+              <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold shrink-0">
+                ${item.initials}
               </div>
               <div>
-                <h4 className="font-semibold text-sm">{item.name}</h4>
-                <p className="text-xs text-gray-400">{item.title}</p>
+                <h4 class="font-semibold text-sm text-gray-900">${item.name}</h4>
+                <p class="text-xs text-gray-400">${item.title}</p>
               </div>
             </div>
           </div>
-        ))}
-      </div>
+        `;
+        grid.insertAdjacentHTML('beforeend', cardHtml);
+      });
 
-    </div>
+      // Update the pagination counter text (e.g., "1 / 5")
+      const currentPage = Math.floor(currentIndex / itemsPerPage) + 1;
+      const totalPages = Math.ceil(testimonials.length / itemsPerPage);
+      counter.textContent = `${currentPage} / ${totalPages}`;
+    }
+
+    function nextSlide() {
+      if (currentIndex + itemsPerPage >= testimonials.length) {
+        currentIndex = 0; // Infinite loop back to page 1
+      } else {
+        currentIndex += itemsPerPage;
+      }
+      renderCarousel();
+    }
+
+    function prevSlide() {
+      if (currentIndex - itemsPerPage < 0) {
+        currentIndex = testimonials.length - itemsPerPage; // Infinite loop back to last page
+      } else {
+        currentIndex -= itemsPerPage;
+      }
+      renderCarousel();
+    }
+
+    // Initial load setup
+    renderCarousel();
+  </script>
+</body>
+</html>
   );
 }
 
