@@ -162,20 +162,103 @@
                 <p class="text-slate-400 text-sm mb-6">Pick a date and time that fits your schedule best.</p>
                 
                 <!-- Placeholder for Testimonials -->
-               <section id="testimonials">
-                    <div class="testimonials-header"><div>
-                    <div class="section-tag reveal in">Client Stories</div>
-                <h2 class="section-headline testimonials-headline reveal reveal-d1 in">Voices that speak louder<br>than any<em>brochure.</em></h2>
-                    </div><div class="testimonials-controls">
-                <button class="t-btn" id="prevBtn">←</button>
-                <span class="t-counter" id="tCounter">1 / 10</span>
-                <button class="t-btn" id="nextBtn">→</button>
-                    </div></div>
-                <div class="testimonials-viewport"><div class="testimonials-track" id="tTrack" style="transform: translateX(calc(0% + 0rem));">                   <div class="testimonial-card"><span class="quote-mark">“</span><p class="testimonial-text">Sierra helped me with my basic                         insurance plans, understanding my financial situation and recommending the most suitable plans. She always goes above and beyond                 — even advising me on my first property purchase. I really appreciate her willingness and sincerity to help whenever I have a                     financial dilemma.</p><div class="testimonial-author"><div class="author-initials">JJ</div><div><span class="author-name">Jun                     Jie</span><span class="author-role">Software Engineer</span></div></div></div><div class="testimonial-card"><span class="quote-                mark">“</span><p class="testimonial-text">I find Sierra nice and very professional. She maintains a high level of service standard even among friends. She is diligent with follow-ups and is always thinking one step ahead for her clients. She is very positive and honest with her work. Thankful to be under her care!</p><div class="testimonial-author"><div class="author-initials">YV</div><div><span class="author-name">Yvonne</span><span class="author-role">Teacher</span></div></div></div><div class="testimonial-card"><span class="quote-mark">“</span><p class="testimonial-text">My wife and I loved Sierra's pleasant and patient personality and her professionalism in answering all our queries. Most importantly, Sierra keeps in touch socially after the initial sale and keeps us updated about suitable opportunities. It is a pleasure to know her as an advisor and as a friend.</p><div class="testimonial-author"><div class="author-initials">MN</div><div><span class="author-name">Moni</span><span class="author-role">Banker</span></div></div></div><div class="testimonial-card"><span class="quote-mark">“</span><p class="testimonial-text">She is a sincere and patient consultant who was willing to take the time to understand my needs and walk me through the various products. She is always available and constantly in touch to ensure the well-being of her clients. Thank you for going the extra mile to fight for my exclusion clauses.</p><div class="testimonial-author"><div class="author-initials">RV</div><div><span class="author-name">Raviin</span><span class="author-role">Marketing Manager</span></div></div></div><div class="testimonial-card"><span class="quote-mark">“</span><p class="testimonial-text">She was studying full-time while working as a financial consultant concurrently. She always explained everything clearly so that I understood my options. She is never pushy, always diligent in follow-up. She even offered to consolidate all my Prudential policies so I could have a clear perspective.</p><div class="testimonial-author"><div class="author-initials">LY</div><div><span class="author-name">Lynda</span><span class="author-role">Admin Manager</span></div></div></div><div class="testimonial-card"><span class="quote-mark">“</span><p class="testimonial-text">Sierra was one of my students. She is responsible and always strives to do what she wants. I usually don't trust insurance agents, but Sierra has been different — dedicated and trustable. She is goal driven and a genuine girl who always tries her utmost best to help her clients. Keep up the good work!</p><div class="testimonial-author"><div class="author-initials">MT</div><div><span class="author-name">Mr Tan</span><span class="author-role">Manager (Former Teacher)</span></div></div></div><div class="testimonial-card"><span class="quote-mark">“</span><p class="testimonial-text">Sierra has been my go-to agent since 2018. Despite her young age, she is very knowledgeable and could easily point out gaps I can improve on. Through our yearly reviews, she is always clear in her explanations and recommends a mix of policies tailored to my needs. I'm grateful to entrust my financial planning to her.</p><div class="testimonial-author"><div class="author-initials">ZW</div><div><span class="author-name">Zwe</span><span class="author-role">Computer Engineer</span></div></div></div><div class="testimonial-card"><span class="quote-mark">“</span><p class="testimonial-text">Even when I relocated to Hong Kong for 2 years, she still diligently kept me updated on changes and cared for my well-being. She is meticulous and goes the extra mile to bring the greatest satisfaction to her clients. I'm sure whoever has her as their Financial Consultant will feel the same way and be well protected.</p><div class="testimonial-author"><div class="author-initials">JB</div><div><span class="author-name">Jason Brian</span><span class="author-role">Software Engineer</span></div></div></div><div class="testimonial-card"><span class="quote-mark">“</span><p class="testimonial-text">We are very thankful to have Sierra as our financial consultant. She is a very sincere person and genuinely cares for our family. She is super thoughtful and caring — coming bearing handwritten cards and gifts on special occasions. She is definitely not pushy compared to other agents. Keep up the good work!</p><div class="testimonial-author"><div class="author-initials">SJ</div><div><span class="author-name">Serena &amp; Jeremy</span><span class="author-role">Nurse</span></div></div></div><div class="testimonial-card"><span class="quote-mark">“</span><p class="testimonial-text">Meeting Sierra at Suntec City was truly serendipitous. Her kindness, cheerfulness, and knowledge about life insurance left me thoroughly impressed. She explained everything in a friendly and approachable manner. It was evident she genuinely cares about helping people make the right decisions for their future.</p><div class="testimonial-author"><div class="author-initials">CL</div><div><span class="author-name">Clint</span><span class="author-role">Manager</span></div></div></div></div></div>
-                </section>
+               import React, { useState } from 'react';
 
-                </div></div>
-<div class="testimonials-viewport"><div class="testimonials-track" id="tTrack" style="transform: translateX(calc(0% + 0rem));"><div class="testimonial-card"><span class="quote-mark">“</span><p class="testimonial-text">Sierra helped me with my basic insurance plans, understanding my financial situation and recommending the most suitable plans. She always goes above and beyond — even advising me on my first property purchase. I really appreciate her willingness and sincerity to help whenever I have a financial dilemma.</p><div class="testimonial-author"><div class="author-initials">JJ</div><div><span class="author-name">Jun Jie</span><span class="author-role">Software Engineer</span></div></div></div><div class="testimonial-card"><span class="quote-mark">“</span><p class="testimonial-text">I find Sierra nice and very professional. She maintains a high level of service standard even among friends. She is diligent with follow-ups and is always thinking one step ahead for her clients. She is very positive and honest with her work. Thankful to be under her care!</p><div class="testimonial-author"><div class="author-initials">YV</div><div><span class="author-name">Yvonne</span><span class="author-role">Teacher</span></div></div></div><div class="testimonial-card"><span class="quote-mark">“</span><p class="testimonial-text">My wife and I loved Sierra's pleasant and patient personality and her professionalism in answering all our queries. Most importantly, Sierra keeps in touch socially after the initial sale and keeps us updated about suitable opportunities. It is a pleasure to know her as an advisor and as a friend.</p><div class="testimonial-author"><div class="author-initials">MN</div><div><span class="author-name">Moni</span><span class="author-role">Banker</span></div></div></div><div class="testimonial-card"><span class="quote-mark">“</span><p class="testimonial-text">She is a sincere and patient consultant who was willing to take the time to understand my needs and walk me through the various products. She is always available and constantly in touch to ensure the well-being of her clients. Thank you for going the extra mile to fight for my exclusion clauses.</p><div class="testimonial-author"><div class="author-initials">RV</div><div><span class="author-name">Raviin</span><span class="author-role">Marketing Manager</span></div></div></div><div class="testimonial-card"><span class="quote-mark">“</span><p class="testimonial-text">She was studying full-time while working as a financial consultant concurrently. She always explained everything clearly so that I understood my options. She is never pushy, always diligent in follow-up. She even offered to consolidate all my Prudential policies so I could have a clear perspective.</p><div class="testimonial-author"><div class="author-initials">LY</div><div><span class="author-name">Lynda</span><span class="author-role">Admin Manager</span></div></div></div><div class="testimonial-card"><span class="quote-mark">“</span><p class="testimonial-text">Sierra was one of my students. She is responsible and always strives to do what she wants. I usually don't trust insurance agents, but Sierra has been different — dedicated and trustable. She is goal driven and a genuine girl who always tries her utmost best to help her clients. Keep up the good work!</p><div class="testimonial-author"><div class="author-initials">MT</div><div><span class="author-name">Mr Tan</span><span class="author-role">Manager (Former Teacher)</span></div></div></div><div class="testimonial-card"><span class="quote-mark">“</span><p class="testimonial-text">Sierra has been my go-to agent since 2018. Despite her young age, she is very knowledgeable and could easily point out gaps I can improve on. Through our yearly reviews, she is always clear in her explanations and recommends a mix of policies tailored to my needs. I'm grateful to entrust my financial planning to her.</p><div class="testimonial-author"><div class="author-initials">ZW</div><div><span class="author-name">Zwe</span><span class="author-role">Computer Engineer</span></div></div></div><div class="testimonial-card"><span class="quote-mark">“</span><p class="testimonial-text">Even when I relocated to Hong Kong for 2 years, she still diligently kept me updated on changes and cared for my well-being. She is meticulous and goes the extra mile to bring the greatest satisfaction to her clients. I'm sure whoever has her as their Financial Consultant will feel the same way and be well protected.</p><div class="testimonial-author"><div class="author-initials">JB</div><div><span class="author-name">Jason Brian</span><span class="author-role">Software Engineer</span></div></div></div><div class="testimonial-card"><span class="quote-mark">“</span><p class="testimonial-text">We are very thankful to have Sierra as our financial consultant. She is a very sincere person and genuinely cares for our family. She is super thoughtful and caring — coming bearing handwritten cards and gifts on special occasions. She is definitely not pushy compared to other agents. Keep up the good work!</p><div class="testimonial-author"><div class="author-initials">SJ</div><div><span class="author-name">Serena &amp; Jeremy</span><span class="author-role">Nurse</span></div></div></div><div class="testimonial-card"><span class="quote-mark">“</span><p class="testimonial-text">Meeting Sierra at Suntec City was truly serendipitous. Her kindness, cheerfulness, and knowledge about life insurance left me thoroughly impressed. She explained everything in a friendly and approachable manner. It was evident she genuinely cares about helping people make the right decisions for their future.</p><div class="testimonial-author"><div class="author-initials">CL</div><div><span class="author-name">Clint</span><span class="author-role">Manager</span></div></div></div></div></div>
+const testimonials = [
+  { quote: "Sierra helped me with my basic insurance plans...", name: "Jun Jie", title: "Software Engineer", initials: "JJ" },
+  { quote: "I find Sierra nice and very professional...", name: "Yvonne", title: "Teacher", initials: "YV" },
+  { quote: "My wife and I loved Sierra's pleasant and patient personality...", name: "Moni", title: "Banker", initials: "MN" },
+  { quote: "She is a sincere and patient consultant...", name: "Raviin", title: "Marketing Manager", initials: "RV" },
+  { quote: "She was studying full-time while working...", name: "Lynda", title: "Admin Manager", initials: "LY" },
+  { quote: "Sierra was one of my students...", name: "Mr Tan", title: "Manager (Former Teacher)", initials: "MT" },
+  { quote: "Sierra has been my go-to agent since 2018...", name: "Zwe", title: "Computer Engineer", initials: "ZW" },
+  { quote: "Even when I relocated to Hong Kong...", name: "Jason Brian", title: "Software Engineer", initials: "JB" },
+  { quote: "We are very thankful to have Sierra...", name: "Serena & Jeremy", title: "Nurse", initials: "SJ" },
+  { quote: "Meeting Sierra at Suntec City was truly serendipitous...", name: "Clint", title: "Manager", initials: "CL" }
+];
+
+export default function ClientStories() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const itemsPerPage = 2; // Number of cards visible on desktop
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => {
+      // Loop back to start if we reach the end
+      if (prevIndex + itemsPerPage >= testimonials.length) {
+        return 0;
+      }
+      return prevIndex + itemsPerPage;
+    });
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => {
+      // Loop to the end chunk if sliding back from 0
+      if (prevIndex - itemsPerPage < 0) {
+        return testimonials.length - itemsPerPage;
+      }
+      return prevIndex - itemsPerPage;
+    });
+  };
+
+  // Current page calculation (e.g., 1 / 5)
+  const currentPage = Math.floor(currentIndex / itemsPerPage) + 1;
+  const totalPages = Math.ceil(testimonials.length / itemsPerPage);
+
+  return (
+    <div className="w-full max-w-6xl mx-auto px-4 py-12">
+      
+      {/* Header controls section */}
+      <div className="flex items-center justify-between mb-8">
+        <h2 className="text-3xl font-bold">Client Stories</h2>
+        
+        {/* Navigation Arrows & Counter */}
+        <div className="flex items-center space-x-4">
+          <button 
+            onClick={prevSlide}
+            className="w-10 h-10 border border-gray-400 flex items-center justify-center hover:bg-gray-100 transition"
+          >
+            ←
+          </button>
+          <span className="text-sm font-mono tracking-wider">
+            {currentPage} / {totalPages}
+          </span>
+          <button 
+            onClick={nextSlide}
+            className="w-10 h-10 border border-gray-400 flex items-center justify-center hover:bg-gray-100 transition"
+          >
+            →
+          </button>
+        </div>
+      </div>
+
+      {/* Responsive Grid/Carousel Viewport */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {testimonials.slice(currentIndex, currentIndex + itemsPerPage).map((item, index) => (
+          <div 
+            key={index} 
+            className="border border-gray-200 p-8 flex flex-col justify-between min-h-[320px] bg-white"
+          >
+            <p className="text-gray-600 italic leading-relaxed">
+              "{item.quote}"
+            </p>
+            
+            <div className="flex items-center space-x-3 mt-6 pt-4 border-t border-gray-100">
+              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold">
+                {item.initials}
+              </div>
+              <div>
+                <h4 className="font-semibold text-sm">{item.name}</h4>
+                <p className="text-xs text-gray-400">{item.title}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  );
+}
 
     <!-- Footer -->
     <footer class="bg-slate-950 text-slate-500 text-xs py-8 px-6 text-center border-t border-slate-900">
