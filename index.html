@@ -156,9 +156,10 @@
             <p class="text-slate-400 max-w-lg mx-auto mb-12">Every friendship starts with a first greeting.</p>
             
             <!-- Booking Box Placement -->
-            <div class="bg-slate-800 p-8 rounded-2xl max-w-xl mx-auto border border-slate-700 shadow-xl">
+            <div class="bg-slate-800 p-8 rounded-2xl max-w-4xl mx-auto border border-slate-700 shadow-xl">
                 <i class="fa-regular fa-handshake text-4xl text-emerald-400 mb-4"></i>
                 <h3 class="text-xl font-bold mb-2">Real impact, told by the people who matter most.</h3>
+                <p></p>
                 
                 <!-- Placeholder for Testimonials -->
                <!DOCTYPE html>
@@ -208,16 +209,9 @@
   <script>
     // All 10 testimonials from your site
     const testimonials = [
-      { quote: "Sierra helped me with my basic insurance plans, understanding my financial situation and recommending the most suitable plans. She always goes above and beyond — even advising me on my first property purchase. I really appreciate her willingness and sincerity to help whenever I have a financial dilemma.", name: "Jun Jie", title: "Software Engineer", initials: "JJ" },
-      { quote: "I find Sierra nice and very professional. She maintains a high level of service standard even among friends. She is diligent with follow-ups and is always thinking one step ahead for her clients. She is very positive and honest with her work. Thankful to be under her care!", name: "Yvonne", title: "Teacher", initials: "YV" },
-      { quote: "My wife and I loved Sierra's pleasant and patient personality and her professionalism in answering all our queries. Most importantly, Sierra keeps in touch socially after the initial sale and keeps us updated about suitable opportunities. It is a pleasure to know her as an advisor and as a friend.", name: "Moni", title: "Banker", initials: "MN" },
-      { quote: "She is a sincere and patient consultant who was willing to take the time to understand my needs and walk me through the various products. She is always available and constantly in touch to ensure the well-being of her clients. Thank you for going the extra mile to fight for my exclusion clauses.", name: "Raviin", title: "Marketing Manager", initials: "RV" },
-      { quote: "She was studying full-time while working as a financial consultant concurrently. She always explained everything clearly so that I understood my options. She is never pushy, always diligent in follow-up. She even offered to consolidate all my Prudential policies so I could have a clear perspective.", name: "Lynda", title: "Admin Manager", initials: "LY" },
-      { quote: "Sierra was one of my students. She is responsible and always strives to do what she wants. I usually don't trust insurance agents, but Sierra has been different — dedicated and trustable. She is goal driven and a genuine girl who always tries her utmost best to help her clients. Keep up the good work!", name: "Mr Tan", title: "Manager (Former Teacher)", initials: "MT" },
-      { quote: "Sierra has been my go-to agent since 2018. Despite her young age, she is very knowledgeable and could easily point out gaps I can improve on. Through our yearly reviews, she is always clear in her explanations and recommends a mix of policies tailored to my needs. I'm grateful to entrust my financial planning to her.", name: "Zwe", title: "Computer Engineer", initials: "ZW" },
-      { quote: "Even when I relocated to Hong Kong for 2 years, she still diligently kept me updated on changes and cared for my well-being. She is meticulous and goes the extra mile to bring the greatest satisfaction to her clients. I'm sure whoever has her as their Financial Consultant will feel the same way and be well protected.", name: "Jason Brian", title: "Software Engineer", initials: "JB" },
-      { quote: "We are very thankful to have Sierra as our financial consultant. She is a very sincere person and genuinely cares for our family. She is super thoughtful and caring — coming bearing handwritten cards and gifts on special occasions. She is definitely not pushy compared to other agents. Keep up the good work!", name: "Serena & Jeremy", title: "Nurse", initials: "SJ" },
-      { quote: "Meeting Sierra at Suntec City was truly serendipitous. Her kindness, cheerfulness, and knowledge about life insurance left me thoroughly impressed. She explained everything in a friendly and approachable manner. It was evident she genuinely cares about helping people make the right decisions for their future.", name: "Clint", title: "Manager", initials: "CL" }
+      { quote: "I had a great experience working with Aayden as my financial advisor. He is knowledgeable, patient, and take the time to clearly explain different options without any pressure. I appreciate his honest approach and commitment to helping me make informed financial decisions. Highly recommended for anyone looking for trustworthy financial guidance", name: "Darryl"},
+      { quote: "I had a great experience working with Aayden. He took the time to clearly explain different policies and helped me choose a plan that truly fits my needs and budget. What stood out most was his responsiveness and transparency, no hard selling, just honest advice, conversations were easy. I feel confident knowing my coverage is well taken care of. Highly recommended for anyone looking for a reliable and trustworthy agent", name: "Sidney"},
+      { quote: "I highly recommend Aayden! He is very professional and took the time to thoroughly review my current finances. He recommended plans that actually suit my needs, specifically for hospitalization and longterm investment planning. I really appreciate that he worked within my budget while ensuring I have a clear understanding of my financial situation for both now and the future.", name: "Kaycee"},
     ];
 
     let currentIndex = 0;
@@ -240,13 +234,8 @@
             <p class="text-gray-600 italic leading-relaxed">
               "${item.quote}"
             </p>
-            <div class="flex items-center space-x-3 mt-6 pt-4 border-t border-gray-100">
-              <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold shrink-0">
-                ${item.initials}
-              </div>
               <div>
                 <h4 class="font-semibold text-sm text-gray-900">${item.name}</h4>
-                <p class="text-xs text-gray-400">${item.title}</p>
               </div>
             </div>
           </div>
@@ -283,8 +272,6 @@
   </script>
 </body>
 </html>
-  );
-}
 
     <!-- Footer -->
     <footer class="bg-slate-950 text-slate-500 text-xs py-8 px-6 text-center border-t border-slate-900">
