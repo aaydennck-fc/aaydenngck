@@ -166,151 +166,54 @@
     </section>
 
     <!-- Contact/Booking Section -->
-    <section id="testimonials" class="py-20 px-6 bg-slate-900 text-white rounded-t-[2.5rem]">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">From Strangers to Friends</h2>
-            <p class="text-slate-400 max-w-lg mx-auto mb-6">Every friendship starts with a first greeting.</p>
-               <i class="fa-regular fa-handshake text-6xl text-emerald-400 mb-6"></i>
-            
-            <!-- Booking Box Placement -->
-            <div class="bg-slate-800 p-8 rounded-2xl max-w-4xl mx-auto border border-slate-700 shadow-xl">
-                
-                <!-- Placeholder for Testimonials -->
-               <!DOCTYPE html>
-<section class="mt-10">
-                <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Client Stories Carousel</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-</head>
-<body class="bg-gray-50 py-12 px-4">
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="py-20 px-6 bg-slate-900 text-white rounded-t-[2.5rem]">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">From Strangers to Friends</h2>
+      <p class="text-slate-400 max-w-lg mx-auto mb-6">Every friendship starts with a first greeting.</p>
+      <i class="fa-regular fa-handshake text-6xl text-emerald-400 mb-10"></i>
 
-  <div class="w-full max-w-6xl mx-auto">
-    
-    <!-- Header section with controls -->
-    <div class="flex items-center justify-between mb-8">
-      <h2 class="text-3xl font-bold">Client Stories</h2>
-      
-      <!-- Navigation Arrows & Counter -->
-      <div class="flex items-center space-x-4">
-        <button 
-          onclick="prevSlide()"
-          class="w-10 h-10 border border-gray-400 flex items-center justify-center hover:bg-gray-100 transition cursor-pointer"
-        >
-          ←
-        </button>
-        <span id="carousel-counter" class="text-sm font-mono tracking-wider">
-          1 / 5
-        </span>
-        <button 
-          onclick="nextSlide()"
-          class="w-10 h-10 border border-gray-400 flex items-center justify-center hover:bg-gray-100 transition cursor-pointer"
-        >
-          →
-        </button>
-      </div>
-    </div>
-
-    <!-- Carousel Viewport (Grid container) -->
-    <div id="carousel-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- Cards will be dynamically injected here by JavaScript -->
-    </div>
-
-  </div>
-
-  <script>
-    // All 10 testimonials from your site
-    const testimonials = [
-      { quote: "I had a great experience working with Aayden as my financial advisor. He is knowledgeable, patient, and take the time to clearly explain different options without any pressure. I appreciate his honest approach and commitment to helping me make informed financial decisions. Highly recommended for anyone looking for trustworthy financial guidance", name: "Darryl"},
-      { quote: "I had a great experience working with Aayden. He took the time to clearly explain different policies and helped me choose a plan that truly fits my needs and budget. What stood out most was his responsiveness and transparency, no hard selling, just honest advice, conversations were easy. I feel confident knowing my coverage is well taken care of. Highly recommended for anyone looking for a reliable and trustworthy agent", name: "Sidney"},
-      { quote: "I highly recommend Aayden! He is very professional and took the time to thoroughly review my current finances. He recommended plans that actually suit my needs, specifically for hospitalization and longterm investment planning. I really appreciate that he worked within my budget while ensuring I have a clear understanding of my financial situation for both now and the future.", name: "Kaycee"},
-    ];
-
-    let currentIndex = 0;
-    const itemsPerPage = 2; // Displays 2 cards at a time on desktop
-
-    function renderCarousel() {
-      const grid = document.getElementById('carousel-grid');
-      const counter = document.getElementById('carousel-counter');
-      
-      // Clear current visible items
-      grid.innerHTML = '';
-
-      // Slice array to get the 2 active cards
-      const activeItems = testimonials.slice(currentIndex, currentIndex + itemsPerPage);
-
-      // Generate HTML template for each visible card
-      activeItems.forEach(item => {
-        const cardHtml = `
-          <div class="border border-gray-200 rounded-2xl p-8 flex flex-col justify-between min-h-[320px] bg-white">
-            <p class="text-gray-600 italic leading-relaxed">
-              "${item.quote}"
-            </p>
-              <div>
-                <h4 class="font-semibold text-sm text-gray-900">${item.name}</h4>
-              </div>
-            </div>
+      <!-- Carousel Viewport -->
+      <div class="w-full max-w-6xl mx-auto text-left">
+        <!-- Header section with controls -->
+        <div class="flex items-center justify-between mb-8">
+          <h3 class="text-2xl font-bold">Client Stories</h3>
+          <!-- Navigation Arrows & Counter -->
+          <div class="flex items-center space-x-4">
+            <button onclick="prevSlide()" class="w-10 h-10 border border-slate-700 rounded-lg flex items-center justify-center hover:bg-slate-800 transition cursor-pointer text-slate-300"> ← </button>
+            <span id="carousel-counter" class="text-sm font-mono tracking-wider text-slate-400"> 1 / 2 </span>
+            <button onclick="nextSlide()" class="w-10 h-10 border border-slate-700 rounded-lg flex items-center justify-center hover:bg-slate-800 transition cursor-pointer text-slate-300"> → </button>
           </div>
-        `;
-        grid.insertAdjacentHTML('beforeend', cardHtml);
-      });
+        </div>
 
-      // Update the pagination counter text (e.g., "1 / 5")
-      const currentPage = Math.floor(currentIndex / itemsPerPage) + 1;
-      const totalPages = Math.ceil(testimonials.length / itemsPerPage);
-      counter.textContent = `${currentPage} / ${totalPages}`;
-    }
+        <!-- Carousel Grid -->
+        <div id="carousel-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Cards dynamically injected here -->
+        </div>
+      </div>
 
-    function nextSlide() {
-      if (currentIndex + itemsPerPage >= testimonials.length) {
-        currentIndex = 0; // Infinite loop back to page 1
-      } else {
-        currentIndex += itemsPerPage;
-      }
-      renderCarousel();
-    }
+      <h3 class="text-xl font-bold italic mt-12 text-slate-300">Real impact, told by the people who matter most.</h3>
+    </div>
+  </section>
 
-    function prevSlide() {
-      if (currentIndex - itemsPerPage < 0) {
-        currentIndex = testimonials.length - itemsPerPage; // Infinite loop back to last page
-      } else {
-        currentIndex -= itemsPerPage;
-      }
-      renderCarousel();
-    }
-
-    // Initial load setup
-    renderCarousel();
-  </script>
-</body>
-</html>
-</section>
-
-<h3 class="text-xl font-bold italic mt-10">Real impact, told by the people who matter most.</h3>
-    </div> <!-- Closes the inner padding box -->
-  </div> <!-- Closes the main dark blue #testimonials section container -->
-
-  <!-- Footer (Now safely completely outside and sitting elegantly at the bottom) -->
-  <footer class="bg-slate-50 text-slate-500 text-xs py-12 px-6 border-t border-slate-200 mt-16 w-full">
-    <div class="max-w-6xl mx-auto flex flex-col gap-8">
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-12 px-6 border-t border-slate-800 w-full">
+    <div class="max-w-5xl mx-auto flex flex-col gap-8">
       
       <!-- Top Row: Quick Links & Branding -->
-      <div class="flex flex-col md:flex-row justify-between items-center gap-6 border-b border-slate-200 pb-8">
-        <div class="text-slate-900 font-semibold tracking-tight text-sm">
-          Aayden Ng <span class="text-emerald-600 font-normal">| Financial Consultant</span>
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6 border-b border-slate-800 pb-8">
+        <div class="text-white font-semibold tracking-tight text-sm">
+          Aayden Ng <span class="text-emerald-400 font-normal">| Financial Consultant</span>
         </div>
         <div class="flex gap-6 text-sm">
-          <a href="#about" class="hover:text-emerald-600 transition-colors">About</a>
-          <a href="#services" class="hover:text-emerald-600 transition-colors">Services</a>
-          <a href="#testimonials" class="hover:text-emerald-600 transition-colors">Testimonials</a>
+          <a href="#about" class="hover:text-emerald-400 transition-colors">About</a>
+          <a href="#services" class="hover:text-emerald-400 transition-colors">Services</a>
+          <a href="#testimonials" class="hover:text-emerald-400 transition-colors">Testimonials</a>
         </div>
       </div>
 
       <!-- Bottom Row: Regulatory Compliance Fine Print -->
-      <div class="text-slate-400 leading-relaxed text-[11px] max-w-4xl mx-auto md:mx-0">
+      <div class="text-slate-500 leading-relaxed text-[11px] text-center md:text-left">
         <p class="mb-2">
           Aayden Ng is a Financial Consultant representing Prudential Assurance Company Singapore (Pte) Limited (Reg. No. 199002477Z). 
           This website is for informational purposes only and does not constitute financial advice. All insurance product information 
@@ -321,5 +224,71 @@
 
     </div>
   </footer>
+
+  <script>
+    const testimonials = [
+      { 
+        quote: "I had a great experience working with Aayden as my financial advisor. He is knowledgeable, patient, and take the time to clearly explain different options without any pressure. I appreciate his honest approach and commitment to helping me make informed financial decisions. Highly recommended for anyone looking for trustworthy financial guidance", 
+        name: "Darryl"
+      },
+      { 
+        quote: "I had a great experience working with Aayden. He took the time to clearly explain different policies and helped me choose a plan that truly fits my needs and budget. What stood out most was his responsiveness and transparency, no hard selling, just honest advice, conversations were easy. I feel confident knowing my coverage is well taken care of. Highly recommended for anyone looking for a reliable and trustworthy agent", 
+        name: "Sidney"
+      },
+      { 
+        quote: "I highly recommend Aayden! He is very professional and took the time to thoroughly review my current finances. He recommended plans that actually suit my needs, specifically for hospitalization and longterm investment planning. I really appreciate that he worked within my budget while ensuring I have a clear understanding of my financial situation for both now and the future.", 
+        name: "Kaycee"
+      }
+    ];
+
+    let currentIndex = 0;
+    const itemsPerPage = 2;
+
+    function renderCarousel() {
+      const grid = document.getElementById('carousel-grid');
+      const counter = document.getElementById('carousel-counter');
+      grid.innerHTML = '';
+
+      const activeItems = testimonials.slice(currentIndex, currentIndex + itemsPerPage);
+
+      activeItems.forEach(item => {
+        const cardHtml = `
+          <div class="border border-slate-800 rounded-2xl p-8 flex flex-col justify-between min-h-[320px] bg-slate-800/50 backdrop-blur-sm">
+            <p class="text-slate-300 italic leading-relaxed text-sm">
+              "${item.quote}"
+            </p>
+            <div class="mt-4">
+              <h4 class="font-semibold text-sm text-emerald-400">${item.name}</h4>
+            </div>
+          </div>
+        `;
+        grid.insertAdjacentHTML('beforeend', cardHtml);
+      });
+
+      const currentPage = Math.floor(currentIndex / itemsPerPage) + 1;
+      const totalPages = Math.ceil(testimonials.length / itemsPerPage);
+      counter.textContent = `${currentPage} / ${totalPages}`;
+    }
+
+    function nextSlide() {
+      if (currentIndex + itemsPerPage >= testimonials.length) {
+        currentIndex = 0;
+      } else {
+        currentIndex += itemsPerPage;
+      }
+      renderCarousel();
+    }
+
+    function prevSlide() {
+      if (currentIndex - itemsPerPage < 0) {
+        currentIndex = testimonials.length - itemsPerPage;
+      } else {
+        currentIndex -= itemsPerPage;
+      }
+      renderCarousel();
+    }
+
+    renderCarousel();
+  </script>
 </body>
 </html>
