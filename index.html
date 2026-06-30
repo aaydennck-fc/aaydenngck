@@ -340,9 +340,10 @@
     ];
 
     let currentIndex = 0;
-    const itemsPerPage = 2;
+  // Changed from 2 to 1 for a clean, single-card layout on all devices
+  const itemsPerPage = 1; 
 
-    function renderCarousel() {
+  function renderCarousel() {
       const grid = document.getElementById('carousel-grid');
       const counter = document.getElementById('carousel-counter');
       grid.innerHTML = '';
