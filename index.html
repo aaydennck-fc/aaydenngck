@@ -401,9 +401,9 @@ function calculateCoverage() {
   const multiplier = parseFloat(lifestyleInput.value) || 1;
 
   const incomeReplacement = income * 10;
-
-  // Total updated formula without dependant provisions
-  const baseTotal = incomeReplacement + liabilities + dependantProvision;
+  
+  // Cleaned up formula (removed the broken dependantProvision variable)
+  const baseTotal = incomeReplacement + liabilities;
   const finalTotal = baseTotal * multiplier;
 
   document.getElementById('resIncome').textContent = 'S$' + incomeReplacement.toLocaleString();
