@@ -163,10 +163,6 @@
           <input class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors" type="number" id="age" value="35">
         </div>
         <div>
-          <label class="block text-sm font-semibold text-slate-700 mb-1.5">Number of Dependants</label>
-          <input class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors" type="number" id="dependants" value="2">
-        </div>
-        <div>
           <label class="block text-sm font-semibold text-slate-700 mb-1.5">Outstanding Liabilities (SGD)</label>
           <input class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors" type="number" id="liabilities" value="400000">
         </div>
@@ -196,10 +192,6 @@
             <div class="flex justify-between items-center text-slate-400">
               <span>Liability Coverage</span>
               <span class="font-semibold text-white" id="resLiab">S$400,000</span>
-            </div>
-            <div class="flex justify-between items-center text-slate-400">
-              <span>Dependant Provision</span>
-              <span class="font-semibold text-white" id="resDeps">S$480,000</span>
             </div>
             <div class="flex justify-between items-center text-slate-400 mb-6">
               <span>Lifestyle Multiplier</span>
@@ -400,31 +392,28 @@ renderCarousel();
 // --- Interactive Coverage Calculator Engine ---
 const incomeInput = document.getElementById('income');
 const ageInput = document.getElementById('age');
-const dependantsInput = document.getElementById('dependants');
 const liabilitiesInput = document.getElementById('liabilities');
 const lifestyleInput = document.getElementById('lifestyle');
 
 function calculateCoverage() {
   const income = parseFloat(incomeInput.value) || 0;
-  const dependants = parseInt(dependantsInput.value) || 0;
   const liabilities = parseFloat(liabilitiesInput.value) || 0;
   const multiplier = parseFloat(lifestyleInput.value) || 1;
 
   const incomeReplacement = income * 10;
-  const dependantProvision = dependants * 150000;
-  
+
+  // Total updated formula without dependant provisions
   const baseTotal = incomeReplacement + liabilities + dependantProvision;
   const finalTotal = baseTotal * multiplier;
 
   document.getElementById('resIncome').textContent = 'S$' + incomeReplacement.toLocaleString();
   document.getElementById('resLiab').textContent = 'S$' + liabilities.toLocaleString();
-  document.getElementById('resDeps').textContent = 'S$' + dependantProvision.toLocaleString();
   document.getElementById('resLifestyle').textContent = multiplier + 'x';
   document.getElementById('resTotal').textContent = 'S$' + Math.round(finalTotal).toLocaleString();
 }
 
 // Attach event listeners for dynamic calculation updates
-[incomeInput, ageInput, dependantsInput, liabilitiesInput, lifestyleInput].forEach(input => {
+[incomeInput, ageInput, liabilitiesInput, lifestyleInput].forEach(input => {
   input.addEventListener('input', calculateCoverage);
   input.addEventListener('change', calculateCoverage);
 });
