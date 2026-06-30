@@ -385,18 +385,17 @@
     }
 
     function prevSlide() {
-      if (currentIndex - itemsPerPage < 0) {
-        currentIndex = testimonials.length - itemsPerPage;
-      } else {
-        currentIndex -= itemsPerPage;
-      }
-      renderCarousel();
-    }
-
-    renderCarousel();
-
-     calculateCoverage();
+  if (currentIndex - itemsPerPage < 0) {
+    currentIndex = testimonials.length - itemsPerPage;
+  } else {
+    currentIndex -= itemsPerPage;
+  }
+  renderCarousel();
 }
+
+// Initial render for testimonials on page load
+renderCarousel();
+
 
 // --- Interactive Coverage Calculator Engine ---
 const incomeInput = document.getElementById('income');
@@ -424,11 +423,13 @@ function calculateCoverage() {
   document.getElementById('resTotal').textContent = 'S$' + Math.round(finalTotal).toLocaleString();
 }
 
+// Attach event listeners for dynamic calculation updates
 [incomeInput, ageInput, dependantsInput, liabilitiesInput, lifestyleInput].forEach(input => {
   input.addEventListener('input', calculateCoverage);
   input.addEventListener('change', calculateCoverage);
 });
 
+// Run calculation once on page load
 calculateCoverage();
 </script>
 </body>
