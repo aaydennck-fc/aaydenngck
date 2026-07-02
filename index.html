@@ -390,24 +390,24 @@ window.addEventListener('resize', updateItemsPerPage);
       counter.textContent = `${currentPage} / ${totalPages}`;
     }
 
-    function nextSlide() {
-      if (currentIndex + itemsPerPage >= testimonials.length) {
-        currentIndex = 0;
-      } else {
-        currentIndex += itemsPerPage;
-      }
-      renderCarousel();
-    }
-
-    function prevSlide() {
-  if (currentIndex - itemsPerPage < 0) {
-    currentIndex = testimonials.length - itemsPerPage;
+   function nextSlide() {
+  if (currentIndex + itemsPerPage >= testimonials.length) {
+    currentIndex = 0; 
   } else {
-    currentIndex -= itemsPerPage;
+    currentIndex += itemsPerPage; 
   }
   renderCarousel();
 }
 
+function prevSlide() {
+  if (currentIndex - itemsPerPage < 0) {
+    // Math.max guarantees we don't end up with a negative index if it loops back
+    currentIndex = Math.max(0, testimonials.length - itemsPerPage); 
+  } else {
+    currentIndex -= itemsPerPage; 
+  }
+  renderCarousel();
+}
 // Initial render for testimonials on page load
 renderCarousel();
 
