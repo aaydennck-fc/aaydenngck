@@ -350,8 +350,19 @@
     ];
 
     let currentIndex = 0;
-  // Changed from 2 to 1 for a clean, single-card layout on all devices
-  const itemsPerPage = 1; 
+let itemsPerPage = window.innerWidth >= 768 ? 2 : 1; // 2 for desktop/tablet, 1 for mobile
+
+function updateItemsPerPage() {
+    const newItemsPerPage = window.innerWidth >= 768 ? 2 : 1;
+    if (newItemsPerPage !== itemsPerPage) {
+        itemsPerPage = newItemsPerPage;
+        currentIndex = 0; // Reset to the first slide to avoid breakages during resizing
+        renderCarousel();
+    }
+}
+
+// Listen for screen resize events
+window.addEventListener('resize', updateItemsPerPage);
 
   function renderCarousel() {
       const grid = document.getElementById('carousel-grid');
