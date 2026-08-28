@@ -1681,21 +1681,6 @@ table.breakdown td.num {
   renderExpenseList();
 
   calculate();
-
-    function downloadPDF() {
-  // Captures the Step 04 Results Card
-  const element = document.querySelector("#calculator .section-card:nth-of-type(4)") || document.getElementById("calculator");
-
-  const options = {
-    margin:       [0.4, 0.4, 0.4, 0.4],
-    filename:     'Personal_Expenses_Summary.pdf',
-    image:        { type: 'jpeg', quality: 0.98 },
-    html2canvas:  { scale: 2, useCORS: true },
-    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-  };
-
-  html2pdf().set(options).from(element).save();
-}
     
 })();
 
