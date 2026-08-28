@@ -505,6 +505,45 @@ input:disabled {
   color: var(--danger);
 }
 
+.results-commitments {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: -8px 0 22px;
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.results-commitments-title {
+  grid-column: 1 / -1;
+  margin: 0 0 2px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .7px;
+  text-transform: uppercase;
+}
+
+.commitment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  border-radius: 10px;
+  background: var(--surface-soft);
+}
+
+.commitment-label { color: var(--muted); font-size: 12px; font-weight: 700; }
+.commitment-value { color: var(--ink); font-family: var(--mono); font-size: 14px; font-weight: 700; }
+
+@media (max-width: 640px) {
+  .results-commitments { grid-template-columns: 1fr; }
+  .results-commitments-title { grid-column: auto; }
+}
+
 .table-wrap {
   overflow-x: auto;
   border: 1px solid var(--line);
@@ -1246,11 +1285,25 @@ table.breakdown td.num {
         <div class="figure">
           <div class="flabel">Total Expenses</div>
           <div class="fval" id="figExpenses">$0.00</div>
+          <div class="text-xs text-slate-500 mt-1">Including investment &amp; insurance</div>
         </div>
 
         <div class="figure savings" id="figSavingsWrap">
           <div class="flabel">Savings Available</div>
           <div class="fval" id="figSavings">$0.00</div>
+        </div>
+      </div>
+
+
+      <div class="results-commitments" aria-label="Investment and insurance deductions">
+        <p class="results-commitments-title">Also deducted before Savings Available</p>
+        <div class="commitment-item">
+          <span class="commitment-label">Investment</span>
+          <span class="commitment-value" id="resultInvestment">$0.00</span>
+        </div>
+        <div class="commitment-item">
+          <span class="commitment-label">Insurance</span>
+          <span class="commitment-value" id="resultInsurance">$0.00</span>
         </div>
       </div>
 
@@ -1342,6 +1395,8 @@ table.breakdown td.num {
     figExpenses: document.getElementById("figExpenses"),
     figSavings: document.getElementById("figSavings"),
     figSavingsWrap: document.getElementById("figSavingsWrap"),
+    resultInvestment: document.getElementById("resultInvestment"),
+    resultInsurance: document.getElementById("resultInsurance"),
     breakdownBody: document.getElementById("breakdownBody"),
     resetBtn: document.getElementById("resetBtn")
   };
@@ -1639,8 +1694,15 @@ table.breakdown td.num {
     els.figNetIncome.textContent =
       fmt(netIncome);
 
+    const totalMonthlyOutgoings =
+      totalExpenses + investAmount + insuranceAmount;
+
     els.figExpenses.textContent =
-      fmt(totalExpenses);
+      fmt(totalMonthlyOutgoings);
+
+    els.resultInvestment.textContent = fmt(investAmount);
+
+    els.resultInsurance.textContent = fmt(insuranceAmount);
 
     els.figSavings.textContent =
       fmt(savingsAvailable);
@@ -1736,10 +1798,10 @@ table.breakdown td.num {
     });
     msg += "Total Expenses: " + moneyPlain(d.totalExpenses) + " (" + d.pct(d.totalExpenses).toFixed(1) + "%)\n\n";
     msg += "ALLOCATION\n";
-    msg += "Expenses: " + moneyPlain(d.totalExpenses) + "  [Target 40%]\n";
-    msg += "Investment: " + moneyPlain(d.investment) + "  [Target 30%]\n";
-    msg += "Savings: " + moneyPlain(d.savings) + "  [Target 20%]\n";
-    msg += "Insurance: " + moneyPlain(d.insurance) + "  [Target 10%]\n\n";
+    msg += "Expenses: " + moneyPlain(d.totalExpenses) + "  [Target 40% | Current " + d.pct(d.totalExpenses).toFixed(1) + "%]\n";
+    msg += "Investment: " + moneyPlain(d.investment) + "  [Target 30% | Current " + d.pct(d.investment).toFixed(1) + "%]\n";
+    msg += "Savings: " + moneyPlain(d.savings) + "  [Target 20% | Current " + d.pct(d.savings).toFixed(1) + "%]\n";
+    msg += "Insurance: " + moneyPlain(d.insurance) + "  [Target 10% | Current " + d.pct(d.insurance).toFixed(1) + "%]\n\n";
     msg += "Savings Available: " + moneyPlain(d.savings) + "\n\n";
     msg += "Sent from the Personal Expenses Calculator.";
     return msg;
@@ -1850,10 +1912,27 @@ table.breakdown td.num {
     doc.setFontSize(8); doc.setFont(undefined,"normal"); doc.setTextColor(71,85,105); doc.text("after listed expenses",W-margin-6,y+13,{align:"right"});
 
     y += 31;
-    doc.setFontSize(7.5); doc.setTextColor(100,116,139);
+
+    // Clean, aligned PDF footer
+    const footerY = Math.min(Math.max(y, 264), 268);
+    doc.setDrawColor(226, 232, 240);
+    doc.line(margin, footerY, W - margin, footerY);
+
+    doc.setFontSize(7.5);
+    doc.setFont(undefined, "normal");
+    doc.setTextColor(100,116,139);
     const disclaimer = "Targets are illustrative budgeting guidelines and are not financial advice.";
-    doc.text(disclaimer, margin, Math.min(y, 282));
-    doc.text("Generated from your entries. Please review all figures before sharing.", margin, Math.min(y+5, 287));
+    const footerNote = "Generated from your entries. Please review all figures before sharing.";
+
+    // Both footer lines share the exact same centre point for consistent alignment.
+    doc.text(disclaimer, W / 2, footerY + 6, { align: "center" });
+    doc.text(footerNote, W / 2, footerY + 11, { align: "center" });
+
+    doc.setFontSize(7);
+    doc.setTextColor(148,163,184);
+    doc.text("Personal Financial Summary", margin, footerY + 17);
+    doc.text("Aayden Ng | Financial Consultant", W - margin, footerY + 17, { align: "right" });
+
     doc.save("personal-financial-summary.pdf");
   });
 
