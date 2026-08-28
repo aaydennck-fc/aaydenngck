@@ -545,67 +545,6 @@
   </div>
 </section>
 
-  <!-- STEP 3: INVESTMENT & INSURANCE -->
-  <section class="card">
-    <h2><span class="step-no">03</span> Investment &amp; Insurance <span style="font-weight:400; color:var(--ink-soft); text-transform:none; letter-spacing:0; font-family:var(--font-body); font-size:12.5px;">(optional)</span></h2>
-    <p class="sub">What you currently set aside each month — used to check against the recommended targets below.</p>
-
-    <div class="field-row">
-      <div>
-        <label for="investAmount">Current Investment (S$/mo)</label>
-        <input type="number" id="investAmount" min="0" step="10" placeholder="0.00">
-      </div>
-      <div>
-        <label for="insuranceAmount">Current Insurance Premiums (S$/mo)</label>
-        <input type="number" id="insuranceAmount" min="0" step="10" placeholder="0.00">
-      </div>
-    </div>
-  </section>
-
-  <!-- STEP 4: RESULTS -->
-  <section class="card">
-    <h2><span class="step-no">04</span> Your Results</h2>
-    <p class="sub">Savings Available = Net Income − Total Expenses.</p>
-
-    <div class="headline-figures">
-      <div class="figure">
-        <div class="flabel">Net Income</div>
-        <div class="fval" id="figNetIncome">$0.00</div>
-      </div>
-      <div class="figure">
-        <div class="flabel">Total Expenses</div>
-        <div class="fval" id="figExpenses">$0.00</div>
-      </div>
-      <div class="figure savings" id="figSavingsWrap">
-        <div class="flabel">Savings Available</div>
-        <div class="fval" id="figSavings">$0.00</div>
-      </div>
-    </div>
-
-    <div class="table-wrap">
-      <table class="breakdown">
-        <thead>
-          <tr>
-            <th>Category</th>
-            <th class="num">Recommended</th>
-            <th class="num">Your Amount</th>
-            <th class="num">Status</th>
-          </tr>
-        </thead>
-        <tbody id="breakdownBody"></tbody>
-      </table>
-    </div>
-
-    <div class="receipt-edge"></div>
-  </section>
-
-  <footer>
-    <p>CPF rates shown are simplified illustrative employee-contribution rates (Singaporean: 20%; PR Year 1: 5%, Year 2: 15%, Year 3+: 20%) and do not account for age, wage ceilings, or Additional Wages. Foreigners are generally not subject to CPF.</p>
-    <p>For exact figures, always refer to the official <strong>CPF Board</strong> contribution tables. This tool is for personal budgeting guidance only.</p>
-  </footer>
-
-</div>
-
 <script>
 (function(){
   "use strict";
