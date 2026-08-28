@@ -1277,9 +1277,9 @@ table.breakdown td.num {
 
       <div class="actions">
         <button class="reset-link" id="resetBtn" type="button">Reset all fields</button>
-        <a class="primary-btn" href="https://wa.me/+6591849632?text=Hi Aayden, let's chat!" target="_blank" rel="noopener">
-          WhatsApp for a Financial Review →
-        </a>
+        <button type="button" onclick="sendToWhatsApp()" class="primary-btn">
+  WhatsApp for a Financial Review →
+        </button>
       </div>
     </section>
 
@@ -1723,8 +1723,35 @@ table.breakdown td.num {
 
   renderExpenseList();
 
-  calculate();
+  calculate();        
+   });
 
+  /* ---------- Whatsapp ---------- */
+function sendToWhatsApp() {
+  // Grab the calculated values from your results card
+  const grossIncome = document.getElementById("grossIncome")?.value || "0";
+  const expenses = document.getElementById("expenseVal")?.textContent || "0";
+  const savings = document.getElementById("savingsVal")?.textContent || "0";
+  const investment = document.getElementById("investmentVal")?.textContent || "0";
+  const insurance = document.getElementById("insuranceVal")?.textContent || "0";
+
+  // Construct the formatted message
+  const message = `Hi Aayden, I just completed the Personal Expenses Calculator! Here is my breakdown:
+
+• Gross Income: $${grossIncome}
+• Expenses: ${expenses}
+• Savings: ${savings}
+• Investment: ${investment}
+• Insurance: ${insurance}
+
+Let's discuss my financial plan!`;
+
+  // Encode the text for WhatsApp URL
+  const encodedMsg = encodeURIComponent(message);
+  
+  // Open WhatsApp with pre-filled text
+  window.open(`https://wa.me/+6591849632?text=${encodedMsg}`, '_blank');
+    
 })();
 </script>
 
