@@ -1728,29 +1728,30 @@ table.breakdown td.num {
 
   /* ---------- Whatsapp ---------- */
 function sendToWhatsApp() {
-  // Grab the calculated values from your results card
-  const grossIncome = document.getElementById("grossIncome")?.value || "0";
-  const expenses = document.getElementById("expenseVal")?.textContent || "0";
-  const savings = document.getElementById("savingsVal")?.textContent || "0";
-  const investment = document.getElementById("investmentVal")?.textContent || "0";
-  const insurance = document.getElementById("insuranceVal")?.textContent || "0";
+  // Grab income (works whether your input ID is 'grossIncome' or 'income')
+  const incomeEl = document.getElementById("grossIncome") || document.getElementById("income");
+  const incomeVal = incomeEl ? incomeEl.value : "0";
 
-  // Construct the formatted message
-  const message = `Hi Aayden, I just completed the Personal Expenses Calculator! Here is my breakdown:
+  // Safely grab table/summary text
+  const expVal = document.getElementById("expenseVal")?.textContent || "0";
+  const savVal = document.getElementById("savingsVal")?.textContent || "0";
+  const invVal = document.getElementById("investmentVal")?.textContent || "0";
+  const insVal = document.getElementById("insuranceVal")?.textContent || "0";
 
-• Gross Income: $${grossIncome}
-• Expenses: ${expenses}
-• Savings: ${savings}
-• Investment: ${investment}
-• Insurance: ${insurance}
+  // Construct message
+  const text = `Hi Aayden, I completed the Personal Expenses Calculator! Here is my breakdown:
+
+• Gross Income: $${incomeVal}
+• Total Expenses: ${expVal}
+• Savings: ${savVal}
+• Investment: ${invVal}
+• Insurance: ${insVal}
 
 Let's discuss my financial plan!`;
 
-  // Encode the text for WhatsApp URL
-  const encodedMsg = encodeURIComponent(message);
-  
-  // Open WhatsApp with pre-filled text
-  window.open(`https://wa.me/+6591849632?text=${encodedMsg}`, '_blank');
+  // Open WhatsApp in a new tab
+  window.open(`https://wa.me/+6591849632?text=${encodeURIComponent(text)}`, '_blank');
+}
     
 })();
 </script>
