@@ -40,16 +40,7 @@
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
-    
-    <!-- Tools Dropdown -->
-    <li class="dropdown">
-      <a href="#tools" class="dropbtn">Tools <span class="arrow">&#9662;</span></a>
-      <ul class="dropdown-menu">
-        <li><a href="#coverage-estimator">Coverage Estimator</a></li>
-        <li><a href="#calculator">Personal Expenses Calculator</a></li>
-      </ul>
-    </li>
-
+    <li><a href="#tools">Tools</a></li>
     <li><a href="#testimonials">Testimonials</a></li>
     <li><a href="#contact" class="btn-chat">Let's Chat</a></li>
   </ul>
@@ -1227,27 +1218,6 @@ function calculateCoverage() {
   input.addEventListener('input', calculateCoverage);
   input.addEventListener('change', calculateCoverage);
 });
-
-<!-- Tools Dropdown Container -->
-<li class="relative group">
-  <button class="flex items-center gap-1 font-medium text-gray-700 hover:text-emerald-600 transition-colors py-2">
-    Tools <span class="text-xs">&#9662;</span>
-  </button>
-
-  <!-- Dropdown Menu (Hidden until hover) -->
-  <ul class="absolute left-0 top-full hidden group-hover:block bg-white shadow-xl rounded-xl border border-gray-100 py-2 w-56 z-50">
-    <li>
-      <a href="#coverage-estimator" class="block px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">
-        Coverage Estimator
-      </a>
-    </li>
-    <li>
-      <a href="#calculator" class="block px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">
-        Personal Expenses Calculator
-      </a>
-    </li>
-  </ul>
-</li>
      
 // Run calculation once on page load
 calculateCoverage();
