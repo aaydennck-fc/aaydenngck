@@ -1234,7 +1234,7 @@ table.breakdown td.num {
         <h2>Your Results</h2>
       </div>
       <p class="section-sub">
-        Savings Available = Net Income − Total Expenses.
+        Savings Available = Net Income − Expenses − Investment − Insurance.
       </p>
 
       <div class="headline-figures">
@@ -1627,8 +1627,14 @@ table.breakdown td.num {
     els.totalExpensesOut.textContent =
       fmt(totalExpenses);
 
+    const investAmount =
+      parseFloat(els.investAmount.value) || 0;
+
+    const insuranceAmount =
+      parseFloat(els.insuranceAmount.value) || 0;
+
     const savingsAvailable =
-      netIncome - totalExpenses;
+      netIncome - totalExpenses - investAmount - insuranceAmount;
 
     els.figNetIncome.textContent =
       fmt(netIncome);
@@ -1643,12 +1649,6 @@ table.breakdown td.num {
       "negative",
       savingsAvailable < 0
     );
-
-    const investAmount =
-      parseFloat(els.investAmount.value) || 0;
-
-    const insuranceAmount =
-      parseFloat(els.insuranceAmount.value) || 0;
 
     els.breakdownBody.innerHTML = "";
 
@@ -1714,7 +1714,7 @@ table.breakdown td.num {
     const totalExpenses = expenses.reduce((sum, e) => sum + (parseFloat(e.amount) || 0), 0);
     const investment = parseFloat(els.investAmount.value) || 0;
     const insurance = parseFloat(els.insuranceAmount.value) || 0;
-    const savings = net - totalExpenses;
+    const savings = net - totalExpenses - investment - insurance;
     const pct = amount => net > 0 ? (amount / net) * 100 : 0;
     return { gross, cpfRate, cpf, net, totalExpenses, investment, insurance, savings, pct };
   }
@@ -1736,10 +1736,10 @@ table.breakdown td.num {
     });
     msg += "Total Expenses: " + moneyPlain(d.totalExpenses) + " (" + d.pct(d.totalExpenses).toFixed(1) + "%)\n\n";
     msg += "ALLOCATION\n";
-    msg += "Expenses: " + d.pct(d.totalExpenses).toFixed(1) + "%  [Target 40%]\n";
-    msg += "Investment: " + d.pct(d.investment).toFixed(1) + "%  [Target 30%]\n";
-    msg += "Savings: " + d.pct(d.savings).toFixed(1) + "%  [Target 20%]\n";
-    msg += "Insurance: " + d.pct(d.insurance).toFixed(1) + "%  [Target 10%]\n\n";
+    msg += "Expenses: " + moneyPlain(d.totalExpenses) + "  [Target 40%]\n";
+    msg += "Investment: " + moneyPlain(d.investment) + "  [Target 30%]\n";
+    msg += "Savings: " + moneyPlain(d.savings) + "  [Target 20%]\n";
+    msg += "Insurance: " + moneyPlain(d.insurance) + "  [Target 10%]\n\n";
     msg += "Savings Available: " + moneyPlain(d.savings) + "\n\n";
     msg += "Sent from the Personal Expenses Calculator.";
     return msg;
