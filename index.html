@@ -17,6 +17,7 @@
       <meta property="og:url" content="https://aaydennck-fc.github.io/aaydenngck/">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -1260,6 +1261,7 @@ table.breakdown td.num {
               <th>Category</th>
               <th class="num">Recommended</th>
               <th class="num">Your Amount</th>
+              <th class="num">Your %</th>
               <th class="num">Status</th>
             </tr>
           </thead>
@@ -1269,7 +1271,13 @@ table.breakdown td.num {
 
       <div class="actions">
         <button class="reset-link" id="resetBtn" type="button">Reset all fields</button>
-        <a class="primary-btn" href="https://wa.me/+6591849632?text=Hi Aayden, let's chat!" target="_blank" rel="noopener">
+        <button class="primary-btn" id="sendResultsBtn" type="button">
+          WhatsApp My Results →
+        </button>
+        <button class="primary-btn" id="downloadPdfBtn" type="button">
+          Download Summary PDF ↓
+        </button>
+        <a class="reset-link" href="https://wa.me/+6591849632?text=Hi Aayden, let's chat!" target="_blank" rel="noopener">
           WhatsApp for a Financial Review →
         </a>
       </div>
@@ -1532,7 +1540,8 @@ table.breakdown td.num {
     pct,
     recommended,
     actual,
-    higherIsBetter
+    higherIsBetter,
+    netIncome
   ) {
     const tr = document.createElement("tr");
 
@@ -1557,6 +1566,11 @@ table.breakdown td.num {
     tdActual.className = "num";
     tdActual.textContent = fmt(actual);
 
+    const tdPct = document.createElement("td");
+    tdPct.className = "num";
+    const actualPct = netIncome > 0 ? (actual / netIncome) * 100 : 0;
+    tdPct.textContent = actualPct.toFixed(1) + "%";
+
     const tdStatus = document.createElement("td");
     tdStatus.className = "num";
 
@@ -1573,6 +1587,7 @@ table.breakdown td.num {
     tr.appendChild(tdName);
     tr.appendChild(tdRec);
     tr.appendChild(tdActual);
+    tr.appendChild(tdPct);
     tr.appendChild(tdStatus);
 
     els.breakdownBody.appendChild(tr);
@@ -1649,7 +1664,8 @@ table.breakdown td.num {
       40,
       netIncome * 0.40,
       totalExpenses,
-      false
+      false,
+      netIncome
     );
 
     addBreakdownRow(
@@ -1657,7 +1673,8 @@ table.breakdown td.num {
       30,
       netIncome * 0.30,
       investAmount,
-      true
+      true,
+      netIncome
     );
 
     addBreakdownRow(
@@ -1665,7 +1682,8 @@ table.breakdown td.num {
       20,
       netIncome * 0.20,
       savingsAvailable,
-      true
+      true,
+      netIncome
     );
 
     addBreakdownRow(
@@ -1673,7 +1691,8 @@ table.breakdown td.num {
       10,
       netIncome * 0.10,
       insuranceAmount,
-      true
+      true,
+      netIncome
     );
   }
 
@@ -1684,6 +1703,92 @@ table.breakdown td.num {
     els.insuranceAmount
   ].forEach(function (el) {
     el.addEventListener("input", calculate);
+  });
+
+  /* ---------- Share / PDF Summary ---------- */
+  function getSummaryData() {
+    const gross = parseFloat(els.grossIncome.value) || 0;
+    const cpfRate = parseFloat(els.cpfRate.value) || 0;
+    const cpf = parseFloat(els.cpfAmountOut.textContent.replace(/[^0-9.-]/g, "")) || 0;
+    const net = parseFloat(els.netIncomeOut.textContent.replace(/[^0-9.-]/g, "")) || 0;
+    const totalExpenses = expenses.reduce((sum, e) => sum + (parseFloat(e.amount) || 0), 0);
+    const investment = parseFloat(els.investAmount.value) || 0;
+    const insurance = parseFloat(els.insuranceAmount.value) || 0;
+    const savings = net - totalExpenses;
+    const pct = amount => net > 0 ? (amount / net) * 100 : 0;
+    return { gross, cpfRate, cpf, net, totalExpenses, investment, insurance, savings, pct };
+  }
+
+  function moneyPlain(n) {
+    return "S$" + Number(n || 0).toLocaleString("en-SG", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  }
+
+  function buildWhatsAppMessage() {
+    const d = getSummaryData();
+    let msg = "PERSONAL EXPENSES SUMMARY\n\n";
+    msg += "Gross Monthly Income: " + moneyPlain(d.gross) + "\n";
+    msg += "CPF (" + d.cpfRate + "%): " + moneyPlain(d.cpf) + "\n";
+    msg += "Net Income: " + moneyPlain(d.net) + "\n\n";
+    msg += "EXPENSES\n";
+    expenses.forEach(e => {
+      const amount = parseFloat(e.amount) || 0;
+      msg += (e.label || "Unnamed Expense") + ": " + moneyPlain(amount) + " (" + d.pct(amount).toFixed(1) + "% of net)\n";
+    });
+    msg += "Total Expenses: " + moneyPlain(d.totalExpenses) + " (" + d.pct(d.totalExpenses).toFixed(1) + "%)\n\n";
+    msg += "ALLOCATION\n";
+    msg += "Expenses: " + d.pct(d.totalExpenses).toFixed(1) + "%  [Target 40%]\n";
+    msg += "Investment: " + d.pct(d.investment).toFixed(1) + "%  [Target 30%]\n";
+    msg += "Savings: " + d.pct(d.savings).toFixed(1) + "%  [Target 20%]\n";
+    msg += "Insurance: " + d.pct(d.insurance).toFixed(1) + "%  [Target 10%]\n\n";
+    msg += "Savings Available: " + moneyPlain(d.savings) + "\n\n";
+    msg += "Sent from the Personal Expenses Calculator.";
+    return msg;
+  }
+
+  document.getElementById("sendResultsBtn").addEventListener("click", function () {
+    const url = "https://wa.me/6591849632?text=" + encodeURIComponent(buildWhatsAppMessage());
+    window.open(url, "_blank", "noopener");
+  });
+
+  document.getElementById("downloadPdfBtn").addEventListener("click", function () {
+    if (!window.jspdf || !window.jspdf.jsPDF) {
+      alert("The PDF tool could not load. Please check your internet connection and try again.");
+      return;
+    }
+    const d = getSummaryData();
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    let y = 18;
+    const line = (label, value) => { doc.text(label, 20, y); doc.text(String(value), 190, y, {align:"right"}); y += 7; };
+
+    doc.setFontSize(18); doc.setFont(undefined, "bold");
+    doc.text("Personal Financial Summary", 20, y); y += 10;
+    doc.setFontSize(10); doc.setFont(undefined, "normal");
+    doc.text("Illustrative budgeting tool — not financial advice", 20, y); y += 10;
+
+    doc.setFont(undefined, "bold"); doc.text("Income", 20, y); y += 7; doc.setFont(undefined, "normal");
+    line("Gross Monthly Income", moneyPlain(d.gross));
+    line("CPF (" + d.cpfRate + "%)", moneyPlain(d.cpf));
+    line("Net Income", moneyPlain(d.net)); y += 4;
+
+    doc.setFont(undefined, "bold"); doc.text("Expenses", 20, y); y += 7; doc.setFont(undefined, "normal");
+    expenses.forEach(e => {
+      const amount = parseFloat(e.amount) || 0;
+      line((e.label || "Unnamed Expense") + " (" + d.pct(amount).toFixed(1) + "%)", moneyPlain(amount));
+      if (y > 270) { doc.addPage(); y = 18; }
+    });
+    line("Total Expenses (" + d.pct(d.totalExpenses).toFixed(1) + "% of net)", moneyPlain(d.totalExpenses)); y += 4;
+
+    doc.setFont(undefined, "bold"); doc.text("Allocation", 20, y); y += 7; doc.setFont(undefined, "normal");
+    line("Expenses — target 40%", d.pct(d.totalExpenses).toFixed(1) + "%");
+    line("Investment — target 30%", d.pct(d.investment).toFixed(1) + "%");
+    line("Savings — target 20%", d.pct(d.savings).toFixed(1) + "%");
+    line("Insurance — target 10%", d.pct(d.insurance).toFixed(1) + "%");
+    line("Savings Available", moneyPlain(d.savings));
+
+    y += 8; doc.setFontSize(8); doc.setFont(undefined, "normal");
+    doc.text("Targets are illustrative budgeting guidelines and are not financial advice.", 20, y);
+    doc.save("personal-financial-summary.pdf");
   });
 
   /* ---------- Reset ---------- */
