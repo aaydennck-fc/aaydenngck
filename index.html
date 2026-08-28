@@ -297,440 +297,253 @@
 <!-- End Coverage Estimator Section -->
 
 <!-- Personal Expenses Calculator Section -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Personal Expenses Calculator</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --paper: #FAF6EC;
-    --paper-dim: #F1EAD8;
-    --card: #FFFFFF;
-    --ink: #2A2620;
-    --ink-soft: #6B6353;
-    --line: #D6CCB2;
-    --line-strong: #B9AC87;
-    --green: #2F6F4E;
-    --green-bg: #E3EEE6;
-    --rust: #B3492D;
-    --rust-bg: #F6E4DC;
-    --brass: #A9791F;
-    --brass-bg: #F3EAD1;
-    --focus: #2F6F4E;
-    --radius: 10px;
-    --font-display: 'Roboto Slab', Georgia, serif;
-    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
-    --font-mono: 'IBM Plex Mono', SFMono-Regular, Menlo, Consolas, monospace;
-  }
+<section id="calculator" class="py-16 bg-white">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-  *{ box-sizing: border-box; }
-
-  body{
-    margin:0;
-    background: var(--paper);
-    background-image:
-      repeating-linear-gradient(180deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 34px);
-    color: var(--ink);
-    font-family: var(--font-body);
-    line-height: 1.5;
-    padding: 40px 16px 80px;
-  }
-
-  .sheet{
-    max-width: 760px;
-    margin: 0 auto;
-  }
-
-  /* ---------- Header ---------- */
-  .receipt-head{
-    text-align:center;
-    padding-bottom: 22px;
-    margin-bottom: 28px;
-    border-bottom: 2px dashed var(--line-strong);
-    position: relative;
-  }
-  .stamp{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    width:52px; height:52px;
-    border-radius:50%;
-    border:2px solid var(--brass);
-    color:var(--brass);
-    font-family: var(--font-mono);
-    font-weight:600;
-    font-size:13px;
-    letter-spacing: 0.5px;
-    margin-bottom:14px;
-    transform: rotate(-6deg);
-  }
-  .receipt-head h1{
-    font-family: var(--font-display);
-    font-weight:700;
-    font-size: clamp(26px, 5vw, 34px);
-    margin: 0 0 6px;
-    letter-spacing: -0.3px;
-  }
-  .receipt-head .eyebrow{
-    font-family: var(--font-mono);
-    font-size:12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin:0;
-  }
-  .reset-link{
-    position:absolute;
-    top:0; right:0;
-    font-family: var(--font-body);
-    font-size:12.5px;
-    color: var(--ink-soft);
-    background:none;
-    border:none;
-    text-decoration: underline;
-    cursor:pointer;
-    padding:4px;
-  }
-  .reset-link:hover{ color:var(--rust); }
-
-  /* ---------- Cards ---------- */
-  .card{
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 24px 24px 22px;
-    margin-bottom: 20px;
-    box-shadow: 0 1px 2px rgba(42,38,32,0.04);
-  }
-  .card h2{
-    font-family: var(--font-display);
-    font-size: 15.5px;
-    font-weight: 700;
-    margin: 0 0 4px;
-    display:flex;
-    align-items:baseline;
-    gap:8px;
-  }
-  .card h2 .step-no{
-    font-family: var(--font-mono);
-    color: var(--brass);
-    font-size: 13px;
-  }
-  .card .sub{
-    font-size: 13px;
-    color: var(--ink-soft);
-    margin: 0 0 18px;
-  }
-
-  /* ---------- Form fields ---------- */
-  .field-row{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap:14px;
-    margin-bottom: 14px;
-  }
-  .field-row.single{ grid-template-columns: 1fr; }
-  @media (max-width: 520px){
-    .field-row{ grid-template-columns: 1fr; }
-  }
-  label{
-    display:block;
-    font-size: 12.5px;
-    font-weight:600;
-    color: var(--ink-soft);
-    margin-bottom: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-  }
-  select, input[type=number], input[type=text]{
-    width:100%;
-    font-family: var(--font-body);
-    font-size:15px;
-    padding: 10px 12px;
-    border: 1.5px solid var(--line);
-    border-radius: 7px;
-    background: var(--paper);
-    color: var(--ink);
-    transition: border-color .15s ease, background .15s ease;
-  }
-  select:focus, input:focus{
-    outline: none;
-    border-color: var(--focus);
-    background: #fff;
-    box-shadow: 0 0 0 3px rgba(47,111,78,0.13);
-  }
-  select:disabled, input:disabled{
-    opacity:0.5;
-    cursor: not-allowed;
-  }
-  .hint{
-    font-size:12px;
-    color: var(--ink-soft);
-    margin-top:4px;
-  }
-  .readout{
-    font-family: var(--font-mono);
-    font-weight:600;
-    font-size: 15px;
-    padding: 10px 12px;
-    background: var(--paper-dim);
-    border-radius: 7px;
-    border: 1.5px solid var(--line);
-  }
-
-  /* ---------- Expense rows (ledger lines) ---------- */
-  .expense-row{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding: 8px 0;
-    border-bottom: 1px dotted var(--line);
-  }
-  .expense-row .exp-label{
-    flex: 1 1 auto;
-    min-width: 0;
-    border: none;
-    background: transparent;
-    padding: 6px 4px;
-    font-size: 14.5px;
-    border-radius: 5px;
-  }
-  .expense-row .exp-label:focus{ background: var(--paper-dim); box-shadow:none; border:none; }
-  .expense-row .exp-amount-wrap{
-    display:flex;
-    align-items:center;
-    gap:4px;
-    flex: 0 0 132px;
-  }
-  .expense-row .currency-prefix{
-    font-family: var(--font-mono);
-    color: var(--ink-soft);
-    font-size:14px;
-  }
-  .expense-row .exp-amount{
-    text-align:right;
-    font-family: var(--font-mono);
-    font-size:14.5px;
-    padding: 6px 8px;
-    border-radius:5px;
-  }
-  .row-remove{
-    flex: 0 0 auto;
-    width:26px; height:26px;
-    border-radius:50%;
-    border: 1.5px solid var(--line);
-    background: #fff;
-    color: var(--ink-soft);
-    font-size:14px;
-    line-height:1;
-    cursor:pointer;
-    display:flex; align-items:center; justify-content:center;
-  }
-  .row-remove:hover{ border-color: var(--rust); color: var(--rust); }
-
-  .add-expense-btn{
-    margin-top: 14px;
-    width:100%;
-    padding: 11px;
-    border-radius: 7px;
-    border: 1.5px dashed var(--line-strong);
-    background: var(--paper-dim);
-    color: var(--ink);
-    font-family: var(--font-body);
-    font-weight:600;
-    font-size:14px;
-    cursor:pointer;
-  }
-  .add-expense-btn:hover{ border-color: var(--green); color: var(--green); background: var(--green-bg); }
-
-  .expenses-total{
-    display:flex;
-    justify-content: space-between;
-    align-items:baseline;
-    margin-top: 16px;
-    padding-top: 14px;
-    border-top: 2px solid var(--ink);
-    font-family: var(--font-display);
-    font-weight:700;
-    font-size: 17px;
-  }
-  .expenses-total .val{ font-family: var(--font-mono); }
-
-  /* ---------- Results ---------- */
-  .headline-figures{
-    display:grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-bottom: 22px;
-  }
-  @media (max-width: 560px){
-    .headline-figures{ grid-template-columns: 1fr; }
-  }
-  .figure{
-    background: var(--paper-dim);
-    border:1px solid var(--line);
-    border-radius: 8px;
-    padding: 14px 14px 12px;
-  }
-  .figure .flabel{
-    font-size:11.5px;
-    text-transform: uppercase;
-    letter-spacing:0.5px;
-    color: var(--ink-soft);
-    font-weight:600;
-    margin-bottom:6px;
-  }
-  .figure .fval{
-    font-family: var(--font-mono);
-    font-weight:600;
-    font-size: 19px;
-  }
-  .figure.savings .fval{ color: var(--green); }
-  .figure.savings.negative .fval{ color: var(--rust); }
-
-  table.breakdown{
-    width:100%;
-    border-collapse: collapse;
-    font-size: 13.5px;
-  }
-  table.breakdown th{
-    text-align:left;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-    color: var(--ink-soft);
-    font-weight:600;
-    padding: 8px 8px;
-    border-bottom: 2px solid var(--ink);
-  }
-  table.breakdown td{
-    padding: 11px 8px;
-    border-bottom: 1px dotted var(--line);
-    vertical-align: middle;
-  }
-  table.breakdown td.num, table.breakdown th.num{ text-align:right; font-family: var(--font-mono); }
-  .cat-name{ font-weight:600; }
-  .cat-pct{ color: var(--ink-soft); font-family: var(--font-mono); font-size:12px; }
-  .status-pill{
-    display:inline-flex;
-    align-items:center;
-    gap:5px;
-    padding: 4px 9px;
-    border-radius: 20px;
-    font-size: 11.5px;
-    font-weight:600;
-    white-space: nowrap;
-  }
-  .status-pill.good{ background: var(--green-bg); color: var(--green); }
-  .status-pill.bad{ background: var(--rust-bg); color: var(--rust); }
-  .table-wrap{ overflow-x:auto; }
-
-  .receipt-edge{
-    height: 14px;
-    margin: 20px -24px -22px;
-    background:
-      linear-gradient(-45deg, var(--card) 8px, transparent 0) 0 4px,
-      linear-gradient(45deg, var(--card) 8px, transparent 0) 0 4px;
-    background-size: 16px 16px;
-    background-repeat: repeat-x;
-    background-color: transparent;
-  }
-
-  footer{
-    text-align:center;
-    font-size:12px;
-    color: var(--ink-soft);
-    margin-top: 28px;
-    padding: 0 12px;
-  }
-  footer p{ margin: 4px 0; }
-
-  .visually-hidden{
-    position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    *{ transition:none !important; }
-  }
-</style>
-</head>
-<body>
-
-<div class="sheet">
-
-  <header class="receipt-head">
-    <button class="reset-link" id="resetBtn" type="button">Reset all</button>
-    <div class="stamp">SG</div>
-    <h1>Personal Expenses Calculator</h1>
-    <p class="eyebrow">Know your numbers · Plan your savings</p>
-  </header>
-
-  <!-- STEP 1: PROFILE -->
-  <section class="card">
-    <h2><span class="step-no">01</span> Your Profile</h2>
-    <p class="sub">Your residency status determines your CPF contribution rate.</p>
-
-    <div class="field-row">
-      <div>
-        <label for="residency">Residency Status</label>
-        <select id="residency">
-          <option value="singaporean">Singaporean</option>
-          <option value="pr">Permanent Resident (PR)</option>
-          <option value="foreigner">Foreigner</option>
-        </select>
-      </div>
-      <div id="prYearWrap" style="display:none;">
-        <label for="prYear">PR Year</label>
-        <select id="prYear">
-          <option value="1">1st Year (5%)</option>
-          <option value="2">2nd Year (15%)</option>
-          <option value="3">3rd Year &amp; Beyond (20%)</option>
-        </select>
-      </div>
+    <!-- Section Header (Matched to Coverage Estimator) -->
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="text-xs font-semibold tracking-wider text-emerald-600 uppercase bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+        KNOW YOUR NUMBERS · PLAN YOUR SAVINGS
+      </span>
+      <h2 class="text-3xl font-bold text-gray-900 mt-3 tracking-tight sm:text-4xl">
+        Personal Expenses Calculator
+      </h2>
+      <p class="text-gray-600 mt-2 text-base">
+        Understand your cash flow, CPF contributions, and recommended budget allocations.
+      </p>
     </div>
 
-    <div class="field-row">
-      <div>
-        <label for="grossIncome">Gross Monthly Income (S$)</label>
-        <input type="number" id="grossIncome" min="0" step="50" placeholder="0.00" inputmode="decimal">
+    <!-- Main Content Container -->
+    <div class="space-y-8">
+
+      <!-- Step 01: Your Profile -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100">
+        <div class="mb-6">
+          <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider block mb-1">01</span>
+          <h3 class="text-xl font-bold text-gray-900 tracking-tight">Your Profile</h3>
+          <p class="text-xs text-gray-500 mt-1">Your residency status determines your CPF contribution rate.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Residency Status</label>
+            <select class="w-full px-4 py-3 bg-emerald-50/40 border border-emerald-100 rounded-xl text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all">
+              <option value="PR" selected>Permanent Resident (PR)</option>
+              <option value="SC">Singaporean</option>
+              <option value="Foreigner">Foreigner</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">PR Year</label>
+            <select class="w-full px-4 py-3 bg-emerald-50/40 border border-emerald-100 rounded-xl text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all">
+              <option value="1" selected>1st Year (5%)</option>
+              <option value="2">2nd Year (15%)</option>
+              <option value="3">3rd Year & Beyond (20%)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Gross Monthly Income (SGD)</label>
+            <div class="flex rounded-xl shadow-sm overflow-hidden border border-emerald-100 bg-emerald-50/40 focus-within:ring-2 focus-within:ring-emerald-500 focus-within:bg-white transition-all">
+              <span class="inline-flex items-center px-4 text-emerald-800 font-medium text-sm bg-emerald-100/50 border-r border-emerald-100">$</span>
+              <input type="number" value="0.00" class="w-full px-4 py-3 bg-transparent text-gray-900 text-sm focus:outline-none">
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-5 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-sm">
+          <div>
+            <span class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">CPF Deduction Rate</span>
+            <span class="font-medium text-gray-900">5%</span>
+            <span class="text-xs text-gray-400 block sm:inline sm:ml-2">(Auto-filled from your profile)</span>
+          </div>
+          <div class="flex gap-6">
+            <div>
+              <span class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">CPF Deducted</span>
+              <span class="font-medium text-gray-900">S$0.00/mo</span>
+            </div>
+            <div>
+              <span class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Take-Home Pay</span>
+              <span class="font-bold text-emerald-600">S$0.00/mo</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div>
-        <label for="cpfRate">CPF Deduction Rate (%)</label>
-        <input type="number" id="cpfRate" min="0" max="100" step="0.5" value="20">
-        <p class="hint" id="cpfHint">Auto-filled from your profile — you can override it.</p>
+
+      <!-- Step 02: Monthly Expenses -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100">
+        <div class="mb-6">
+          <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider block mb-1">02</span>
+          <h3 class="text-xl font-bold text-gray-900 tracking-tight">Monthly Expenses</h3>
+          <p class="text-xs text-gray-500 mt-1">Basic categories are pre-filled — edit any label or amount, or add your own.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Expense Input Template -->
+          <div class="p-3 bg-emerald-50/40 border border-emerald-100 rounded-xl relative">
+            <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Housing / Rent</label>
+            <div class="flex items-center">
+              <span class="text-xs text-emerald-800 font-medium mr-1.5">$</span>
+              <input type="number" value="0.00" class="w-full bg-transparent text-gray-900 text-sm font-medium focus:outline-none">
+            </div>
+          </div>
+
+          <div class="p-3 bg-emerald-50/40 border border-emerald-100 rounded-xl relative">
+            <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Food & Groceries</label>
+            <div class="flex items-center">
+              <span class="text-xs text-emerald-800 font-medium mr-1.5">$</span>
+              <input type="number" value="0.00" class="w-full bg-transparent text-gray-900 text-sm font-medium focus:outline-none">
+            </div>
+          </div>
+
+          <div class="p-3 bg-emerald-50/40 border border-emerald-100 rounded-xl relative">
+            <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Transport</label>
+            <div class="flex items-center">
+              <span class="text-xs text-emerald-800 font-medium mr-1.5">$</span>
+              <input type="number" value="0.00" class="w-full bg-transparent text-gray-900 text-sm font-medium focus:outline-none">
+            </div>
+          </div>
+
+          <div class="p-3 bg-emerald-50/40 border border-emerald-100 rounded-xl relative">
+            <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Utilities</label>
+            <div class="flex items-center">
+              <span class="text-xs text-emerald-800 font-medium mr-1.5">$</span>
+              <input type="number" value="0.00" class="w-full bg-transparent text-gray-900 text-sm font-medium focus:outline-none">
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-gray-100">
+          <button class="inline-flex items-center text-xs font-bold text-emerald-600 hover:text-emerald-700 uppercase tracking-wider">
+            + Add Another Expense
+          </button>
+          <div class="text-right">
+            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider mr-2">Total Expenses:</span>
+            <span class="text-lg font-bold text-gray-900 tracking-tight">S$0.00</span>
+          </div>
+        </div>
       </div>
+
+      <!-- Step 03 & 04 Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- Step 03: Investments & Insurance -->
+        <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100 flex flex-col justify-between">
+          <div>
+            <div class="mb-6">
+              <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider block mb-1">03</span>
+              <h3 class="text-xl font-bold text-gray-900 tracking-tight">Investment & Insurance</h3>
+              <p class="text-xs text-gray-500 mt-1">What you currently set aside each month.</p>
+            </div>
+
+            <div class="space-y-4">
+              <div>
+                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Current Investment (S$/mo)</label>
+                <div class="flex rounded-xl shadow-sm overflow-hidden border border-emerald-100 bg-emerald-50/40 focus-within:ring-2 focus-within:ring-emerald-500 focus-within:bg-white transition-all">
+                  <span class="inline-flex items-center px-4 text-emerald-800 font-medium text-sm bg-emerald-100/50 border-r border-emerald-100">$</span>
+                  <input type="number" value="0.00" class="w-full px-4 py-3 bg-transparent text-gray-900 text-sm focus:outline-none">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Current Insurance Premiums (S$/mo)</label>
+                <div class="flex rounded-xl shadow-sm overflow-hidden border border-emerald-100 bg-emerald-50/40 focus-within:ring-2 focus-within:ring-emerald-500 focus-within:bg-white transition-all">
+                  <span class="inline-flex items-center px-4 text-emerald-800 font-medium text-sm bg-emerald-100/50 border-r border-emerald-100">$</span>
+                  <input type="number" value="0.00" class="w-full px-4 py-3 bg-transparent text-gray-900 text-sm focus:outline-none">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 04: Your Results (Dark Theme aligned with Coverage Estimator summary card) -->
+        <div class="lg:col-span-7 bg-gradient-to-br from-emerald-950 via-gray-900 to-emerald-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col justify-between border border-emerald-800/30">
+          <div>
+            <div class="flex items-center justify-between border-b border-emerald-800/50 pb-4 mb-6">
+              <div>
+                <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest block mb-0.5">04</span>
+                <h3 class="font-semibold text-lg text-emerald-100 tracking-tight">Your Results</h3>
+              </div>
+              <span class="text-emerald-400 text-lg">✦</span>
+            </div>
+
+            <!-- Savings Summary Stats -->
+            <div class="grid grid-cols-3 gap-2 pb-6 border-b border-emerald-800/50 text-center">
+              <div>
+                <span class="block text-xs font-medium text-gray-400 uppercase tracking-wider">Net Income</span>
+                <span class="text-base font-bold text-white mt-1 block">S$0.00</span>
+              </div>
+              <div>
+                <span class="block text-xs font-medium text-gray-400 uppercase tracking-wider">Total Expenses</span>
+                <span class="text-base font-bold text-white mt-1 block">S$0.00</span>
+              </div>
+              <div>
+                <span class="block text-xs font-medium text-emerald-400 uppercase tracking-wider">Savings Available</span>
+                <span class="text-base font-bold text-emerald-400 mt-1 block">S$0.00</span>
+              </div>
+            </div>
+
+            <!-- Recommended Breakdown Table -->
+            <div class="mt-6 space-y-3 text-sm">
+              <div class="flex justify-between items-center py-1">
+                <div>
+                  <span class="font-medium text-white block">Expenses</span>
+                  <span class="text-xs text-gray-400">40% of income</span>
+                </div>
+                <div class="text-right">
+                  <span class="font-medium text-white">S$0.00</span>
+                  <span class="text-xs text-emerald-400 block">Target: S$0.00</span>
+                </div>
+              </div>
+
+              <div class="flex justify-between items-center py-1">
+                <div>
+                  <span class="font-medium text-white block">Investment</span>
+                  <span class="text-xs text-gray-400">30% of income</span>
+                </div>
+                <div class="text-right">
+                  <span class="font-medium text-white">S$0.00</span>
+                  <span class="text-xs text-emerald-400 block">Target: S$0.00</span>
+                </div>
+              </div>
+
+              <div class="flex justify-between items-center py-1">
+                <div>
+                  <span class="font-medium text-white block">Savings</span>
+                  <span class="text-xs text-gray-400">20% of income</span>
+                </div>
+                <div class="text-right">
+                  <span class="font-medium text-white">S$0.00</span>
+                  <span class="text-xs text-emerald-400 block">Target: S$0.00</span>
+                </div>
+              </div>
+
+              <div class="flex justify-between items-center py-1">
+                <div>
+                  <span class="font-medium text-white block">Insurance</span>
+                  <span class="text-xs text-gray-400">10% of income</span>
+                </div>
+                <div class="text-right">
+                  <span class="font-medium text-white">S$0.00</span>
+                  <span class="text-xs text-emerald-400 block">Target: S$0.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-emerald-800/50">
+            <p class="text-xs text-emerald-200/60 italic">
+              CPF rates shown are illustrative employee-contribution rates. Refer to official CPF tables for exact figures.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
     </div>
-
-    <div class="field-row">
-      <div>
-        <label>CPF Deducted (S$/mo)</label>
-        <div class="readout" id="cpfAmountOut">$0.00</div>
-      </div>
-      <div>
-        <label>Net Income / Take-Home (S$/mo)</label>
-        <div class="readout" id="netIncomeOut">$0.00</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- STEP 2: EXPENSES -->
-  <section class="card">
-    <h2><span class="step-no">02</span> Monthly Expenses</h2>
-    <p class="sub">Basic categories are pre-filled — edit any label or amount, or add your own.</p>
-
-    <div id="expenseList"></div>
-
-    <button type="button" class="add-expense-btn" id="addExpenseBtn">+ Add Another Expense</button>
-
-    <div class="expenses-total">
-      <span>Total Expenses</span>
-      <span class="val" id="totalExpensesOut">$0.00</span>
-    </div>
-  </section>
+  </div>
+</section>
 
   <!-- STEP 3: INVESTMENT & INSURANCE -->
   <section class="card">
