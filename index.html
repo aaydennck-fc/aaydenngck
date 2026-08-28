@@ -1693,8 +1693,6 @@ table.breakdown td.num {
 
   calculate();
 
-})();
-
     function downloadPDF() {
   // Captures the Step 04 Results Card
   const element = document.querySelector("#calculator .section-card:nth-of-type(4)") || document.getElementById("calculator");
@@ -1709,6 +1707,10 @@ table.breakdown td.num {
 
   html2pdf().set(options).from(element).save();
 }
+    
+})();
+
+
     
 </script>
 
