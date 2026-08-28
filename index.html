@@ -21,6 +21,10 @@
     <style>
         html { scroll-behavior: smooth; }
     </style>
+
+    <!-- html2pdf Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased">
 
@@ -1212,6 +1216,12 @@ table.breakdown td.num {
 
       <div class="actions">
         <button class="reset-link" id="resetBtn" type="button">Reset all fields</button>
+
+          <!-- ADD DOWNLOAD PDF BUTTON -->
+  <button type="button" onclick="downloadPDF()" class="reset-link" style="color: #059669; font-weight: 600;">
+    📥 Download PDF
+  </button>
+          
         <a class="primary-btn" href="https://wa.me/+6591849632?text=Hi Aayden, let's chat!" target="_blank" rel="noopener">
           WhatsApp for a Financial Review →
         </a>
@@ -1684,6 +1694,22 @@ table.breakdown td.num {
   calculate();
 
 })();
+
+    function downloadPDF() {
+  // Captures the Step 04 Results Card
+  const element = document.querySelector("#calculator .section-card:nth-of-type(4)") || document.getElementById("calculator");
+
+  const options = {
+    margin:       [0.4, 0.4, 0.4, 0.4],
+    filename:     'Personal_Expenses_Summary.pdf',
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true },
+    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+  };
+
+  html2pdf().set(options).from(element).save();
+}
+    
 </script>
 
 </body>
