@@ -1210,8 +1210,7 @@ table.breakdown td.num {
 
       <div class="actions">
         <button class="reset-link" id="resetBtn" type="button">Reset all fields</button>
-          
-        <a class="primary-btn" href="https://wa.me/+6591849632?text=Hi Aayden, let's chat!" target="_blank" rel="noopener">
+        <a class="primary-btn" href="https://wa.me/" target="_blank" rel="noopener">
           WhatsApp for a Financial Review →
         </a>
       </div>
@@ -1455,41 +1454,18 @@ table.breakdown td.num {
 
   /* ---------- Breakdown table ---------- */
 
-  function buildStatusPill(categoryKey, target, amount) {
-  const diff = Math.abs(amount - target);
-  const formattedDiff = "$" + diff.toFixed(2);
-  const badge = document.createElement("span");
-  
-  let isRed = false;
-  let label = "";
+  function buildStatusPill(isGood, diff) {
+    const pill = document.createElement("span");
 
-  if (categoryKey === "expenses") {
-    // EXPENSES: Higher than target = Over Budget (RED)
-    if (amount > target) {
-      isRed = true;
-      label = "▲ " + formattedDiff + " over";
-    } else {
-      isRed = false;
-      label = "▼ " + formattedDiff + " under";
-    }
-  } else {
-    // SAVINGS / INVESTMENT / INSURANCE: Lower than target = Shortfall (RED)
-    if (amount < target) {
-      isRed = true;
-      label = "▼ " + formattedDiff + " short";
-    } else {
-      isRed = false;
-      label = "▲ " + formattedDiff + " extra";
-    }
-  }
+    pill.className =
+      "status-pill " + (isGood ? "good" : "bad");
 
-  badge.className = isRed 
-    ? "status-pill status-pill-red"    /* Apply your red CSS class */
-    : "status-pill status-pill-green"; /* Apply your green CSS class */
+    const arrow = isGood ? "▲" : "▼";
 
-  badge.textContent = label;
-  return badge;
-}
+    pill.textContent =
+      arrow + " " + fmt(Math.abs(diff));
+
+    return pill;
   }
 
   function addBreakdownRow(
@@ -1681,15 +1657,13 @@ table.breakdown td.num {
   renderExpenseList();
 
   calculate();
-    
+
 })();
-
-
-    
 </script>
 
 </body>
 </html>
+
 
 
 
