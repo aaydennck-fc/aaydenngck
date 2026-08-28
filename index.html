@@ -226,6 +226,763 @@
       </div>
     </div>
   </section>
+<!-- End Coverage Estimator Section -->
+
+<!-- Personal Expenses Calculator Section -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Personal Expenses Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #FAF6EC;
+    --paper-dim: #F1EAD8;
+    --card: #FFFFFF;
+    --ink: #2A2620;
+    --ink-soft: #6B6353;
+    --line: #D6CCB2;
+    --line-strong: #B9AC87;
+    --green: #2F6F4E;
+    --green-bg: #E3EEE6;
+    --rust: #B3492D;
+    --rust-bg: #F6E4DC;
+    --brass: #A9791F;
+    --brass-bg: #F3EAD1;
+    --focus: #2F6F4E;
+    --radius: 10px;
+    --font-display: 'Roboto Slab', Georgia, serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background: var(--paper);
+    background-image:
+      repeating-linear-gradient(180deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 34px);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    padding: 40px 16px 80px;
+  }
+
+  .sheet{
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Header ---------- */
+  .receipt-head{
+    text-align:center;
+    padding-bottom: 22px;
+    margin-bottom: 28px;
+    border-bottom: 2px dashed var(--line-strong);
+    position: relative;
+  }
+  .stamp{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:52px; height:52px;
+    border-radius:50%;
+    border:2px solid var(--brass);
+    color:var(--brass);
+    font-family: var(--font-mono);
+    font-weight:600;
+    font-size:13px;
+    letter-spacing: 0.5px;
+    margin-bottom:14px;
+    transform: rotate(-6deg);
+  }
+  .receipt-head h1{
+    font-family: var(--font-display);
+    font-weight:700;
+    font-size: clamp(26px, 5vw, 34px);
+    margin: 0 0 6px;
+    letter-spacing: -0.3px;
+  }
+  .receipt-head .eyebrow{
+    font-family: var(--font-mono);
+    font-size:12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin:0;
+  }
+  .reset-link{
+    position:absolute;
+    top:0; right:0;
+    font-family: var(--font-body);
+    font-size:12.5px;
+    color: var(--ink-soft);
+    background:none;
+    border:none;
+    text-decoration: underline;
+    cursor:pointer;
+    padding:4px;
+  }
+  .reset-link:hover{ color:var(--rust); }
+
+  /* ---------- Cards ---------- */
+  .card{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px 24px 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 2px rgba(42,38,32,0.04);
+  }
+  .card h2{
+    font-family: var(--font-display);
+    font-size: 15.5px;
+    font-weight: 700;
+    margin: 0 0 4px;
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+  }
+  .card h2 .step-no{
+    font-family: var(--font-mono);
+    color: var(--brass);
+    font-size: 13px;
+  }
+  .card .sub{
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+  }
+
+  /* ---------- Form fields ---------- */
+  .field-row{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:14px;
+    margin-bottom: 14px;
+  }
+  .field-row.single{ grid-template-columns: 1fr; }
+  @media (max-width: 520px){
+    .field-row{ grid-template-columns: 1fr; }
+  }
+  label{
+    display:block;
+    font-size: 12.5px;
+    font-weight:600;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  select, input[type=number], input[type=text]{
+    width:100%;
+    font-family: var(--font-body);
+    font-size:15px;
+    padding: 10px 12px;
+    border: 1.5px solid var(--line);
+    border-radius: 7px;
+    background: var(--paper);
+    color: var(--ink);
+    transition: border-color .15s ease, background .15s ease;
+  }
+  select:focus, input:focus{
+    outline: none;
+    border-color: var(--focus);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(47,111,78,0.13);
+  }
+  select:disabled, input:disabled{
+    opacity:0.5;
+    cursor: not-allowed;
+  }
+  .hint{
+    font-size:12px;
+    color: var(--ink-soft);
+    margin-top:4px;
+  }
+  .readout{
+    font-family: var(--font-mono);
+    font-weight:600;
+    font-size: 15px;
+    padding: 10px 12px;
+    background: var(--paper-dim);
+    border-radius: 7px;
+    border: 1.5px solid var(--line);
+  }
+
+  /* ---------- Expense rows (ledger lines) ---------- */
+  .expense-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding: 8px 0;
+    border-bottom: 1px dotted var(--line);
+  }
+  .expense-row .exp-label{
+    flex: 1 1 auto;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    padding: 6px 4px;
+    font-size: 14.5px;
+    border-radius: 5px;
+  }
+  .expense-row .exp-label:focus{ background: var(--paper-dim); box-shadow:none; border:none; }
+  .expense-row .exp-amount-wrap{
+    display:flex;
+    align-items:center;
+    gap:4px;
+    flex: 0 0 132px;
+  }
+  .expense-row .currency-prefix{
+    font-family: var(--font-mono);
+    color: var(--ink-soft);
+    font-size:14px;
+  }
+  .expense-row .exp-amount{
+    text-align:right;
+    font-family: var(--font-mono);
+    font-size:14.5px;
+    padding: 6px 8px;
+    border-radius:5px;
+  }
+  .row-remove{
+    flex: 0 0 auto;
+    width:26px; height:26px;
+    border-radius:50%;
+    border: 1.5px solid var(--line);
+    background: #fff;
+    color: var(--ink-soft);
+    font-size:14px;
+    line-height:1;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .row-remove:hover{ border-color: var(--rust); color: var(--rust); }
+
+  .add-expense-btn{
+    margin-top: 14px;
+    width:100%;
+    padding: 11px;
+    border-radius: 7px;
+    border: 1.5px dashed var(--line-strong);
+    background: var(--paper-dim);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-weight:600;
+    font-size:14px;
+    cursor:pointer;
+  }
+  .add-expense-btn:hover{ border-color: var(--green); color: var(--green); background: var(--green-bg); }
+
+  .expenses-total{
+    display:flex;
+    justify-content: space-between;
+    align-items:baseline;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 2px solid var(--ink);
+    font-family: var(--font-display);
+    font-weight:700;
+    font-size: 17px;
+  }
+  .expenses-total .val{ font-family: var(--font-mono); }
+
+  /* ---------- Results ---------- */
+  .headline-figures{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  @media (max-width: 560px){
+    .headline-figures{ grid-template-columns: 1fr; }
+  }
+  .figure{
+    background: var(--paper-dim);
+    border:1px solid var(--line);
+    border-radius: 8px;
+    padding: 14px 14px 12px;
+  }
+  .figure .flabel{
+    font-size:11.5px;
+    text-transform: uppercase;
+    letter-spacing:0.5px;
+    color: var(--ink-soft);
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .figure .fval{
+    font-family: var(--font-mono);
+    font-weight:600;
+    font-size: 19px;
+  }
+  .figure.savings .fval{ color: var(--green); }
+  .figure.savings.negative .fval{ color: var(--rust); }
+
+  table.breakdown{
+    width:100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  table.breakdown th{
+    text-align:left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--ink-soft);
+    font-weight:600;
+    padding: 8px 8px;
+    border-bottom: 2px solid var(--ink);
+  }
+  table.breakdown td{
+    padding: 11px 8px;
+    border-bottom: 1px dotted var(--line);
+    vertical-align: middle;
+  }
+  table.breakdown td.num, table.breakdown th.num{ text-align:right; font-family: var(--font-mono); }
+  .cat-name{ font-weight:600; }
+  .cat-pct{ color: var(--ink-soft); font-family: var(--font-mono); font-size:12px; }
+  .status-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding: 4px 9px;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight:600;
+    white-space: nowrap;
+  }
+  .status-pill.good{ background: var(--green-bg); color: var(--green); }
+  .status-pill.bad{ background: var(--rust-bg); color: var(--rust); }
+  .table-wrap{ overflow-x:auto; }
+
+  .receipt-edge{
+    height: 14px;
+    margin: 20px -24px -22px;
+    background:
+      linear-gradient(-45deg, var(--card) 8px, transparent 0) 0 4px,
+      linear-gradient(45deg, var(--card) 8px, transparent 0) 0 4px;
+    background-size: 16px 16px;
+    background-repeat: repeat-x;
+    background-color: transparent;
+  }
+
+  footer{
+    text-align:center;
+    font-size:12px;
+    color: var(--ink-soft);
+    margin-top: 28px;
+    padding: 0 12px;
+  }
+  footer p{ margin: 4px 0; }
+
+  .visually-hidden{
+    position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <header class="receipt-head">
+    <button class="reset-link" id="resetBtn" type="button">Reset all</button>
+    <div class="stamp">SG</div>
+    <h1>Personal Expenses Calculator</h1>
+    <p class="eyebrow">Know your numbers · Plan your savings</p>
+  </header>
+
+  <!-- STEP 1: PROFILE -->
+  <section class="card">
+    <h2><span class="step-no">01</span> Your Profile</h2>
+    <p class="sub">Your residency status determines your CPF contribution rate.</p>
+
+    <div class="field-row">
+      <div>
+        <label for="residency">Residency Status</label>
+        <select id="residency">
+          <option value="singaporean">Singaporean</option>
+          <option value="pr">Permanent Resident (PR)</option>
+          <option value="foreigner">Foreigner</option>
+        </select>
+      </div>
+      <div id="prYearWrap" style="display:none;">
+        <label for="prYear">PR Year</label>
+        <select id="prYear">
+          <option value="1">1st Year (5%)</option>
+          <option value="2">2nd Year (15%)</option>
+          <option value="3">3rd Year &amp; Beyond (20%)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div>
+        <label for="grossIncome">Gross Monthly Income (S$)</label>
+        <input type="number" id="grossIncome" min="0" step="50" placeholder="0.00" inputmode="decimal">
+      </div>
+      <div>
+        <label for="cpfRate">CPF Deduction Rate (%)</label>
+        <input type="number" id="cpfRate" min="0" max="100" step="0.5" value="20">
+        <p class="hint" id="cpfHint">Auto-filled from your profile — you can override it.</p>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div>
+        <label>CPF Deducted (S$/mo)</label>
+        <div class="readout" id="cpfAmountOut">$0.00</div>
+      </div>
+      <div>
+        <label>Net Income / Take-Home (S$/mo)</label>
+        <div class="readout" id="netIncomeOut">$0.00</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 2: EXPENSES -->
+  <section class="card">
+    <h2><span class="step-no">02</span> Monthly Expenses</h2>
+    <p class="sub">Basic categories are pre-filled — edit any label or amount, or add your own.</p>
+
+    <div id="expenseList"></div>
+
+    <button type="button" class="add-expense-btn" id="addExpenseBtn">+ Add Another Expense</button>
+
+    <div class="expenses-total">
+      <span>Total Expenses</span>
+      <span class="val" id="totalExpensesOut">$0.00</span>
+    </div>
+  </section>
+
+  <!-- STEP 3: INVESTMENT & INSURANCE -->
+  <section class="card">
+    <h2><span class="step-no">03</span> Investment &amp; Insurance <span style="font-weight:400; color:var(--ink-soft); text-transform:none; letter-spacing:0; font-family:var(--font-body); font-size:12.5px;">(optional)</span></h2>
+    <p class="sub">What you currently set aside each month — used to check against the recommended targets below.</p>
+
+    <div class="field-row">
+      <div>
+        <label for="investAmount">Current Investment (S$/mo)</label>
+        <input type="number" id="investAmount" min="0" step="10" placeholder="0.00">
+      </div>
+      <div>
+        <label for="insuranceAmount">Current Insurance Premiums (S$/mo)</label>
+        <input type="number" id="insuranceAmount" min="0" step="10" placeholder="0.00">
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 4: RESULTS -->
+  <section class="card">
+    <h2><span class="step-no">04</span> Your Results</h2>
+    <p class="sub">Savings Available = Net Income − Total Expenses.</p>
+
+    <div class="headline-figures">
+      <div class="figure">
+        <div class="flabel">Net Income</div>
+        <div class="fval" id="figNetIncome">$0.00</div>
+      </div>
+      <div class="figure">
+        <div class="flabel">Total Expenses</div>
+        <div class="fval" id="figExpenses">$0.00</div>
+      </div>
+      <div class="figure savings" id="figSavingsWrap">
+        <div class="flabel">Savings Available</div>
+        <div class="fval" id="figSavings">$0.00</div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="breakdown">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th class="num">Recommended</th>
+            <th class="num">Your Amount</th>
+            <th class="num">Status</th>
+          </tr>
+        </thead>
+        <tbody id="breakdownBody"></tbody>
+      </table>
+    </div>
+
+    <div class="receipt-edge"></div>
+  </section>
+
+  <footer>
+    <p>CPF rates shown are simplified illustrative employee-contribution rates (Singaporean: 20%; PR Year 1: 5%, Year 2: 15%, Year 3+: 20%) and do not account for age, wage ceilings, or Additional Wages. Foreigners are generally not subject to CPF.</p>
+    <p>For exact figures, always refer to the official <strong>CPF Board</strong> contribution tables. This tool is for personal budgeting guidance only.</p>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var defaultExpenses = [
+    { id:'housing',      label:'Housing / Rent',              amount:0 },
+    { id:'food',         label:'Food & Groceries',            amount:0 },
+    { id:'transport',    label:'Transport',                   amount:0 },
+    { id:'utilities',    label:'Utilities (Elec/Water/Gas)',  amount:0 },
+    { id:'phone',        label:'Phone & Internet',            amount:0 },
+    { id:'entertain',    label:'Entertainment & Leisure',     amount:0 },
+    { id:'personalcare', label:'Personal Care',                amount:0 },
+    { id:'others',       label:'Others / Miscellaneous',      amount:0 }
+  ];
+
+  var expenses = [];
+  var uidCounter = 0;
+
+  var els = {
+    residency: document.getElementById('residency'),
+    prYearWrap: document.getElementById('prYearWrap'),
+    prYear: document.getElementById('prYear'),
+    grossIncome: document.getElementById('grossIncome'),
+    cpfRate: document.getElementById('cpfRate'),
+    cpfHint: document.getElementById('cpfHint'),
+    cpfAmountOut: document.getElementById('cpfAmountOut'),
+    netIncomeOut: document.getElementById('netIncomeOut'),
+    expenseList: document.getElementById('expenseList'),
+    addExpenseBtn: document.getElementById('addExpenseBtn'),
+    totalExpensesOut: document.getElementById('totalExpensesOut'),
+    investAmount: document.getElementById('investAmount'),
+    insuranceAmount: document.getElementById('insuranceAmount'),
+    figNetIncome: document.getElementById('figNetIncome'),
+    figExpenses: document.getElementById('figExpenses'),
+    figSavings: document.getElementById('figSavings'),
+    figSavingsWrap: document.getElementById('figSavingsWrap'),
+    breakdownBody: document.getElementById('breakdownBody'),
+    resetBtn: document.getElementById('resetBtn')
+  };
+
+  function fmt(n){
+    if(isNaN(n)) n = 0;
+    var neg = n < 0;
+    var abs = Math.abs(n);
+    var out = '$' + abs.toLocaleString('en-SG', { minimumFractionDigits:2, maximumFractionDigits:2 });
+    return neg ? '-' + out : out;
+  }
+
+  function cloneDefaults(){
+    return defaultExpenses.map(function(e){ return { id: e.id, label: e.label, amount: e.amount }; });
+  }
+
+  // ---------- CPF ----------
+  function getAutoCpfRate(){
+    var residency = els.residency.value;
+    if(residency === 'singaporean') return 20;
+    if(residency === 'foreigner') return 0;
+    if(residency === 'pr'){
+      var y = els.prYear.value;
+      if(y === '1') return 5;
+      if(y === '2') return 15;
+      return 20;
+    }
+    return 0;
+  }
+
+  function applyAutoCpfRate(){
+    els.cpfRate.value = getAutoCpfRate();
+    els.cpfRate.disabled = (els.residency.value === 'foreigner');
+    els.cpfHint.textContent = els.residency.value === 'foreigner'
+      ? 'Foreigners are generally not subject to CPF. Override if applicable.'
+      : 'Auto-filled from your profile — you can override it.';
+  }
+
+  els.residency.addEventListener('change', function(){
+    els.prYearWrap.style.display = (els.residency.value === 'pr') ? '' : 'none';
+    applyAutoCpfRate();
+    calculate();
+  });
+  els.prYear.addEventListener('change', function(){
+    applyAutoCpfRate();
+    calculate();
+  });
+
+  // ---------- Expense rows ----------
+  function createExpenseRowElement(item){
+    var row = document.createElement('div');
+    row.className = 'expense-row';
+    row.dataset.id = item.id;
+
+    var labelInput = document.createElement('input');
+    labelInput.type = 'text';
+    labelInput.className = 'exp-label';
+    labelInput.value = item.label;
+    labelInput.placeholder = 'Expense name';
+    labelInput.setAttribute('aria-label', 'Expense name');
+    labelInput.addEventListener('input', function(){
+      item.label = labelInput.value;
+    });
+
+    var amountWrap = document.createElement('div');
+    amountWrap.className = 'exp-amount-wrap';
+
+    var prefix = document.createElement('span');
+    prefix.className = 'currency-prefix';
+    prefix.textContent = '$';
+
+    var amountInput = document.createElement('input');
+    amountInput.type = 'number';
+    amountInput.className = 'exp-amount';
+    amountInput.min = '0';
+    amountInput.step = '10';
+    amountInput.value = item.amount || '';
+    amountInput.placeholder = '0.00';
+    amountInput.setAttribute('aria-label', item.label + ' amount');
+    amountInput.addEventListener('input', function(){
+      item.amount = parseFloat(amountInput.value) || 0;
+      calculate();
+    });
+
+    amountWrap.appendChild(prefix);
+    amountWrap.appendChild(amountInput);
+
+    var removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'row-remove';
+    removeBtn.innerHTML = '&times;';
+    removeBtn.setAttribute('aria-label', 'Remove ' + (item.label || 'this expense'));
+    removeBtn.addEventListener('click', function(){
+      expenses = expenses.filter(function(e){ return e.id !== item.id; });
+      renderExpenseList();
+      calculate();
+    });
+
+    row.appendChild(labelInput);
+    row.appendChild(amountWrap);
+    row.appendChild(removeBtn);
+    return row;
+  }
+
+  function renderExpenseList(){
+    els.expenseList.innerHTML = '';
+    expenses.forEach(function(item){
+      els.expenseList.appendChild(createExpenseRowElement(item));
+    });
+  }
+
+  els.addExpenseBtn.addEventListener('click', function(){
+    var item = { id: 'custom-' + (uidCounter++), label: '', amount: 0 };
+    expenses.push(item);
+    var rowEl = createExpenseRowElement(item);
+    els.expenseList.appendChild(rowEl);
+    var labelInput = rowEl.querySelector('.exp-label');
+    labelInput.focus();
+  });
+
+  // ---------- Breakdown table ----------
+  function buildStatusPill(isGood, diff){
+    var pill = document.createElement('span');
+    pill.className = 'status-pill ' + (isGood ? 'good' : 'bad');
+    var arrow = isGood ? '▲' : '▼';
+    pill.textContent = arrow + ' ' + fmt(Math.abs(diff));
+    return pill;
+  }
+
+  function addBreakdownRow(name, pct, recommended, actual, higherIsBetter){
+    var tr = document.createElement('tr');
+
+    var tdName = document.createElement('td');
+    var nameEl = document.createElement('div');
+    nameEl.className = 'cat-name';
+    nameEl.textContent = name;
+    var pctEl = document.createElement('div');
+    pctEl.className = 'cat-pct';
+    pctEl.textContent = pct + '% of income';
+    tdName.appendChild(nameEl);
+    tdName.appendChild(pctEl);
+
+    var tdRec = document.createElement('td');
+    tdRec.className = 'num';
+    tdRec.textContent = fmt(recommended);
+
+    var tdActual = document.createElement('td');
+    tdActual.className = 'num';
+    tdActual.textContent = fmt(actual);
+
+    var tdStatus = document.createElement('td');
+    tdStatus.className = 'num';
+    var diff = higherIsBetter ? (actual - recommended) : (recommended - actual);
+    var isGood = diff >= 0;
+    tdStatus.appendChild(buildStatusPill(isGood, diff));
+
+    tr.appendChild(tdName);
+    tr.appendChild(tdRec);
+    tr.appendChild(tdActual);
+    tr.appendChild(tdStatus);
+    els.breakdownBody.appendChild(tr);
+  }
+
+  // ---------- Main calculation ----------
+  function calculate(){
+    var gross = parseFloat(els.grossIncome.value) || 0;
+    var cpfRate = parseFloat(els.cpfRate.value) || 0;
+    var cpfAmount = gross * (cpfRate / 100);
+    var netIncome = gross - cpfAmount;
+
+    els.cpfAmountOut.textContent = fmt(cpfAmount);
+    els.netIncomeOut.textContent = fmt(netIncome);
+
+    var totalExpenses = expenses.reduce(function(sum, e){ return sum + (parseFloat(e.amount) || 0); }, 0);
+    els.totalExpensesOut.textContent = fmt(totalExpenses);
+
+    var savingsAvailable = netIncome - totalExpenses;
+
+    els.figNetIncome.textContent = fmt(netIncome);
+    els.figExpenses.textContent = fmt(totalExpenses);
+    els.figSavings.textContent = fmt(savingsAvailable);
+    els.figSavingsWrap.classList.toggle('negative', savingsAvailable < 0);
+
+    var investAmount = parseFloat(els.investAmount.value) || 0;
+    var insuranceAmount = parseFloat(els.insuranceAmount.value) || 0;
+
+    els.breakdownBody.innerHTML = '';
+    addBreakdownRow('Expenses',   40, netIncome * 0.40, totalExpenses,    false);
+    addBreakdownRow('Investment', 30, netIncome * 0.30, investAmount,     true);
+    addBreakdownRow('Savings',    20, netIncome * 0.20, savingsAvailable, true);
+    addBreakdownRow('Insurance',  10, netIncome * 0.10, insuranceAmount,  true);
+  }
+
+  [els.grossIncome, els.cpfRate, els.investAmount, els.insuranceAmount].forEach(function(el){
+    el.addEventListener('input', calculate);
+  });
+
+  // ---------- Reset ----------
+  els.resetBtn.addEventListener('click', function(){
+    if(!confirm('Reset all fields to default?')) return;
+    els.residency.value = 'singaporean';
+    els.prYearWrap.style.display = 'none';
+    els.grossIncome.value = '';
+    els.investAmount.value = '';
+    els.insuranceAmount.value = '';
+    applyAutoCpfRate();
+    expenses = cloneDefaults();
+    renderExpenseList();
+    calculate();
+  });
+
+  // ---------- Init ----------
+  applyAutoCpfRate();
+  expenses = cloneDefaults();
+  renderExpenseList();
+  calculate();
+})();
+</script>
+
+</body>
+</html>
+    <!-- End Personal Expenses Calculator Section -->
 
 
     <!-- Process Workflow -->
