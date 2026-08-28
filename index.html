@@ -1728,28 +1728,22 @@ table.breakdown td.num {
 
   /* ---------- Whatsapp ---------- */
 function sendToWhatsApp() {
-  // Grab income (works whether your input ID is 'grossIncome' or 'income')
-  const incomeEl = document.getElementById("grossIncome") || document.getElementById("income");
-  const incomeVal = incomeEl ? incomeEl.value : "0";
+  const incomeVal = document.getElementById("grossIncome")?.value || "0";
+  const expVal = document.getElementById("figExpenses")?.textContent || "$0.00";
+  const savVal = document.getElementById("figSavings")?.textContent || "$0.00";
+  const invVal = document.getElementById("investAmount")?.value || "0";
+  const insVal = document.getElementById("insuranceAmount")?.value || "0";
 
-  // Safely grab table/summary text
-  const expVal = document.getElementById("expenseVal")?.textContent || "0";
-  const savVal = document.getElementById("savingsVal")?.textContent || "0";
-  const invVal = document.getElementById("investmentVal")?.textContent || "0";
-  const insVal = document.getElementById("insuranceVal")?.textContent || "0";
-
-  // Construct message
   const text = `Hi Aayden, I completed the Personal Expenses Calculator! Here is my breakdown:
 
-• Gross Income: $${incomeVal}
+• Gross Monthly Income: $${incomeVal}
 • Total Expenses: ${expVal}
-• Savings: ${savVal}
-• Investment: ${invVal}
-• Insurance: ${insVal}
+• Net Savings Available: ${savVal}
+• Current Investments: $${invVal}/mo
+• Current Insurance Premiums: $${insVal}/mo
 
 Let's discuss my financial plan!`;
 
-  // Open WhatsApp in a new tab
   window.open(`https://wa.me/+6591849632?text=${encodeURIComponent(text)}`, '_blank');
 }
     
