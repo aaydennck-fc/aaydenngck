@@ -4,6 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aayden Ng | Financial Consultant</title>
+
+    <!-- Add your CSS rules here -->
+  <style>
+    .dropdown {
+      position: relative;
+    }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #ffffff;
+      min-width: 220px;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.08);
+      border-radius: 8px;
+      padding: 8px 0;
+      z-index: 50;
+    }
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+  </style>
+</head>
+    
     <!-- Favicon / Tab Icon -->
     <link rel="icon" type="image/png" href="https://github.com/aaydennck-fc/aaydenngck/blob/main/Aayde%20(1).png?raw=true">
     <!-- Social Media Link Preview Meta Tags -->
@@ -27,6 +51,7 @@
     <!-- Header / Navigation -->
 <header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50 transition-all duration-300">
   <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+      
     
     <!-- Logo Image -->
     <a href="#" class="flex items-center">
@@ -34,15 +59,24 @@
     </a>
 
     <!-- Navigation Menu -->
-    <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-      <a href="#about" class="hover:text-emerald-600 transition-colors">About</a>
-      <a href="#services" class="hover:text-emerald-600 transition-colors">Services</a>
-      <a href="#calculator" class="hover:text-emerald-600 transition-colors">Tools</a>
-      <a href="#testimonials" class="hover:text-emerald-600 transition-colors">Testimonials</a>
-      <a href="https://wa.me/+6591849632?text=Hi Aayden, let's chat!" class="bg-emerald-600 text-white px-5 py-2.5 rounded-lg hover:bg-emerald-700 transition-all shadow-sm shadow-emerald-600/20">
-        Let's Chat
-      </a>
-    </nav>
+<nav class="navbar">
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    
+    <!-- Tools Dropdown -->
+    <li class="dropdown">
+      <a href="#tools" class="dropbtn">Tools <span class="arrow">&#9662;</span></a>
+      <ul class="dropdown-menu">
+        <li><a href="#coverage-estimator">Coverage Estimator</a></li>
+        <li><a href="#calculator">Personal Expenses Calculator</a></li>
+      </ul>
+    </li>
+
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#contact" class="btn-chat">Let's Chat</a></li>
+  </ul>
+</nav>
 
   </div>
 </header>
