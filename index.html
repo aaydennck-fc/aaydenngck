@@ -1277,9 +1277,9 @@ table.breakdown td.num {
 
       <div class="actions">
         <button class="reset-link" id="resetBtn" type="button">Reset all fields</button>
-        <button type="button" onclick="sendToWhatsApp()" class="primary-btn">
-  WhatsApp for a Financial Review →
-        </button>
+        <a class="primary-btn" href="https://wa.me/+6591849632?text=Hi Aayden, let's chat!" target="_blank" rel="noopener">
+          WhatsApp for a Financial Review →
+        </a>
       </div>
     </section>
 
@@ -1726,32 +1726,6 @@ table.breakdown td.num {
   calculate();        
    });
 
-  /* ---------- Whatsapp ---------- */
-function sendToWhatsApp() {
-  const incomeVal = document.getElementById("grossIncome")?.value || "0";
-  const expVal = document.getElementById("figExpenses")?.textContent || "$0.00";
-  const savVal = document.getElementById("figSavings")?.textContent || "$0.00";
-  const invVal = document.getElementById("investAmount")?.value || "0";
-  const insVal = document.getElementById("insuranceAmount")?.value || "0";
-
-  const text = `Hi Aayden, I completed the Personal Expenses Calculator! Here is my breakdown:
-
-• Gross Monthly Income: $${incomeVal}
-• Total Expenses: ${expVal}
-• Net Savings Available: ${savVal}
-• Current Investments: $${invVal}/mo
-• Current Insurance Premiums: $${insVal}/mo
-
-Let's discuss my financial plan!`;
-
-  window.open(`https://wa.me/+6591849632?text=${encodeURIComponent(text)}`, '_blank');
-}
-    
-})();
-</script>
-
-</body>
-</html>
     <!-- End Personal Expenses Calculator Section -->
     
   <!-- Testimonials Section -->
