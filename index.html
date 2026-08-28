@@ -1732,7 +1732,7 @@ table.breakdown td.num {
     msg += "EXPENSES\n";
     expenses.forEach(e => {
       const amount = parseFloat(e.amount) || 0;
-      msg += (e.label || "Unnamed Expense") + ": " + moneyPlain(amount) + " (" + d.pct(amount).toFixed(1) + "% of net)\n";
+      msg += (e.label || "Unnamed Expense") + ": " + moneyPlain(amount) + "\n";
     });
     msg += "Total Expenses: " + moneyPlain(d.totalExpenses) + " (" + d.pct(d.totalExpenses).toFixed(1) + "%)\n\n";
     msg += "ALLOCATION\n";
@@ -1755,39 +1755,105 @@ table.breakdown td.num {
       alert("The PDF tool could not load. Please check your internet connection and try again.");
       return;
     }
+
     const d = getSummaryData();
     const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+    const doc = new jsPDF({ unit: "mm", format: "a4" });
+    const W = 210, H = 297;
+    const margin = 18;
     let y = 18;
-    const line = (label, value) => { doc.text(label, 20, y); doc.text(String(value), 190, y, {align:"right"}); y += 7; };
 
-    doc.setFontSize(18); doc.setFont(undefined, "bold");
-    doc.text("Personal Financial Summary", 20, y); y += 10;
-    doc.setFontSize(10); doc.setFont(undefined, "normal");
-    doc.text("Illustrative budgeting tool — not financial advice", 20, y); y += 10;
+    const safe = n => Number(n || 0);
+    const money = n => moneyPlain(n);
+    const pct = n => d.pct(safe(n)).toFixed(1) + "%";
 
-    doc.setFont(undefined, "bold"); doc.text("Income", 20, y); y += 7; doc.setFont(undefined, "normal");
-    line("Gross Monthly Income", moneyPlain(d.gross));
-    line("CPF (" + d.cpfRate + "%)", moneyPlain(d.cpf));
-    line("Net Income", moneyPlain(d.net)); y += 4;
+    function roundedBox(x, yy, w, h, fill) {
+      doc.setFillColor(...fill);
+      doc.roundedRect(x, yy, w, h, 4, 4, "F");
+    }
+    function sectionTitle(title, yy) {
+      doc.setFontSize(11); doc.setFont(undefined, "bold");
+      doc.setTextColor(15, 23, 42);
+      doc.text(title, margin, yy);
+      doc.setDrawColor(226, 232, 240);
+      doc.line(margin, yy + 3, W - margin, yy + 3);
+      return yy + 11;
+    }
+    function row(label, value, yy, bold=false) {
+      doc.setFontSize(9.5); doc.setFont(undefined, bold ? "bold" : "normal");
+      doc.setTextColor(51, 65, 85); doc.text(label, margin + 2, yy);
+      doc.setTextColor(15, 23, 42); doc.text(String(value), W - margin - 2, yy, {align:"right"});
+      return yy + 6.5;
+    }
 
-    doc.setFont(undefined, "bold"); doc.text("Expenses", 20, y); y += 7; doc.setFont(undefined, "normal");
-    expenses.forEach(e => {
-      const amount = parseFloat(e.amount) || 0;
-      line((e.label || "Unnamed Expense") + " (" + d.pct(amount).toFixed(1) + "%)", moneyPlain(amount));
-      if (y > 270) { doc.addPage(); y = 18; }
+    // Header
+    doc.setFillColor(15, 23, 42);
+    doc.rect(0, 0, W, 43, "F");
+    doc.setTextColor(255,255,255);
+    doc.setFontSize(21); doc.setFont(undefined, "bold");
+    doc.text("Personal Financial Summary", margin, 18);
+    doc.setFontSize(9.5); doc.setFont(undefined, "normal");
+    doc.setTextColor(203, 213, 225);
+    doc.text("Your monthly cash-flow & allocation snapshot", margin, 26);
+    doc.text("Prepared using the Personal Expenses Calculator", margin, 33);
+
+    y = 53;
+    // Income cards
+    const cardW = (W - margin*2 - 8) / 3;
+    const cards = [
+      ["Gross Income", money(d.gross)],
+      ["CPF", money(d.cpf)],
+      ["Net Income", money(d.net)]
+    ];
+    cards.forEach((c,i) => {
+      const x = margin + i*(cardW+4);
+      roundedBox(x,y,cardW,24,[248,250,252]);
+      doc.setFontSize(8); doc.setFont(undefined,"normal"); doc.setTextColor(100,116,139); doc.text(c[0],x+5,y+8);
+      doc.setFontSize(12); doc.setFont(undefined,"bold"); doc.setTextColor(15,23,42); doc.text(c[1],x+5,y+17);
     });
-    line("Total Expenses (" + d.pct(d.totalExpenses).toFixed(1) + "% of net)", moneyPlain(d.totalExpenses)); y += 4;
+    y += 34;
 
-    doc.setFont(undefined, "bold"); doc.text("Allocation", 20, y); y += 7; doc.setFont(undefined, "normal");
-    line("Expenses — target 40%", d.pct(d.totalExpenses).toFixed(1) + "%");
-    line("Investment — target 30%", d.pct(d.investment).toFixed(1) + "%");
-    line("Savings — target 20%", d.pct(d.savings).toFixed(1) + "%");
-    line("Insurance — target 10%", d.pct(d.insurance).toFixed(1) + "%");
-    line("Savings Available", moneyPlain(d.savings));
+    y = sectionTitle("Expense Breakdown", y);
+    // Table header
+    doc.setFillColor(241,245,249); doc.roundedRect(margin,y-6,W-margin*2,9,2,2,"F");
+    doc.setFontSize(8); doc.setFont(undefined,"bold"); doc.setTextColor(71,85,105);
+    doc.text("Expense", margin+3, y); doc.text("Amount", W-48, y); doc.text("%", W-margin-3, y, {align:"right"}); y += 8;
+    doc.setFont(undefined,"normal");
+    expenses.forEach((e,idx) => {
+      const amount = safe(e.amount);
+      if (idx % 2 === 0) { doc.setFillColor(248,250,252); doc.rect(margin,y-4,W-margin*2,7,"F"); }
+      doc.setFontSize(9); doc.setTextColor(51,65,85); doc.text((e.label||"Unnamed Expense").slice(0,34),margin+3,y);
+      doc.setTextColor(15,23,42); doc.text(money(amount),W-48,y,{align:"right"}); doc.text(pct(amount),W-margin-3,y,{align:"right"}); y+=7;
+      if (y > 262) { doc.addPage(); y=20; }
+    });
+    doc.setDrawColor(203,213,225); doc.line(margin,y-2,W-margin,y-2); y += 4;
+    y = row("Total Expenses", money(d.totalExpenses)+" ("+pct(d.totalExpenses)+")", y, true) + 5;
 
-    y += 8; doc.setFontSize(8); doc.setFont(undefined, "normal");
-    doc.text("Targets are illustrative budgeting guidelines and are not financial advice.", 20, y);
+    if (y > 245) { doc.addPage(); y=20; }
+    y = sectionTitle("Allocation", y);
+    const alloc = [
+      ["Expenses",40,d.totalExpenses], ["Investment",30,d.investment],
+      ["Savings",20,d.savings], ["Insurance",10,d.insurance]
+    ];
+    alloc.forEach((a,i) => {
+      const x=margin, yy=y+i*15;
+      roundedBox(x,yy,W-margin*2,12,[248,250,252]);
+      doc.setFontSize(9); doc.setFont(undefined,"bold"); doc.setTextColor(15,23,42); doc.text(a[0],x+5,yy+7);
+      doc.setFont(undefined,"normal"); doc.setTextColor(100,116,139); doc.text("Target "+a[1]+"%",x+52,yy+7);
+      doc.setFont(undefined,"bold"); doc.setTextColor(15,23,42); doc.text(money(a[2]),W-55,yy+7,{align:"right"});
+      doc.setTextColor(51,65,85); doc.text(pct(a[2]),W-margin-5,yy+7,{align:"right"});
+    });
+    y += 72;
+    roundedBox(margin,y,W-margin*2,22,[236,253,245]);
+    doc.setFontSize(8.5); doc.setFont(undefined,"normal"); doc.setTextColor(22,101,52); doc.text("Savings Available",margin+6,y+8);
+    doc.setFontSize(15); doc.setFont(undefined,"bold"); doc.setTextColor(20,83,45); doc.text(money(d.savings),margin+6,y+17);
+    doc.setFontSize(8); doc.setFont(undefined,"normal"); doc.setTextColor(71,85,105); doc.text("after listed expenses",W-margin-6,y+13,{align:"right"});
+
+    y += 31;
+    doc.setFontSize(7.5); doc.setTextColor(100,116,139);
+    const disclaimer = "Targets are illustrative budgeting guidelines and are not financial advice.";
+    doc.text(disclaimer, margin, Math.min(y, 282));
+    doc.text("Generated from your entries. Please review all figures before sharing.", margin, Math.min(y+5, 287));
     doc.save("personal-financial-summary.pdf");
   });
 
