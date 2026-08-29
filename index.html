@@ -98,7 +98,7 @@ button {
 .site-shell {
   max-width: 1152px;
   margin: 0 auto;
-  wideth: 100%;
+  width: 100%;
 }
 
 .brand-bar {
@@ -1036,33 +1036,21 @@ input, select, textarea, button { max-width: 100%; }
 </style>
 
 
-/* Final responsive polish: action buttons + bilingual toggle */
-.actions {
-  display:flex !important;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-.actions .reset-link { margin-right:auto; }
-.actions .primary-btn { flex:0 0 auto; white-space:nowrap; }
-.lang-toggle {
-  display:inline-flex; align-items:center; gap:2px; padding:3px;
-  border:1px solid #dce2db; border-radius:999px; background:#f8f8f3;
-  box-shadow:0 2px 8px rgba(24,59,43,.05);
-}
-.lang-toggle button {
-  border:0; background:transparent; color:#315344; font:600 12px/1 system-ui,sans-serif;
-  padding:7px 10px; border-radius:999px; cursor:pointer;
-}
-.lang-toggle button.active { background:#185c3b; color:#fff; }
-@media (max-width: 700px) {
-  .actions { flex-direction:column; align-items:stretch !important; }
-  .actions .reset-link { margin-right:0; width:100%; text-align:center; order:3; }
-  .actions .primary-btn { width:100%; }
-  .lang-toggle { transform:scale(.94); transform-origin:right center; }
-  header .max-w-7xl { gap:8px; }
-}
 
+<style id="language-toggle-fix">
+.lang-toggle-btn{
+  border:1px solid #dce2db;background:#f8f8f3;color:#185c3b;
+  border-radius:999px;padding:9px 14px;font:600 12px/1 system-ui,sans-serif;
+  cursor:pointer;white-space:nowrap;box-shadow:0 2px 8px rgba(24,59,43,.05);
+  transition:all .18s ease;
+}
+.lang-toggle-btn:hover{background:#e2eee7;}
+@media (max-width:767px){
+  header .max-w-7xl > a:first-child img{height:42px;max-width:145px;}
+  .lang-toggle-btn{padding:8px 11px;font-size:11px;}
+  header .max-w-7xl{gap:8px;}
+}
+</style>
 </head>
 <body>
 
@@ -1072,8 +1060,14 @@ input, select, textarea, button { max-width: 100%; }
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
     
     <!-- Logo -->
-    <a href="#" class="font-bold text-xl text-gray-900 tracking-tight">
-    
+    <a href="#" class="flex items-center shrink-0" aria-label="Aayden Ng - Home">
+      <img
+        src="https://raw.githubusercontent.com/aaydennck-fc/aaydenngck/fc3b41add5ff462f4d7c2cb9683785619b3e537c/Aayden%20logo.png"
+        alt="Aayden Ng logo"
+        class="h-12 w-auto max-w-[180px] object-contain"
+        loading="eager"
+        decoding="async"
+      >
     </a>
 
 
@@ -1109,10 +1103,7 @@ input, select, textarea, button { max-width: 100%; }
   </a>
 </nav>
 
-  <div class="lang-toggle" aria-label="Language selector">
-    <button type="button" id="langEn" class="active">EN</button>
-    <button type="button" id="langZh">中文</button>
-  </div>
+  <button type="button" id="langToggle" class="lang-toggle-btn" aria-label="Switch language">中文</button>
   </div>
 </header>
 
@@ -1158,9 +1149,12 @@ input, select, textarea, button { max-width: 100%; }
             <div class="text-emerald-600">Smart Financial Planning</div>
         </h2>
 
-        <p class="text-slate-600 mb-3"> A husband, father, and son who swapped the corporate grind for financial consulting to be more present for the people who matter most. </p>
-        <p class="text-slate-600 mb-3"> Helping families and the "sandwich generation" navigate the unique pressure of taking care of both their kids and their aging parents.</p>
-        <p class="text-slate-600 mb-3"> Zero jargon, no pressure. I treat your finances with the same care and honesty I use for my own family’s future.</p>
+        <div class="space-y-4 text-slate-600 leading-relaxed">
+          <p>I chose to leave the corporate grind for a career that lets me be more present for my family while helping other families prepare for the people and moments that matter most.</p>
+          <p>I work with young families and the “sandwich generation” navigating the responsibilities of raising children, caring for aging parents, and planning for their own future.</p>
+          <p>No jargon. No pressure. Just honest conversations and practical financial planning the same way I’d approach it for my own family.</p>
+          <p class="font-semibold text-emerald-600">“Because financial planning isn’t really about money. It’s about the people behind it.”</p>
+        </div>
         
 
         <!-- Focus Areas & Beliefs Box -->
@@ -2432,6 +2426,10 @@ calculateCoverage();
     "About":"关于我", "Services":"服务", "Journey":"咨询流程", "Interactive Tools":"互动工具",
     "Coverage Estimator":"保障估算器", "Personal Expenses":"个人开支计算器", "Testimonials":"客户评价", "Let's Chat":"联系我",
     "Friendly, Reliable, Approachable.":"亲切、可靠、值得信赖。",
+    "I chose to leave the corporate grind for a career that lets me be more present for my family while helping other families prepare for the people and moments that matter most.":"我选择离开企业职场，投入一份让我能更陪伴家人的事业，同时帮助其他家庭为最重要的人与人生时刻做好准备。",
+    "I work with young families and the “sandwich generation” navigating the responsibilities of raising children, caring for aging parents, and planning for their own future.":"我专注于协助年轻家庭以及“夹心世代”，在养育孩子、照顾年迈父母与规划自己未来之间找到更稳妥的财务方向。",
+    "No jargon. No pressure. Just honest conversations and practical financial planning the same way I’d approach it for my own family.":"没有复杂术语，也没有压力。只有坦诚的交流，以及就像为自己的家庭规划一样，务实而贴近生活的财务规划。",
+    "“Because financial planning isn’t really about money. It’s about the people behind it.”":"“因为财务规划真正重要的从来不只是钱，而是钱背后最重要的人。”",
     "A husband, father, and son who swapped the corporate grind for financial consulting to be more present for the people who matter most.":"一位丈夫、父亲和儿子，从企业职场转向财务顾问，希望把更多时间留给生命中最重要的人。",
     "Helping families and the \"sandwich generation\" navigate the unique pressure of taking care of both their kids and their aging parents.":"帮助家庭以及同时照顾孩子和年长父母的“夹心世代”，面对独特的财务压力。",
     "Zero jargon, no pressure. I treat your finances with the same care and honesty I use for my own family’s future.":"不说复杂术语，也没有压力。我以对待自己家庭未来的同样认真与诚信，协助你规划财务。",
@@ -2473,12 +2471,14 @@ calculateCoverage();
       if(html==='Know your numbers.<br>Plan your savings.') el.innerHTML=zh?'了解你的数字。<br>规划你的储蓄。':'Know your numbers.<br>Plan your savings.';
     });
     document.documentElement.lang=zh?'zh-CN':'en';
-    document.getElementById('langEn').classList.toggle('active',!zh);
-    document.getElementById('langZh').classList.toggle('active',zh);
+    const toggle=document.getElementById('langToggle');
+    if(toggle){ toggle.textContent=zh?'English':'中文'; toggle.setAttribute('aria-label', zh?'Switch to English':'切换到中文'); }
     try{localStorage.setItem('aaydenLang',lang)}catch(e){}
   }
-  document.getElementById('langEn').addEventListener('click',()=>apply('en'));
-  document.getElementById('langZh').addEventListener('click',()=>apply('zh'));
+  document.getElementById('langToggle').addEventListener('click',()=>{
+    const current=document.documentElement.lang==='zh-CN'?'zh':'en';
+    apply(current==='zh'?'en':'zh');
+  });
   const saved=(()=>{try{return localStorage.getItem('aaydenLang')}catch(e){return null}})();
   if(saved==='zh') apply('zh');
 })();
