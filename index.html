@@ -219,9 +219,16 @@ button {
 /* ---------- Calculator ---------- */
 
 .calculator {
-  max-width: 1152px;
+  max-width: none;
   margin: 0 auto;
   width: 100%;
+}
+
+/* The Personal Expenses calculator is intentionally full-width. */
+#expenses > .calculator,
+#expenses > .disclaimer {
+  width: 100%;
+  max-width: none;
 }
 
 .section-card {
@@ -669,7 +676,7 @@ table.breakdown td.num {
 /* ---------- Compliance / footer ---------- */
 
 .disclaimer {
-  max-width: 820px;
+  max-width: none;
   margin: 22px auto 0;
   padding: 18px 20px;
   border: 1px solid var(--line);
@@ -783,6 +790,197 @@ table.breakdown td.num {
 
   .reset-link {
     align-self: center;
+  }
+}
+
+/* ---------- Mobile-first hardening ---------- */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img, svg, video, canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+input, select, textarea, button {
+  max-width: 100%;
+}
+
+@media (max-width: 700px) {
+  body {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 48px;
+  }
+
+  .site-shell,
+  .calculator,
+  #expenses > .calculator,
+  #expenses > .disclaimer {
+    width: 100%;
+    max-width: none;
+  }
+
+  .hero {
+    width: 100%;
+    margin-top: 4px;
+    padding: 32px 20px;
+    border-radius: 20px;
+  }
+
+  .hero h1 {
+    font-size: clamp(30px, 9vw, 42px);
+    overflow-wrap: anywhere;
+  }
+
+  .hero p,
+  .section-sub {
+    font-size: 14px;
+  }
+
+  .section-card {
+    width: 100%;
+    padding: 18px 14px;
+    overflow: hidden;
+  }
+
+  .field-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .field,
+  .field input,
+  .field select,
+  .field textarea,
+  .readout {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .expense-list {
+    width: 100%;
+  }
+
+  .expense-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(92px, 30%);
+    gap: 8px;
+    padding: 8px 0;
+    min-height: 0;
+  }
+
+  .exp-label {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .exp-amount-wrap {
+    width: 100%;
+    min-width: 0;
+    flex-basis: auto;
+  }
+
+  .exp-amount {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .row-remove {
+    grid-column: 1 / -1;
+    justify-self: start;
+    margin-top: 2px;
+  }
+
+  .expenses-total {
+    width: 100%;
+  }
+
+  .headline-figures {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .figure {
+    min-width: 0;
+  }
+
+  .table-wrap {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table.breakdown {
+    min-width: 560px;
+  }
+
+  .actions {
+    width: 100%;
+  }
+
+  .primary-btn {
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .disclaimer {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 16px;
+  }
+
+  /* Keep the site footer readable without horizontal scrolling. */
+  footer {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  footer .max-w-5xl {
+    width: 100%;
+    max-width: none;
+  }
+
+  footer a {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 420px) {
+  .section-heading {
+    gap: 9px;
+  }
+
+  .step-no {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+  }
+
+  .section-heading h2 {
+    font-size: 18px;
+  }
+
+  .expense-row {
+    grid-template-columns: minmax(0, 1fr) minmax(82px, 34%);
+  }
+
+  .hero-note {
+    max-width: 100%;
+    border-radius: 14px;
   }
 }
 
@@ -1124,10 +1322,10 @@ table.breakdown td.num {
             Indicative estimate only. Let's map it out precisely together.
           </p>
             
-          <a href="https://wa.me/+6591849632?text=Hi Aayden, let's chat!" class="w-full inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-semibold py-3.5 px-6 rounded-xl transition-all shadow-lg hover:shadow-emerald-500/20 text-sm">
+          <button type="button" id="coverageWhatsAppBtn" class="w-full inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-semibold py-3.5 px-6 rounded-xl transition-all shadow-lg hover:shadow-emerald-500/20 text-sm">
             WhatsApp for Full Analysis
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-          </a>
+          </button>
         </div>
 
       </div>
@@ -1303,7 +1501,6 @@ table.breakdown td.num {
               <th class="num">Recommended</th>
               <th class="num">Your Amount</th>
               <th class="num">Your %</th>
-              <th class="num">Status</th>
             </tr>
           </thead>
           <tbody id="breakdownBody"></tbody>
@@ -1318,9 +1515,6 @@ table.breakdown td.num {
         <button class="primary-btn" id="downloadPdfBtn" type="button">
           Download Summary PDF ↓
         </button>
-        <a class="reset-link" href="https://wa.me/+6591849632?text=Hi Aayden, let's chat!" target="_blank" rel="noopener">
-          WhatsApp for a Financial Review →
-        </a>
       </div>
     </section>
 
@@ -1613,24 +1807,10 @@ table.breakdown td.num {
     const actualPct = netIncome > 0 ? (actual / netIncome) * 100 : 0;
     tdPct.textContent = actualPct.toFixed(1) + "%";
 
-    const tdStatus = document.createElement("td");
-    tdStatus.className = "num";
-
-    const diff = higherIsBetter
-      ? actual - recommended
-      : recommended - actual;
-
-    const isGood = diff >= 0;
-
-    tdStatus.appendChild(
-      buildStatusPill(isGood, diff)
-    );
-
     tr.appendChild(tdName);
     tr.appendChild(tdRec);
     tr.appendChild(tdActual);
     tr.appendChild(tdPct);
-    tr.appendChild(tdStatus);
 
     els.breakdownBody.appendChild(tr);
   }
@@ -2139,6 +2319,35 @@ function calculateCoverage() {
   input.addEventListener('change', calculateCoverage);
 });
      
+// WhatsApp coverage summary
+const coverageWhatsAppBtn = document.getElementById('coverageWhatsAppBtn');
+if (coverageWhatsAppBtn) {
+  coverageWhatsAppBtn.addEventListener('click', function () {
+    const income = parseFloat(incomeInput.value) || 0;
+    const age = parseFloat(ageInput.value) || 0;
+    const liabilities = parseFloat(liabilitiesInput.value) || 0;
+    const multiplier = parseFloat(lifestyleInput.value) || 1;
+    const incomeReplacement = income * 9;
+    const baseTotal = incomeReplacement + liabilities;
+    const finalTotal = baseTotal * multiplier;
+
+    let msg = 'COVERAGE ESTIMATOR SUMMARY\n\n';
+    msg += 'Annual Income: S$' + income.toLocaleString('en-SG') + '\n';
+    msg += 'Age: ' + age + '\n';
+    msg += 'Lifestyle Preference: ' + lifestyleInput.options[lifestyleInput.selectedIndex].text + ' (' + multiplier + 'x)\n';
+    msg += 'Outstanding Liabilities: S$' + liabilities.toLocaleString('en-SG') + '\n\n';
+    msg += 'COVERAGE ESTIMATE\n';
+    msg += 'Income Replacement: S$' + Math.round(incomeReplacement).toLocaleString('en-SG') + '\n';
+    msg += 'Liability Coverage: S$' + Math.round(liabilities).toLocaleString('en-SG') + '\n';
+    msg += 'Lifestyle Multiplier: ' + multiplier + 'x\n';
+    msg += 'Recommended Sum Assured: S$' + Math.round(finalTotal).toLocaleString('en-SG') + '\n\n';
+    msg += 'Sent from the Coverage Estimator.';
+
+    const url = 'https://wa.me/6591849632?text=' + encodeURIComponent(msg);
+    window.open(url, '_blank', 'noopener');
+  });
+}
+
 // Run calculation once on page load
 calculateCoverage();
 </script>
