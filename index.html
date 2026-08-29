@@ -1035,6 +1035,34 @@ input, select, textarea, button { max-width: 100%; }
 }
 </style>
 
+
+/* Final responsive polish: action buttons + bilingual toggle */
+.actions {
+  display:flex !important;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.actions .reset-link { margin-right:auto; }
+.actions .primary-btn { flex:0 0 auto; white-space:nowrap; }
+.lang-toggle {
+  display:inline-flex; align-items:center; gap:2px; padding:3px;
+  border:1px solid #dce2db; border-radius:999px; background:#f8f8f3;
+  box-shadow:0 2px 8px rgba(24,59,43,.05);
+}
+.lang-toggle button {
+  border:0; background:transparent; color:#315344; font:600 12px/1 system-ui,sans-serif;
+  padding:7px 10px; border-radius:999px; cursor:pointer;
+}
+.lang-toggle button.active { background:#185c3b; color:#fff; }
+@media (max-width: 700px) {
+  .actions { flex-direction:column; align-items:stretch !important; }
+  .actions .reset-link { margin-right:0; width:100%; text-align:center; order:3; }
+  .actions .primary-btn { width:100%; }
+  .lang-toggle { transform:scale(.94); transform-origin:right center; }
+  header .max-w-7xl { gap:8px; }
+}
+
 </head>
 <body>
 
@@ -1081,6 +1109,10 @@ input, select, textarea, button { max-width: 100%; }
   </a>
 </nav>
 
+  <div class="lang-toggle" aria-label="Language selector">
+    <button type="button" id="langEn" class="active">EN</button>
+    <button type="button" id="langZh">中文</button>
+  </div>
   </div>
 </header>
 
@@ -1118,18 +1150,19 @@ input, select, textarea, button { max-width: 100%; }
         <h1 class="hero-name text-4xl md:text-5xl font-extrabold text-slate-950 tracking-tight mb-2">
           <span class="line">Aayden Ng</span>
         </h1>
-          <p class="text-emerald-600 font-bold text-xs uppercase tracking-wider mb-4">Husband. Dad. Son. Financial Consultant.</p>
+          <p class="text-emerald-600 font-bold text-xs uppercase tracking-wider mb-4">Friendly, Reliable, Approachable.</p>
         
         <!-- Value Proposition Title (Placed smoothly under your introduction context) -->
         <h2 class="text-xl md:text-2xl font-bold text-slate-900 tracking-tight leading-snug mb-4 border-t border-slate-100 pt-4">
           Securing Your Future Through 
-            <div class="text-emerald-600">Personalized Financial Planning</div>
+            <div class="text-emerald-600">Smart Financial Planning</div>
         </h2>
 
-          <p class="text-slate-600 mb-3">I chose to leave the corporate grind for a career that lets me be more present for my family while helping other families prepare for the people and moments that matter most.</p>
-          <p class="text-slate-600 mb-3">I work with young families and the “sandwich generation” navigating the responsibilities of raising children, caring for aging parents, and planning for their own future.</p>
-          <p class="text-slate-600 mb-3">No jargon. No pressure. Just honest conversations and practical financial planning the same way I’d approach it for my own family.</p>
-          <p class="text-emerald-600 mb-3 font-semibold italic">"Because financial planning isn’t really about money. It’s about the people behind it."</p>
+        <p class="text-slate-600 mb-3"> A husband, father, and son who swapped the corporate grind for financial consulting to be more present for the people who matter most. </p>
+        <p class="text-slate-600 mb-3"> Helping families and the "sandwich generation" navigate the unique pressure of taking care of both their kids and their aging parents.</p>
+        <p class="text-slate-600 mb-3"> Zero jargon, no pressure. I treat your finances with the same care and honesty I use for my own family’s future.</p>
+        
+
         <!-- Focus Areas & Beliefs Box -->
 
         <!-- Action Call-to-Action Buttons (Positioned directly below your Focus/Beliefs metrics) -->
@@ -2393,5 +2426,62 @@ if (coverageWhatsAppBtn) {
 calculateCoverage();
 </script>
 
+<script>
+(function(){
+  const translations = {
+    "About":"关于我", "Services":"服务", "Journey":"咨询流程", "Interactive Tools":"互动工具",
+    "Coverage Estimator":"保障估算器", "Personal Expenses":"个人开支计算器", "Testimonials":"客户评价", "Let's Chat":"联系我",
+    "Friendly, Reliable, Approachable.":"亲切、可靠、值得信赖。",
+    "A husband, father, and son who swapped the corporate grind for financial consulting to be more present for the people who matter most.":"一位丈夫、父亲和儿子，从企业职场转向财务顾问，希望把更多时间留给生命中最重要的人。",
+    "Helping families and the \"sandwich generation\" navigate the unique pressure of taking care of both their kids and their aging parents.":"帮助家庭以及同时照顾孩子和年长父母的“夹心世代”，面对独特的财务压力。",
+    "Zero jargon, no pressure. I treat your finances with the same care and honesty I use for my own family’s future.":"不说复杂术语，也没有压力。我以对待自己家庭未来的同样认真与诚信，协助你规划财务。",
+    "Strategic Financial Services":"策略性财务服务", "Every plan is built from scratch around your specific life stage, risk appetite, and goals.":"每一份规划都会根据你的人生阶段、风险承受能力和目标量身打造。",
+    "Master Your Wealth. Own Your Choices.":"掌握财富，掌握选择。", "It’s not just about having more money; it’s about giving yourself the freedom to choose.":"不只是拥有更多财富，更是让自己拥有选择的自由。",
+    "Protect What Matters. Preserve Your Peace.":"守护重要的人，守住内心的安心。", "It’s not just about guarding against bad days; it’s about giving yourself the confidence to live fully today.":"不只是防范意外，更是让你今天也能安心生活、充实当下。",
+    "Build Your Legacy. Secure Their Tomorrow.":"建立你的传承，守护他们的未来。", "It’s not just about what you accumulate today; it’s about creating lasting financial security for the generations that follow.":"不只是今天累积多少，更是为下一代建立长久的财务保障。",
+    "Our Engagement Journey":"我们的咨询流程", "Casual Conversation":"轻松交流", "A relaxed, pressure-free chat through a call or zoom to get to know you, understand what you want out of life, and figure out your big future goals.":"通过电话或 Zoom 进行轻松、无压力的交流，了解你、你的生活期望以及未来的重要目标。",
+    "Portfolio Review":"财务组合检视", "Analyze your current investments and backup savings to see if they would survive a worst-case scenario (like a market crash or job loss), and find ways to make your money work harder.":"检视现有投资和备用储蓄，了解在市场大跌或失业等最坏情况下的承受能力，并寻找让资金更有效运作的方法。",
+    "The Tailored Blueprint":"量身定制的蓝图", "Honest, Customized financial plan built specifically for your current life situation at your comfortable budget":"根据你目前的生活情况和舒适预算，制定诚实、客制化的财务规划。",
+    "Long Term Friendship":"长期陪伴", "Handling all the applications for you so it’s done right. After that, I’m sticking around to catch up regularly as to make sure your money plan keeps up with whatever life throws your way next.":"协助你处理申请，确保每一步都正确。之后持续定期跟进，让你的财务规划能够随着人生变化而调整。",
+    "Understand your Coverage.":"了解你的保障。", " Cover the Gaps ":"填补保障缺口", "A simple way to understand your current coverage and cover the gaps":"简单了解目前的保障，并找出需要补足的缺口。", "Built for everyday Singapore finances":"为新加坡日常财务而设",
+    "Annual Income (SGD)":"年收入（新币）", "Age":"年龄", "Lifestyle Preference":"生活方式偏好", "Comfortable":"舒适型", "Essential":"基本型", "Premium":"优越型", "Outstanding Liabilities (SGD)":"未偿还负债（新币）", "Reset all fields":"重置所有资料",
+    "Your Coverage Estimate":"你的保障估算", "Income Replacement":"收入替代", "Liability Coverage":"负债保障", "Lifestyle Multiplier":"生活方式倍数", "Recommended Sum Assured":"建议保额", "Indicative estimate only. Let's map it out precisely together.":"仅供参考估算。让我们一起更精准地规划。", "WhatsApp for Full Analysis":"WhatsApp 获取完整分析",
+    "Know your numbers.":"了解你的数字。", "Plan your savings.":"规划你的储蓄。", "Your Profile":"你的资料", "Your residency status determines the simplified CPF contribution rate used for this illustration.":"你的居住身份将决定本示例采用的简化 CPF 公积金缴交率。",
+    "Residency Status":"居住身份", "Singaporean":"新加坡公民", "Permanent Resident (PR)":"永久居民（PR）", "Foreigner":"外国人", "PR Year":"PR 年份", "1st Year (5%)":"第 1 年（5%）", "2nd Year (15%)":"第 2 年（15%）", "3rd Year & Beyond (20%)":"第 3 年及以后（20%）",
+    "Gross Monthly Income (S$)":"每月税前收入（新币）", "CPF Deduction Rate (%)":"CPF 扣缴率（%）", "Auto-filled from your profile — you can override it. 2026 OW ceiling: S$8,000/month.":"根据你的资料自动填写——你可以自行修改。2026 年普通工资（OW）上限：每月 S$8,000。", "CPF Deducted (S$/mo)":"CPF 扣除额（新币/月）", "Net Income / Take-Home (S$/mo)":"净收入／到手收入（新币/月）", "CPF is applied to up to S$8,000 of monthly Ordinary Wages for 2026.":"2026 年 CPF 仅按每月最高 S$8,000 的普通工资计算。", "Income above the OW ceiling is not included in this monthly CPF calculation.":"超过普通工资上限的收入不计入本月 CPF 计算。",
+    "Monthly Expenses":"每月开支", "Basic categories are pre-filled. Edit any label or amount, or add your own.":"基本类别已预先填写。你可以修改名称、金额或新增项目。", "+ Add Another Expense":"+ 新增开支", "Total Expenses":"总开支",
+    "Investment & Insurance":"投资与保险", "(optional)":"（可选）", "What you currently set aside each month — used to compare against the illustrative targets below.":"你目前每月预留的金额——用于与下方示例目标进行比较。", "Current Investment (S$/mo)":"目前投资（新币/月）", "Current Insurance Premiums (S$/mo)":"目前保险保费（新币/月）",
+    "Your Results":"你的结果", "Savings Available = Net Income − Expenses − Investment − Insurance.":"可储蓄金额 = 净收入 − 开支 − 投资 − 保险。", "Net Income":"净收入", "Including investment & insurance":"包括投资与保险", "Savings Available":"可储蓄金额", "Category":"类别", "Recommended":"建议", "Your Amount":"你的金额", "Your %":"你的占比",
+    "WhatsApp My Results →":"WhatsApp 我的结果 →", "Download Summary PDF ↓":"下载摘要 PDF ↓",
+    "From Strangers to Friends":"从陌生人到朋友", "Every friendship starts with a first greeting.":"每一段友谊，都从一句问候开始。", "Client Stories":"客户故事", "Real impact, told by the people who matter most.":"由最重要的人，分享真实的改变。", "Beliefs":"理念", "All rights reserved.":"版权所有。"
+  };
+  const original = new WeakMap();
+  const nodes = Array.from(document.querySelectorAll('body *')).filter(el=>el.children.length===0 && el.textContent.trim());
+  nodes.forEach(el=>original.set(el, el.textContent));
+  function apply(lang){
+    const zh=lang==='zh';
+    nodes.forEach(el=>{
+      const text=original.get(el); if(!text) return;
+      const key=text.trim();
+      if(zh && translations[key]) el.textContent=translations[key];
+      else if(!zh) el.textContent=text;
+    });
+    // Handle text containing <br> or inline markup via stable exact HTML replacements.
+    document.querySelectorAll('h1').forEach(el=>{
+      const html=el.innerHTML;
+      if(html==='Understand your Coverage.<br> Cover the Gaps ') el.innerHTML=zh?'了解你的保障。<br>填补保障缺口':'Understand your Coverage.<br> Cover the Gaps ';
+      if(html==='Know your numbers.<br>Plan your savings.') el.innerHTML=zh?'了解你的数字。<br>规划你的储蓄。':'Know your numbers.<br>Plan your savings.';
+    });
+    document.documentElement.lang=zh?'zh-CN':'en';
+    document.getElementById('langEn').classList.toggle('active',!zh);
+    document.getElementById('langZh').classList.toggle('active',zh);
+    try{localStorage.setItem('aaydenLang',lang)}catch(e){}
+  }
+  document.getElementById('langEn').addEventListener('click',()=>apply('en'));
+  document.getElementById('langZh').addEventListener('click',()=>apply('zh'));
+  const saved=(()=>{try{return localStorage.getItem('aaydenLang')}catch(e){return null}})();
+  if(saved==='zh') apply('zh');
+})();
+</script>
 </body>
 </html>
