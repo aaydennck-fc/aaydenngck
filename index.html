@@ -993,6 +993,48 @@ input, select, textarea, button {
   }
 }
 </style>
+
+<style id="responsive-layout-fixes">
+/* Full-width, responsive layout safeguards */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+body { padding-left: clamp(12px, 2vw, 24px); padding-right: clamp(12px, 2vw, 24px); }
+.site-shell { width: 100%; max-width: none; }
+
+/* Engagement Journey should span the available viewport width */
+#process { width: 100%; max-width: none !important; margin-left: 0 !important; margin-right: 0 !important; }
+#process > .text-center { width: 100%; max-width: 100%; }
+#process .grid { width: 100%; }
+#process .grid > div { min-width: 0; }
+
+/* Keep every major section/card inside the viewport */
+section, main, header, footer, .container, .max-w-5xl, .max-w-6xl, .max-w-7xl { max-width: 100%; }
+img, svg, video, iframe, canvas { max-width: 100%; height: auto; }
+input, select, textarea, button { max-width: 100%; }
+
+/* Long text and tables must not create page-wide overflow */
+*, p, h1, h2, h3, h4, h5, h6, a, td, th { overflow-wrap: anywhere; }
+
+/* Mobile: stack grids/cards and make controls comfortable to tap */
+@media (max-width: 767px) {
+  body { padding-bottom: 40px; }
+  #process { padding-left: 0.75rem; padding-right: 0.75rem; }
+  #process .grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
+  #process .grid > div { width: 100%; }
+  #process .text-center { margin-bottom: 2rem; }
+  #process h2 { font-size: clamp(1.6rem, 7vw, 2rem); line-height: 1.15; }
+  #process p { white-space: normal !important; }
+  .grid { min-width: 0; }
+  .flex { min-width: 0; }
+}
+
+@media (max-width: 420px) {
+  body { padding-left: 10px; padding-right: 10px; }
+  #process { padding-left: 0.5rem; padding-right: 0.5rem; }
+  #process .grid > div { padding: 1rem; }
+}
+</style>
+
 </head>
 <body>
 
@@ -1149,7 +1191,7 @@ input, select, textarea, button {
 
     <!-- Process Workflow -->
 <!-- Engagement Process Section -->
-  <section id="process" class="py-20 px-6 max-w-5xl mx-auto border-t border-slate-200 bg-slate-100">
+  <section id="process" class="py-20 px-6 border-t border-slate-200 bg-slate-100">
     <div class="text-center max-w-2xl mx-auto mb-16">
       <h2 class="text-3xl font-bold text-slate-900 tracking-tight mb-4">Our Engagement Journey</h2>
       <!-- Change this line -->
