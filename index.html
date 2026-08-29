@@ -632,8 +632,17 @@ table.breakdown td.num {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  margin-top: 20px;
+  gap: 16px;
+  margin-top: 28px;
+  width: 100%;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
 }
 
 .primary-btn {
@@ -781,7 +790,13 @@ table.breakdown td.num {
 
   .actions {
     align-items: stretch;
-    flex-direction: column-reverse;
+    flex-direction: column;
+  }
+
+  .action-buttons {
+    width: 100%;
+    margin-left: 0;
+    flex-direction: column;
   }
 
   .primary-btn {
@@ -790,6 +805,7 @@ table.breakdown td.num {
 
   .reset-link {
     align-self: center;
+    order: 2;
   }
 }
 
@@ -1075,7 +1091,7 @@ input, select, textarea, button { max-width: 100%; }
 <nav class="hidden md:flex items-center gap-8">
   <a href="#about" class="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors">About</a>
   <a href="#services" class="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors">Services</a>
-  <a href="#process" class="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors">Journey</a>  
+  <a href="#process" class="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors">Process</a>  
 
   <!-- Dropdown Link for Coverage Estimator -->
   <div class="relative group py-2">
@@ -1160,7 +1176,7 @@ input, select, textarea, button { max-width: 100%; }
         <!-- Focus Areas & Beliefs Box -->
 
         <!-- Action Call-to-Action Buttons (Positioned directly below your Focus/Beliefs metrics) -->
-        <div class="flex flex-col sm:flex-row gap-3">
+        <div class="flex flex-col sm:flex-row gap-3 mt-8">
           <a href="https://wa.me/+6591849632?text=Hi Aayden, let's chat!" class="w-full sm:w-auto bg-emerald-600 text-white px-5 py-3.5 rounded-xl font-medium hover:bg-slate-800 transition-all shadow-md text-center text-sm">
             Let's Chat
           </a>
@@ -1410,7 +1426,7 @@ input, select, textarea, button { max-width: 100%; }
   <section class="hero">
     <p class="hero-eyebrow">Personal Expenses Calculator</p>
     <h1>Know your numbers.<br>Plan your savings.</h1>
-    <p>
+    <p data-i18n="monthly-cashflow-description">
       A simple way to understand your monthly cash flow, expenses,
       savings and current allocation — without the financial jargon.
     </p>
@@ -1577,12 +1593,14 @@ input, select, textarea, button { max-width: 100%; }
 
       <div class="actions">
         <button class="reset-link" id="resetBtn" type="button">Reset all fields</button>
-        <button class="primary-btn" id="sendResultsBtn" type="button">
-          WhatsApp My Results →
-        </button>
-        <button class="primary-btn" id="downloadPdfBtn" type="button">
-          Download Summary PDF ↓
-        </button>
+        <div class="action-buttons">
+          <button class="primary-btn" id="sendResultsBtn" type="button">
+            WhatsApp My Results →
+          </button>
+          <button class="primary-btn" id="downloadPdfBtn" type="button">
+            Download Summary PDF ↓
+          </button>
+        </div>
       </div>
     </section>
 
@@ -2201,7 +2219,7 @@ input, select, textarea, button { max-width: 100%; }
 </script>
 
   <!-- Testimonials Section -->
-  <section id="testimonials" class="py-20 px-6 bg-slate-900 text-white rounded-[2.5rem]">
+  <section id="testimonials" class="w-full py-20 px-6 bg-slate-900 text-white rounded-[2.5rem]">
     <div class="max-w-5xl mx-auto text-center">
       <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">From Strangers to Friends</h2>
       <p class="text-slate-400 max-w-lg mx-auto mb-6">Every friendship starts with a first greeting.</p>
@@ -2422,8 +2440,24 @@ calculateCoverage();
 
 <script>
 (function(){
+  "use strict";
   const translations = {
-    "About":"关于我", "Services":"服务", "Journey":"咨询流程", "Interactive Tools":"互动工具",
+    "From Strangers to Friends":"从陌生人到朋友",
+    "Every friendship starts with a first greeting.":"每一段友谊，都从一句问候开始。",
+    "Real impact, told by the people who matter most.":"由最重要的人，分享真实的改变。",
+    "A simple way to understand your monthly cash flow, expenses, savings and current allocation — without the financial jargon.":"简单了解你的每月现金流、开支、储蓄和目前的资金分配——不需要复杂的财务术语。",
+    "CPF is applied to up to S$8,000 of monthly Ordinary Wages for 2026. Income above the OW ceiling is not included in this monthly CPF calculation.":"2026 年，CPF 仅适用于每月最高 S$8,000 的普通工资（Ordinary Wages）。超过普通工资上限的收入，不计入本月 CPF 计算。",
+    "Expenses":"开支",
+    "Investment":"投资",
+    "Savings":"储蓄",
+    "Insurance":"保险",
+    "Category":"类别",
+    "Recommended":"建议",
+    "Your Amount":"你的金额",
+    "Your %":"你的占比",
+    "Monthly Expenses":"每月开支",
+    "Personal Expenses Calculator":"个人开支计算器",
+    "About":"关于我", "Services":"服务", "Journey":"咨询 流程", "Process":"咨询 流程", "Interactive Tools":"互动工具",
     "Coverage Estimator":"保障估算器", "Personal Expenses":"个人开支计算器", "Testimonials":"客户评价", "Let's Chat":"联系我",
     "Friendly, Reliable, Approachable.":"亲切、可靠、值得信赖。",
     "I chose to leave the corporate grind for a career that lets me be more present for my family while helping other families prepare for the people and moments that matter most.":"我选择离开企业职场，投入一份让我能更陪伴家人的事业，同时帮助其他家庭为最重要的人与人生时刻做好准备。",
@@ -2451,37 +2485,199 @@ calculateCoverage();
     "Investment & Insurance":"投资与保险", "(optional)":"（可选）", "What you currently set aside each month — used to compare against the illustrative targets below.":"你目前每月预留的金额——用于与下方示例目标进行比较。", "Current Investment (S$/mo)":"目前投资（新币/月）", "Current Insurance Premiums (S$/mo)":"目前保险保费（新币/月）",
     "Your Results":"你的结果", "Savings Available = Net Income − Expenses − Investment − Insurance.":"可储蓄金额 = 净收入 − 开支 − 投资 − 保险。", "Net Income":"净收入", "Including investment & insurance":"包括投资与保险", "Savings Available":"可储蓄金额", "Category":"类别", "Recommended":"建议", "Your Amount":"你的金额", "Your %":"你的占比",
     "WhatsApp My Results →":"WhatsApp 我的结果 →", "Download Summary PDF ↓":"下载摘要 PDF ↓",
-    "From Strangers to Friends":"从陌生人到朋友", "Every friendship starts with a first greeting.":"每一段友谊，都从一句问候开始。", "Client Stories":"客户故事", "Real impact, told by the people who matter most.":"由最重要的人，分享真实的改变。", "Beliefs":"理念", "All rights reserved.":"版权所有。"
+    "Aayden Ng | Financial Consultant":"Aayden Ng｜财务顾问", "Available for Consultations":"提供咨询服务",
+    "Securing Your Future Through":"守护你的未来，从", "Smart Financial Planning":"智慧财务规划", "Explore Services":"探索服务",
+    "What to expect when we work together—structured, transparent, and completely focused on you.":"与你合作时，你可以期待什么——流程清晰、透明，并完全以你的需求为中心。",
+    "Cover the Gaps":"填补保障缺口", "Personal Expenses Calculator":"个人开支计算器",
+    "A simple way to understand your monthly cash flow, expenses, savings and current allocation — without the financial jargon.":"简单了解你的每月现金流、开支、储蓄与目前的资金分配——不需要复杂的财务术语。",
+    "Auto-filled from your profile — you can override it. 2026 OW ceiling: S$8,000/month.":"根据你的资料自动填写——你可以自行修改。2026 年普通工资上限：每月 S$8,000。",
+    "CPF is applied to up to S$8,000 of monthly Ordinary Wages for 2026. Income above the OW ceiling is not included in this monthly CPF calculation.":"2026 年 CPF 仅按每月最高 S$8,000 的普通工资计算。超过普通工资上限的收入不计入本月 CPF 计算。",
+    "What you currently set aside each month — used to compare against the illustrative targets below.":"你目前每月预留的金额——用于与下方示例目标进行比较。",
+    "Savings Available = Net Income − Expenses − Investment − Insurance.":"可储蓄金额 = 净收入 − 开支 − 投资 − 保险。",
+    "Illustrative tool only.":"仅供参考的示例工具。", "For exact figures, always refer to the official CPF Board contribution tables. The allocation targets shown are budgeting guidelines and are not financial advice.":"如需准确数据，请以 CPF 公积金局官方缴交率表为准。这里的资金分配目标仅为预算参考，并非财务建议。",
+    "Let's Build Your Financial Future Together":"让我们一起规划你的财务未来", "Have questions about your coverage or want a tailored review? Drop me a message and let's chat. No pressure, no jargon.":"对保障有疑问，或想进行量身检视？欢迎联系我聊聊。没有压力，也没有复杂术语。", "Chat on WhatsApp":"通过 WhatsApp 联系",
+    "All rights reserved.":"版权所有。", "Expense name":"开支名称", "Expense":"开支", "Remove":"删除", "of income":"占收入",
+    "Foreigners are generally not subject to CPF. Override if applicable.":"外国人一般不适用 CPF。如适用，请自行修改。",
+    "Housing / Rent":"住房／租金", "Food & Groceries":"餐饮与杂货", "Transport":"交通", "Utilities (Elec/Water/Gas)":"水电煤等公用事业",
+    "Phone & Internet":"电话与网络", "Entertainment & Leisure":"娱乐与休闲", "Personal Care":"个人护理", "Others / Miscellaneous":"其他／杂项",
+    "Expense name":"开支名称", "Expense":"开支", "Remove":"删除", "Unnamed Expense":"未命名开支", "% of income":"占收入",
+    "01":"01", "02":"02", "03":"03", "04":"04",
+    "From Strangers to Friends":"从陌生人到朋友", "Every friendship starts with a first greeting.":"每一段友谊，都从一句问候开始。", "Client Stories":"客户故事", "Real impact, told by the people who matter most.":"由最重要的人，分享真实的改变。",
+    "A simple way to understand your monthly cash flow, expenses, savings and current allocation — without the financial jargon.":"简单了解你的每月现金流、开支、储蓄与目前的资金分配——不需要复杂的财务术语。",
+    "CPF is applied to up to S$8,000 of monthly Ordinary Wages for 2026. Income above the OW ceiling is not included in this monthly CPF calculation.":"2026 年 CPF 仅按每月最高 S$8,000 的普通工资计算。超过普通工资上限的收入不计入本月 CPF 计算。",
+    "Expenses":"开支", "Investment":"投资", "Savings":"储蓄", "Insurance":"保险", "Beliefs":"理念", "All rights reserved.":"版权所有。"
   };
-  const original = new WeakMap();
-  const nodes = Array.from(document.querySelectorAll('body *')).filter(el=>el.children.length===0 && el.textContent.trim());
-  nodes.forEach(el=>original.set(el, el.textContent));
-  function apply(lang){
-    const zh=lang==='zh';
-    nodes.forEach(el=>{
-      const text=original.get(el); if(!text) return;
-      const key=text.trim();
-      if(zh && translations[key]) el.textContent=translations[key];
-      else if(!zh) el.textContent=text;
-    });
-    // Handle text containing <br> or inline markup via stable exact HTML replacements.
-    document.querySelectorAll('h1').forEach(el=>{
-      const html=el.innerHTML;
-      if(html==='Understand your Coverage.<br> Cover the Gaps ') el.innerHTML=zh?'了解你的保障。<br>填补保障缺口':'Understand your Coverage.<br> Cover the Gaps ';
-      if(html==='Know your numbers.<br>Plan your savings.') el.innerHTML=zh?'了解你的数字。<br>规划你的储蓄。':'Know your numbers.<br>Plan your savings.';
-    });
-    document.documentElement.lang=zh?'zh-CN':'en';
-    const toggle=document.getElementById('langToggle');
-    if(toggle){ toggle.textContent=zh?'English':'中文'; toggle.setAttribute('aria-label', zh?'Switch to English':'切换到中文'); }
-    try{localStorage.setItem('aaydenLang',lang)}catch(e){}
+
+
+  // Keep Client Stories / testimonial cards in English as requested.
+  const originalText = new WeakMap();
+  const textNodes = new Set();
+  let currentLang = 'en';
+  let observer = null;
+
+  function isExcluded(node) {
+    const parent = node.parentElement;
+    return !parent || parent.closest('script, style, noscript, #carousel-grid, #carousel-grid *');
   }
-  document.getElementById('langToggle').addEventListener('click',()=>{
-    const current=document.documentElement.lang==='zh-CN'?'zh':'en';
-    apply(current==='zh'?'en':'zh');
+
+  function collectTextNodes(root) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.nodeValue.trim() || isExcluded(node)) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    let node;
+    while ((node = walker.nextNode())) {
+      if (!originalText.has(node)) originalText.set(node, node.nodeValue);
+      textNodes.add(node);
+    }
+  }
+
+  function translateExplicitElements(lang) {
+    const el = document.querySelector('[data-i18n="monthly-cashflow-description"]');
+    if (!el) return;
+    const en = 'A simple way to understand your monthly cash flow, expenses, savings and current allocation — without the financial jargon.';
+    const zh = '简单了解你的每月现金流、开支、储蓄和目前的资金分配——不需要复杂的财务术语。';
+    el.textContent = lang === 'zh' ? zh : en;
+  }
+
+  function translateTextNode(node, lang) {
+    const originalValue = originalText.get(node);
+    if (originalValue == null || isExcluded(node)) return;
+    const trimmed = originalValue.trim();
+    let translated = lang === 'zh' ? translations[trimmed] : null;
+    if (lang === 'zh' && !translated) {
+      const pctMatch = trimmed.match(/^(\d+(?:\.\d+)?)% of income$/);
+      if (pctMatch) translated = pctMatch[1] + '% 占收入';
+    }
+    const leading = originalValue.match(/^\s*/)?.[0] || '';
+    const trailing = originalValue.match(/\s*$/)?.[0] || '';
+    if (translated) node.nodeValue = leading + translated + trailing;
+    else if (lang === 'en') node.nodeValue = originalValue;
+  }
+
+  function translateAttributes(lang) {
+    const attrs = ['placeholder','aria-label','title'];
+    document.querySelectorAll('body *:not(#carousel-grid):not(#carousel-grid *)').forEach(el => {
+      attrs.forEach(attr => {
+        if (!el.hasAttribute(attr)) return;
+        const storage = 'data-original-' + attr;
+        const original = el.getAttribute(storage) || el.getAttribute(attr);
+        if (!el.hasAttribute(storage)) el.setAttribute(storage, original);
+        const translated = lang === 'zh' ? translations[original] : null;
+        if (translated) el.setAttribute(attr, translated);
+        else if (lang === 'en') el.setAttribute(attr, original);
+      });
+    });
+  }
+
+  function translateDynamicCalculatorContent(lang) {
+    // Dynamically-created expense rows use input values rather than text nodes,
+    // so normal text-node translation cannot reach them. Only translate the
+    // known default labels; never overwrite a label typed by the visitor.
+    const defaultLabelTranslations = {
+      "Housing / Rent":"住房／租金",
+      "Food & Groceries":"餐饮与杂货",
+      "Transport":"交通",
+      "Utilities (Elec/Water/Gas)":"水电煤等公用事业",
+      "Phone & Internet":"电话与网络",
+      "Entertainment & Leisure":"娱乐与休闲",
+      "Personal Care":"个人护理",
+      "Others / Miscellaneous":"其他／杂项"
+    };
+    document.querySelectorAll('.exp-label').forEach(input => {
+      if (!input.hasAttribute('data-original-expense-label')) {
+        input.setAttribute('data-original-expense-label', input.value);
+      }
+      const original = input.getAttribute('data-original-expense-label') || '';
+      if (lang === 'zh' && defaultLabelTranslations[original]) {
+        input.value = defaultLabelTranslations[original];
+      } else if (lang === 'en' && defaultLabelTranslations[original]) {
+        input.value = original;
+      }
+    });
+
+    // Translate dynamic accessibility labels/placeholders after rows are added.
+    document.querySelectorAll('body *:not(#carousel-grid):not(#carousel-grid *)').forEach(el => {
+      ['placeholder','aria-label','title'].forEach(attr => {
+        if (!el.hasAttribute(attr)) return;
+        const storage = 'data-original-' + attr;
+        const original = el.getAttribute(storage) || el.getAttribute(attr);
+        if (!el.hasAttribute(storage)) el.setAttribute(storage, original);
+        const translated = lang === 'zh' ? translations[original] : null;
+        if (translated) el.setAttribute(attr, translated);
+        else if (lang === 'en') el.setAttribute(attr, original);
+      });
+    });
+  }
+
+  function apply(lang) {
+    currentLang = lang;
+    if (observer) observer.disconnect();
+    collectTextNodes(document.body);
+    textNodes.forEach(node => translateTextNode(node, lang));
+    translateAttributes(lang);
+    translateDynamicCalculatorContent(lang);
+
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    const toggle = document.getElementById('langToggle');
+    if (toggle) {
+      toggle.textContent = lang === 'zh' ? 'English' : '中文';
+      toggle.setAttribute('aria-label', lang === 'zh' ? 'Switch to English' : '切换到中文');
+      toggle.setAttribute('title', lang === 'zh' ? 'Switch to English' : '切换到中文');
+    }
+    try { localStorage.setItem('aaydenLang', lang); } catch (e) {}
+
+    if (observer) observer.observe(document.body, { childList: true, subtree: true });
+  }
+
+  observer = new MutationObserver(mutations => {
+    if (currentLang !== 'zh') return;
+    observer.disconnect();
+    mutations.forEach(mutation => {
+      mutation.addedNodes.forEach(node => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          if (!originalText.has(node)) originalText.set(node, node.nodeValue);
+          textNodes.add(node);
+          translateTextNode(node, 'zh');
+        } else if (node.nodeType === Node.ELEMENT_NODE && !node.closest('#carousel-grid')) {
+          collectTextNodes(node);
+          const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+          let child;
+          while ((child = walker.nextNode())) translateTextNode(child, 'zh');
+        }
+      });
+    });
+    translateDynamicCalculatorContent('zh');
+    observer.observe(document.body, { childList: true, subtree: true });
   });
-  const saved=(()=>{try{return localStorage.getItem('aaydenLang')}catch(e){return null}})();
-  if(saved==='zh') apply('zh');
+
+  const toggle = document.getElementById('langToggle');
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      apply(currentLang === 'zh' ? 'en' : 'zh');
+    });
+  }
+
+  const saved = (() => { try { return localStorage.getItem('aaydenLang'); } catch (e) { return null; } })();
+  apply(saved === 'zh' ? 'zh' : 'en');
 })();
 </script>
 </body>
 </html>
+
+<script>
+(function(){
+  function syncMonthlyCashflow(){
+    const el=document.querySelector('[data-i18n="monthly-cashflow-description"]');
+    if(!el) return;
+    const zh='简单了解你的每月现金流、开支、储蓄和目前的资金分配——不需要复杂的财务术语。';
+    const en='A simple way to understand your monthly cash flow, expenses, savings and current allocation — without the financial jargon.';
+    const lang=document.documentElement.lang || localStorage.getItem('language') || 'en';
+    el.textContent=lang.toLowerCase().startsWith('zh')?zh:en;
+  }
+  document.addEventListener('DOMContentLoaded',syncMonthlyCashflow);
+  document.addEventListener('languageChanged',syncMonthlyCashflow);
+})();
+</script>
