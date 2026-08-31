@@ -1066,6 +1066,123 @@ input, select, textarea, button { max-width: 100%; }
   .lang-toggle-btn{padding:8px 11px;font-size:11px;}
   header .max-w-7xl{gap:8px;}
 }
+
+/* Premium Personal Expenses Results */
+.pe-results-premium {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, #0f172a 0%, #111827 100%);
+  border: 1px solid rgba(52, 211, 153, 0.22);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.16);
+}
+.pe-results-premium::before {
+  content: "";
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  top: -160px;
+  right: -100px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.10);
+  pointer-events: none;
+}
+.pe-results-premium > * {
+  position: relative;
+  z-index: 1;
+}
+.pe-results-premium .section-heading h2 {
+  color: #ffffff;
+}
+.pe-results-premium .section-sub {
+  color: #dbe4ee;
+}
+.pe-results-premium .headline-figures {
+  margin-top: 22px;
+}
+.pe-results-premium .headline-figures .figure {
+  background: rgba(255,255,255,0.055);
+  border-color: rgba(255,255,255,0.08);
+}
+.pe-results-premium .headline-figures .flabel {
+  color: #b7c3d0;
+}
+.pe-results-premium .headline-figures .fval {
+  color: #ffffff;
+}
+.pe-results-premium .headline-figures .figure.savings {
+  border-color: rgba(52,211,153,0.28);
+}
+.pe-results-premium .table-wrap {
+  background: rgba(255,255,255,0.035);
+  border-color: rgba(255,255,255,0.08);
+}
+.pe-results-premium .breakdown th {
+  color: #e2e8f0;
+}
+.pe-results-premium .breakdown td {
+  color: #f1f5f9;
+  border-color: rgba(255,255,255,0.055);
+}
+.pe-results-premium .actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+@media (max-width: 640px) {
+  .pe-results-premium .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .pe-results-premium .actions > * {
+    width: 100%;
+  }
+}
+
+
+/* Verified Results table header contrast */
+section.pe-results-premium .breakdown thead th,
+section.pe-results-premium .breakdown th {
+  color: #0f172a !important;
+  opacity: 1 !important;
+  font-weight: 800 !important;
+}
+
+
+/* Verified Results table body contrast */
+section.pe-results-premium .breakdown tbody td,
+section.pe-results-premium .breakdown tbody td *,
+section.pe-results-premium .breakdown tbody td span,
+section.pe-results-premium .breakdown tbody td strong {
+  color: #0f172a !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+section.pe-results-premium .breakdown tbody tr {
+  color: #0f172a !important;
+}
+
+
+.contact-invite-line {
+  display: inline-block;
+  margin-top: 0.35rem;
+}
+@media (max-width: 640px) {
+  .contact-invite-line {
+    margin-top: 0.45rem;
+  }
+}
+
+
+/* Top-left logo */
+.logo-transparent {
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
 </style>
 </head>
 <body>
@@ -1080,10 +1197,7 @@ input, select, textarea, button { max-width: 100%; }
       <img
         src="https://raw.githubusercontent.com/aaydennck-fc/aaydenngck/fc3b41add5ff462f4d7c2cb9683785619b3e537c/Aayden%20logo.png"
         alt="Aayden Ng logo"
-        class="h-12 w-auto max-w-[180px] object-contain"
-        loading="eager"
-        decoding="async"
-      >
+        class="h-12 w-auto max-w-[180px] object-contain logo-transparent">
     </a>
 
 
@@ -1549,7 +1663,7 @@ input, select, textarea, button { max-width: 100%; }
     </section>
 
     <!-- STEP 4 -->
-    <section class="section-card">
+    <section class="section-card pe-results-premium">
       <div class="section-heading">
         <span class="step-no">04</span>
         <h2>Your Results</h2>
@@ -2256,7 +2370,7 @@ input, select, textarea, button { max-width: 100%; }
           Let's Build Your Financial Future Together
         </h2>
         <p class="text-slate-600 max-w-lg mx-auto mb-2">
-          Have questions about your coverage or want a tailored review? Drop me a message and let's chat. No pressure, no jargon.
+          Have questions about your coverage or want a tailored review?<br><span class="contact-invite-line">Click below to meet up for a casual cup of coffee or tea</span>
         </p>
     
     <!-- Action Button -->
@@ -2496,7 +2610,7 @@ calculateCoverage();
     "What you currently set aside each month — used to compare against the illustrative targets below.":"你目前每月预留的金额——用于与下方示例目标进行比较。",
     "Savings Available = Net Income − Expenses − Investment − Insurance.":"可储蓄金额 = 净收入 − 开支 − 投资 − 保险。",
     "Illustrative tool only.":"仅供参考的示例工具。", "For exact figures, always refer to the official CPF Board contribution tables. The allocation targets shown are budgeting guidelines and are not financial advice.":"如需准确数据，请以 CPF 公积金局官方缴交率表为准。这里的资金分配目标仅为预算参考，并非财务建议。",
-    "Let's Build Your Financial Future Together":"让我们一起规划你的财务未来", "Have questions about your coverage or want a tailored review? Drop me a message and let's chat. No pressure, no jargon.":"对保障有疑问，或想进行量身检视？欢迎联系我聊聊。没有压力，也没有复杂术语。", "Chat on WhatsApp":"通过 WhatsApp 联系",
+    "Let's Build Your Financial Future Together":"让我们一起规划你的财务未来", "Have questions about your coverage or want a tailored review? Click below to meet up for a casual cup of coffee or tea":"对保障有疑问，或想进行量身检视？欢迎联系我聊聊。没有压力，也没有复杂术语。", "Chat on WhatsApp":"通过 WhatsApp 联系",
     "All rights reserved.":"版权所有。", "Expense name":"开支名称", "Expense":"开支", "Remove":"删除", "of income":"占收入",
     "Foreigners are generally not subject to CPF. Override if applicable.":"外国人一般不适用 CPF。如适用，请自行修改。",
     "Housing / Rent":"住房／租金", "Food & Groceries":"餐饮与杂货", "Transport":"交通", "Utilities (Elec/Water/Gas)":"水电煤等公用事业",
@@ -2667,18 +2781,3 @@ calculateCoverage();
 </script>
 </body>
 </html>
-
-<script>
-(function(){
-  function syncMonthlyCashflow(){
-    const el=document.querySelector('[data-i18n="monthly-cashflow-description"]');
-    if(!el) return;
-    const zh='简单了解你的每月现金流、开支、储蓄和目前的资金分配——不需要复杂的财务术语。';
-    const en='A simple way to understand your monthly cash flow, expenses, savings and current allocation — without the financial jargon.';
-    const lang=document.documentElement.lang || localStorage.getItem('language') || 'en';
-    el.textContent=lang.toLowerCase().startsWith('zh')?zh:en;
-  }
-  document.addEventListener('DOMContentLoaded',syncMonthlyCashflow);
-  document.addEventListener('languageChanged',syncMonthlyCashflow);
-})();
-</script>
