@@ -2303,23 +2303,29 @@ section.pe-results-premium .breakdown tbody tr {
 
     y += 31;
 
-    // Visual charts page
-    doc.addPage();
-    y = 20;
+    // Visual charts page — landscape for a cleaner, client-friendly presentation.
+    doc.addPage('a4', 'landscape');
+    const CW = 297, CH = 210;
 
-    function drawPieChart(cx, cy, radius, data, title, subtitle) {
+    function drawPieChart(cx, cy, radius, data, title, subtitle, panelX, panelY, panelW, panelH) {
       const valid = data.filter(item => Number(item.value) > 0);
       const total = valid.reduce((sum, item) => sum + Number(item.value), 0);
 
-      doc.setFontSize(13);
+      // Panel
+      doc.setFillColor(248, 250, 252);
+      doc.roundedRect(panelX, panelY, panelW, panelH, 5, 5, "F");
+      doc.setDrawColor(226, 232, 240);
+      doc.roundedRect(panelX, panelY, panelW, panelH, 5, 5, "S");
+
+      doc.setFontSize(14);
       doc.setFont(undefined, "bold");
       doc.setTextColor(15, 23, 42);
-      doc.text(title, cx, cy - radius - 13, { align: "center" });
+      doc.text(title, panelX + 8, panelY + 12);
 
-      doc.setFontSize(8);
+      doc.setFontSize(8.5);
       doc.setFont(undefined, "normal");
       doc.setTextColor(100, 116, 139);
-      doc.text(subtitle, cx, cy - radius - 7, { align: "center" });
+      doc.text(subtitle, panelX + 8, panelY + 19);
 
       if (total <= 0) {
         doc.setFillColor(241, 245, 249);
@@ -2330,7 +2336,6 @@ section.pe-results-premium .breakdown tbody tr {
         return;
       }
 
-      // A restrained palette that matches the existing PDF theme.
       const fills = [
         [16, 185, 129], [59, 130, 246], [245, 158, 11],
         [139, 92, 246], [239, 68, 68], [14, 165, 233],
@@ -2338,16 +2343,19 @@ section.pe-results-premium .breakdown tbody tr {
       ];
 
       let startAngle = -Math.PI / 2;
+      const labelPoints = [];
+
       valid.forEach((item, index) => {
         const value = Number(item.value);
-        const slice = (value / total) * Math.PI * 2;
+        const share = value / total;
+        const slice = share * Math.PI * 2;
         const endAngle = startAngle + slice;
         const color = fills[index % fills.length];
 
-        // Draw the slice as a filled polygon made from short radial segments.
+        // Draw slice.
         doc.setFillColor(...color);
         const points = [[cx, cy]];
-        const steps = Math.max(3, Math.ceil(Math.abs(slice) / (Math.PI / 18)));
+        const steps = Math.max(4, Math.ceil(Math.abs(slice) / (Math.PI / 24)));
         for (let i = 0; i <= steps; i++) {
           const angle = startAngle + (slice * i / steps);
           points.push([cx + radius * Math.cos(angle), cy + radius * Math.sin(angle)]);
@@ -2361,37 +2369,88 @@ section.pe-results-premium .breakdown tbody tr {
           );
         }
 
+        // Keep a numbered marker for each slice. Larger slices get the marker inside;
+        // tiny slices get a leader line to an external marker.
+        const mid = startAngle + slice / 2;
+        const insideR = radius * 0.73;
+        const ix = cx + insideR * Math.cos(mid);
+        const iy = cy + insideR * Math.sin(mid);
+        labelPoints.push({ index: index + 1, mid, share, ix, iy, color });
+
         startAngle = endAngle;
       });
 
-      // White centre creates a clean donut-style presentation.
+      // Donut centre.
       doc.setFillColor(255, 255, 255);
-      doc.circle(cx, cy, radius * 0.48, "F");
+      doc.circle(cx, cy, radius * 0.43, "F");
+      doc.setDrawColor(226, 232, 240);
+      doc.circle(cx, cy, radius * 0.43, "S");
       doc.setFontSize(8);
       doc.setFont(undefined, "normal");
       doc.setTextColor(100, 116, 139);
       doc.text("Total", cx, cy - 2, { align: "center" });
-      doc.setFontSize(11);
+      doc.setFontSize(12);
       doc.setFont(undefined, "bold");
       doc.setTextColor(15, 23, 42);
-      doc.text(money(total), cx, cy + 4, { align: "center" });
+      doc.text(money(total), cx, cy + 5, { align: "center" });
 
-      // Legend
-      const legendX = cx - radius - 22;
-      let legendY = cy + radius + 13;
+      // Number markers on the chart, matching the numbered legend below.
+      labelPoints.forEach(lp => {
+        const tiny = lp.share < 0.055;
+        const r = tiny ? radius + 7 : radius * 0.73;
+        const tx = cx + r * Math.cos(lp.mid);
+        const ty = cy + r * Math.sin(lp.mid);
+
+        if (tiny) {
+          const ex = cx + (radius + 3) * Math.cos(lp.mid);
+          const ey = cy + (radius + 3) * Math.sin(lp.mid);
+          doc.setDrawColor(148, 163, 184);
+          doc.setLineWidth(0.35);
+          doc.line(ex, ey, tx, ty);
+        }
+
+        doc.setFillColor(255, 255, 255);
+        doc.circle(tx, ty, 3.1, "F");
+        doc.setDrawColor(...lp.color);
+        doc.setLineWidth(0.7);
+        doc.circle(tx, ty, 3.1, "S");
+        doc.setFontSize(6.5);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(15, 23, 42);
+        doc.text(String(lp.index), tx, ty + 2.1, { align: "center" });
+      });
+
+      // Legend: numbered, readable and directly tied to the chart.
+      const cols = valid.length > 6 ? 2 : 1;
+      const colW = (panelW - 16) / cols;
+      const rows = Math.ceil(valid.length / cols);
+      const legendStartY = panelY + panelH - (rows * 8.5) - 7;
+
       valid.forEach((item, index) => {
+        const col = cols === 2 ? Math.floor(index / rows) : 0;
+        const rowIndex = cols === 2 ? index % rows : index;
+        const lx = panelX + 8 + col * colW;
+        const ly = legendStartY + rowIndex * 8.5;
         const color = fills[index % fills.length];
         const share = ((Number(item.value) / total) * 100).toFixed(1);
+        const label = String(item.label || "Unnamed");
+
         doc.setFillColor(...color);
-        doc.roundedRect(legendX, legendY - 3, 4, 4, 1, 1, "F");
-        doc.setFontSize(8);
+        doc.circle(lx + 3, ly - 1.2, 2.3, "F");
+        doc.setFontSize(7.2);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(15, 23, 42);
+        doc.text(String(index + 1), lx + 3, ly + 0.8, { align: "center" });
+
+        doc.setFontSize(7.5);
         doc.setFont(undefined, "normal");
         doc.setTextColor(51, 65, 85);
-        const label = String(item.label || "").slice(0, 24);
-        doc.text(label, legendX + 7, legendY);
-        doc.setTextColor(100, 116, 139);
-        doc.text(share + "%", cx + radius + 22, legendY, { align: "right" });
-        legendY += 7;
+        const labelLines = doc.splitTextToSize(label, colW - 40);
+        doc.text(labelLines[0], lx + 8, ly);
+
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(15, 23, 42);
+        doc.text(share + "%", lx + colW - 2, ly, { align: "right" });
       });
     }
 
@@ -2399,9 +2458,6 @@ section.pe-results-premium .breakdown tbody tr {
       .map(e => ({ label: e.label || "Unnamed Expense", value: safe(e.amount) }))
       .filter(e => e.value > 0);
 
-    drawPieChart(67, 88, 34, expenseChartData, "Where Your Money Goes", "Monthly expense breakdown");
-
-    // For allocation, only positive components can form a meaningful pie.
     const allocationChartData = [
       { label: "Expenses", value: safe(d.totalExpenses) },
       { label: "Investment", value: safe(d.investment) },
@@ -2409,42 +2465,45 @@ section.pe-results-premium .breakdown tbody tr {
       { label: "Insurance", value: safe(d.insurance) }
     ].filter(item => item.value > 0);
 
-    drawPieChart(143, 88, 34, allocationChartData, "Monthly Allocation", "Positive allocations from net income");
+    // Page heading.
+    doc.setFontSize(18);
+    doc.setFont(undefined, "bold");
+    doc.setTextColor(15, 23, 42);
+    doc.text("Your Financial Snapshot", CW / 2, 15, { align: "center" });
+    doc.setFontSize(8.5);
+    doc.setFont(undefined, "normal");
+    doc.setTextColor(100, 116, 139);
+    doc.text("A visual view of your monthly expenses and allocation", CW / 2, 21, { align: "center" });
+
+    // Two generous panels. The legend is placed directly under each chart.
+    drawPieChart(78, 86, 39, expenseChartData, "Where Your Money Goes", "Monthly expense breakdown", 12, 28, 131, 163);
+    drawPieChart(219, 86, 39, allocationChartData, "Monthly Allocation", "How your net income is allocated", 154, 28, 131, 163);
 
     if (d.savings < 0) {
       doc.setFillColor(254, 242, 242);
-      doc.roundedRect(margin, 174, W - margin * 2, 22, 4, 4, "F");
-      doc.setFontSize(8.5);
+      doc.roundedRect(20, 178, 257, 10, 3, 3, "F");
+      doc.setFontSize(7.5);
       doc.setFont(undefined, "bold");
       doc.setTextColor(185, 28, 28);
-      doc.text("Heads up", margin + 6, 183);
+      doc.text("Heads up", 26, 184.5);
       doc.setFont(undefined, "normal");
       doc.setTextColor(127, 29, 29);
       doc.text(
         "Your listed expenses, investments and insurance exceed your net income by " + money(Math.abs(d.savings)) + ".",
-        margin + 6, 190
+        44, 184.5
       );
     }
 
-    // Clean, aligned PDF footer
-    const footerY = Math.min(Math.max(y, 264), 268);
+    // Footer for the visual page.
+    const chartFooterY = 198;
     doc.setDrawColor(226, 232, 240);
-    doc.line(margin, footerY, W - margin, footerY);
-
-    doc.setFontSize(7.5);
-    doc.setFont(undefined, "normal");
-    doc.setTextColor(100,116,139);
-    const disclaimer = "Targets are illustrative budgeting guidelines and are not financial advice.";
-    const footerNote = "Generated from your entries. Please review all figures before sharing.";
-
-    // Both footer lines share the exact same centre point for consistent alignment.
-    doc.text(disclaimer, W / 2, footerY + 6, { align: "center" });
-    doc.text(footerNote, W / 2, footerY + 11, { align: "center" });
-
+    doc.setLineWidth(0.3);
+    doc.line(12, chartFooterY, 285, chartFooterY);
     doc.setFontSize(7);
-    doc.setTextColor(148,163,184);
-    doc.text("Personal Financial Summary", margin, footerY + 17);
-    doc.text("Aayden Ng | Financial Consultant", W - margin, footerY + 17, { align: "right" });
+    doc.setFont(undefined, "normal");
+    doc.setTextColor(100, 116, 139);
+    doc.text("Targets are illustrative budgeting guidelines and are not financial advice.", CW / 2, chartFooterY + 5, { align: "center" });
+    doc.text("Generated from your entries. Please review all figures before sharing.", CW / 2, chartFooterY + 10, { align: "center" });
 
     doc.save("personal-financial-summary.pdf");
   });
