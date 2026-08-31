@@ -1191,49 +1191,76 @@ section.pe-results-premium .breakdown tbody tr {
     <!-- Header / Navigation -->
 <header class="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md z-50 border-b border-gray-100">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-    
-    <!-- Logo -->
     <a href="#" class="flex items-center shrink-0" aria-label="Aayden Ng - Home">
-      <img
-        src="https://raw.githubusercontent.com/aaydennck-fc/aaydenngck/fc3b41add5ff462f4d7c2cb9683785619b3e537c/Aayden%20logo.png"
-        alt="Aayden Ng logo"
-        class="h-12 w-auto max-w-[180px] object-contain logo-transparent">
+      <img src="https://raw.githubusercontent.com/aaydennck-fc/aaydenngck/fc3b41add5ff462f4d7c2cb9683785619b3e537c/Aayden%20logo.png"
+           alt="Aayden Ng logo" class="h-12 w-auto max-w-[180px] object-contain logo-transparent">
     </a>
 
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-8" aria-label="Main navigation">
+      <a href="#about" class="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors">About</a>
+      <a href="#services" class="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors">Services</a>
+      <a href="#process" class="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors">Process</a>
 
- <!-- Navigation Links -->
-<nav class="hidden md:flex items-center gap-8">
-  <a href="#about" class="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors">About</a>
-  <a href="#services" class="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors">Services</a>
-  <a href="#process" class="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors">Process</a>  
+      <div class="relative group py-2">
+        <button type="button" class="inline-flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors focus:outline-none" aria-haspopup="true">
+          Interactive Tools
+          <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div class="absolute left-0 mt-2 w-56 rounded-2xl bg-white p-2 shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 transform origin-top-left scale-95 group-hover:scale-100">
+          <a href="#coverage" class="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 rounded-xl transition-colors">Coverage Estimator</a>
+          <a href="#expenses" class="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 rounded-xl transition-colors">Personal Expenses</a>
+        </div>
+      </div>
 
-  <!-- Dropdown Link for Coverage Estimator -->
-  <div class="relative group py-2">
-    <button type="button" class="inline-flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors focus:outline-none">
-      Interactive Tools
-      <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-      </svg>
-    </button>
+      <a href="#testimonials" class="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors">Testimonials</a>
+      <a href="https://wa.me/+6591849632?text=Hi Aayden, let's chat!" class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-colors shadow-sm">Let's Chat</a>
+    </nav>
 
-    <!-- Dropdown Sub-menu -->
-    <div class="absolute left-0 mt-2 w-56 rounded-2xl bg-white p-2 shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 transform origin-top-left scale-95 group-hover:scale-100">
-      <a href="#coverage" class="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 rounded-xl transition-colors">
-        Coverage Estimator
-      </a>
-      <a href="#expenses" class="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 rounded-xl transition-colors">
-        Personal Expenses
-      </a>
+    <div class="flex items-center gap-2">
+      <button type="button" id="langToggle" class="lang-toggle-btn" aria-label="Switch language">中文</button>
+
+      <!-- Mobile Hamburger -->
+      <button type="button" id="mobileMenuButton"
+              class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-xl text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
+        <svg id="mobileMenuIconOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+        <svg id="mobileMenuIconClose" class="hidden w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M6 18L18 6"></path>
+        </svg>
+      </button>
     </div>
   </div>
 
-  <a href="#testimonials" class="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors">Testimonials</a>
-  <a href="https://wa.me/+6591849632?text=Hi Aayden, let's chat!" class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-colors shadow-sm">
-    Let's Chat
-  </a>
-</nav>
+  <!-- Mobile Navigation -->
+  <div id="mobileMenu" class="hidden md:hidden border-t border-gray-100 bg-white/95 backdrop-blur-md shadow-lg">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 py-4 space-y-1" aria-label="Mobile navigation">
+      <a href="#about" class="mobile-nav-link block px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">About</a>
+      <a href="#services" class="mobile-nav-link block px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Services</a>
+      <a href="#process" class="mobile-nav-link block px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Process</a>
 
-  <button type="button" id="langToggle" class="lang-toggle-btn" aria-label="Switch language">中文</button>
+      <div class="pt-1">
+        <button type="button" id="mobileToolsButton"
+                class="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors"
+                aria-expanded="false" aria-controls="mobileToolsSubmenu">
+          <span>Interactive Tools</span>
+          <svg id="mobileToolsIcon" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div id="mobileToolsSubmenu" class="hidden pl-4 pr-1 pb-1">
+          <a href="#coverage" class="mobile-nav-link block px-4 py-2.5 rounded-xl text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Coverage Estimator</a>
+          <a href="#expenses" class="mobile-nav-link block px-4 py-2.5 rounded-xl text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Personal Expenses</a>
+        </div>
+      </div>
+
+      <a href="#testimonials" class="mobile-nav-link block px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Testimonials</a>
+      <a href="https://wa.me/+6591849632?text=Hi Aayden, let's chat!" class="mobile-nav-link flex items-center justify-center mt-2 px-4 py-3 rounded-xl text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 transition-colors shadow-sm">Let's Chat</a>
+    </nav>
   </div>
 </header>
 
@@ -2774,6 +2801,53 @@ calculateCoverage();
       apply(currentLang === 'zh' ? 'en' : 'zh');
     });
   }
+
+  // Responsive mobile navigation
+  const mobileMenuButton = document.getElementById('mobileMenuButton');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileMenuIconOpen = document.getElementById('mobileMenuIconOpen');
+  const mobileMenuIconClose = document.getElementById('mobileMenuIconClose');
+  const mobileToolsButton = document.getElementById('mobileToolsButton');
+  const mobileToolsSubmenu = document.getElementById('mobileToolsSubmenu');
+  const mobileToolsIcon = document.getElementById('mobileToolsIcon');
+
+  function closeMobileMenu() {
+    if (!mobileMenu || !mobileMenuButton) return;
+    mobileMenu.classList.add('hidden');
+    mobileMenuButton.setAttribute('aria-expanded', 'false');
+    mobileMenuButton.setAttribute('aria-label', 'Open menu');
+    mobileMenuIconOpen?.classList.remove('hidden');
+    mobileMenuIconClose?.classList.add('hidden');
+  }
+
+  function openMobileMenu() {
+    if (!mobileMenu || !mobileMenuButton) return;
+    mobileMenu.classList.remove('hidden');
+    mobileMenuButton.setAttribute('aria-expanded', 'true');
+    mobileMenuButton.setAttribute('aria-label', 'Close menu');
+    mobileMenuIconOpen?.classList.add('hidden');
+    mobileMenuIconClose?.classList.remove('hidden');
+  }
+
+  mobileMenuButton?.addEventListener('click', () => {
+    const isOpen = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+    isOpen ? closeMobileMenu() : openMobileMenu();
+  });
+
+  mobileToolsButton?.addEventListener('click', () => {
+    const isOpen = mobileToolsButton.getAttribute('aria-expanded') === 'true';
+    mobileToolsButton.setAttribute('aria-expanded', String(!isOpen));
+    mobileToolsSubmenu?.classList.toggle('hidden', isOpen);
+    mobileToolsIcon?.classList.toggle('rotate-180', !isOpen);
+  });
+
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) closeMobileMenu();
+  });
 
   const saved = (() => { try { return localStorage.getItem('aaydenLang'); } catch (e) { return null; } })();
   apply(saved === 'zh' ? 'zh' : 'en');
