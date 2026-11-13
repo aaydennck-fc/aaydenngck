@@ -309,7 +309,7 @@
         <div>
           <div class="flex items-baseline justify-between gap-3 mb-2">
             <label class="lbl !mb-0" for="eduPath" data-i18n="Study pathway">Study pathway</label>
-            <a href="https://nus.edu.sg/registrar/docs/default-source/administrative-policies-procedures/ugtuitioncurrent.pdf" target="_blank" rel="noopener" class="text-xs font-semibold text-emerald-700 hover:text-emerald-900 underline underline-offset-2 text-right" data-i18n="View current fees (PDF) ↗">View current fees (PDF) ↗</a>
+            <button type="button" id="eduFeesBtn" class="text-xs font-semibold text-emerald-700 hover:text-emerald-900 underline underline-offset-2 text-right" data-i18n="View current fees ↗">View current fees ↗</button>
           </div>
           <select id="eduPath" class="inp">
             <option value="9000" selected data-i18n="Local public university (e.g. NUS / NTU)">Local public university (e.g. NUS / NTU)</option>
@@ -380,6 +380,49 @@
 </section>
 
 </main>
+
+<!-- Fees pop-up -->
+<div id="feesModal" class="hidden fixed inset-0 z-[60] items-center justify-center p-4 bg-slate-900/60" role="dialog" aria-modal="true" aria-labelledby="feesTitle">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+    <div class="flex items-start justify-between gap-4 p-6 pb-3 border-b border-slate-100">
+      <div>
+        <h2 id="feesTitle" class="text-lg sm:text-xl font-bold" data-i18n="Estimated university course fees, 2026 intake">Estimated university course fees, 2026 intake</h2>
+        <p class="text-xs text-slate-500 mt-1" data-i18n="For Singapore citizens, in S$.">For Singapore citizens, in S$.</p>
+      </div>
+      <button type="button" id="feesClose" class="w-9 h-9 shrink-0 rounded-full border border-slate-200 text-slate-500 hover:bg-slate-100 text-xl leading-none" aria-label="Close">&times;</button>
+    </div>
+    <div class="p-6 pt-4">
+      <div class="overflow-x-auto rounded-xl border border-slate-200">
+        <table class="w-full text-sm text-slate-800 min-w-[560px]">
+          <thead class="bg-slate-100 text-xs uppercase tracking-wider text-slate-700">
+            <tr>
+              <th class="text-left font-bold p-3" data-i18n="University">University</th>
+              <th class="text-left font-bold p-3" data-i18n="Per annum fee">Per annum fee</th>
+              <th class="text-left font-bold p-3" data-i18n="Total for a 3-year course">Total for a 3-year course</th>
+              <th class="text-left font-bold p-3" data-i18n="Total for a 4-year course">Total for a 4-year course</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-slate-50"><td class="p-3 font-semibold align-top">NUS</td><td class="p-3 align-top">$8,300 to $9,700</td><td class="p-3 align-top">$24,900 to $29,100</td><td class="p-3 align-top">$33,200 to $38,800</td></tr>
+            <tr><td class="p-3 font-semibold align-top">NTU</td><td class="p-3 align-top">$8,300 to $9,500</td><td class="p-3 align-top">$24,900 to $28,500</td><td class="p-3 align-top">$33,200 to $38,000</td></tr>
+            <tr class="bg-slate-50"><td class="p-3 font-semibold align-top">SMU</td><td class="p-3 align-top">$11,550</td><td class="p-3 align-top">$34,650</td><td class="p-3 align-top">$46,200</td></tr>
+            <tr><td class="p-3 font-semibold align-top">SUTD</td><td class="p-3 align-top">$13,500</td><td class="p-3 align-top">Generally 4 years</td><td class="p-3 align-top">$54,000</td></tr>
+            <tr class="bg-slate-50"><td class="p-3 font-semibold align-top">SUSS</td><td class="p-3 align-top">$7,550 to $8,460*</td><td class="p-3 align-top">—</td><td class="p-3 align-top">$30,200 to $33,840</td></tr>
+            <tr><td class="p-3 font-semibold align-top">SIT</td><td class="p-3 align-top">$7,860 to $9,360**</td><td class="p-3 align-top">$23,580 to $28,080</td><td class="p-3 align-top">$31,440 to $37,440</td></tr>
+            <tr class="bg-slate-50"><td class="p-3 font-semibold align-top">Lasalle</td><td class="p-3 align-top">$9,830</td><td class="p-3 align-top">$29,490</td><td class="p-3 align-top">—</td></tr>
+            <tr><td class="p-3 font-semibold align-top">NAFA University of the Arts</td><td class="p-3 align-top">$8,650 to $10,270</td><td class="p-3 align-top">$25,950 to $30,810</td><td class="p-3 align-top">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-xs text-slate-500 mt-4 space-y-1.5">
+        <p data-i18n="* SUSS fees are estimated and charged per module, not per annum. ** SIT fees are paid per trimester.">* SUSS fees are estimated and charged per module, not per annum. ** SIT fees are paid per trimester.</p>
+        <p data-i18n="Prices are for Singapore citizens. Permanent residents and international students can expect to pay more. International students generally pay more than twice the fees of Singaporeans.">Prices are for Singapore citizens. Permanent residents and international students can expect to pay more. International students generally pay more than twice the fees of Singaporeans.</p>
+        <p><span data-i18n="Source:">Source:</span> <a href="https://blog.moneysmart.sg/education/singapore-university-education-cost/" target="_blank" rel="noopener" class="font-semibold text-emerald-700 underline underline-offset-2 hover:text-emerald-900" data-i18n="MoneySmart: Singapore university education cost ↗">MoneySmart: Singapore university education cost ↗</a></p>
+        <p data-i18n="Fees are subject to change. Please check each university's website for the latest figures.">Fees are subject to change. Please check each university's website for the latest figures.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Footer -->
 <footer class="bg-slate-900 text-slate-400 text-xs py-12 px-6 border-t border-slate-800 w-full">
@@ -780,6 +823,18 @@
   calc();
 })();
 
+/* ============ Fees pop-up ============ */
+(function () {
+  var m = document.getElementById('feesModal');
+  function open() { m.classList.remove('hidden'); m.classList.add('flex'); document.body.style.overflow = 'hidden'; document.getElementById('feesClose').focus(); }
+  function close() { m.classList.add('hidden'); m.classList.remove('flex'); document.body.style.overflow = ''; }
+  document.getElementById('eduFeesBtn').addEventListener('click', open);
+  document.getElementById('feesClose').addEventListener('click', close);
+  m.addEventListener('click', function (e) { if (e.target === m) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  window.addEventListener('hashchange', close);
+})();
+
 /* ============ Language toggle (EN / 中文) ============ */
 (function () {
   var zh = {
@@ -822,7 +877,14 @@
     "CPF rates shown are simplified illustrative employee-contribution rates (Singaporean: 20%; PR Year 1: 5%, Year 2: 15%, Year 3+: 20%). For 2026, this calculator applies the S$8,000 monthly Ordinary Wage (OW) ceiling. It does not model age-specific CPF rates, Additional Wages, the S$102,000 annual salary ceiling, or the S$37,740 CPF Annual Limit. Foreigners are generally not subject to CPF.":"所示 CPF 缴交率为简化的示例性员工缴交率（新加坡公民：20%；PR 第 1 年：5%、第 2 年：15%、第 3 年及以后：20%）。2026 年，本计算器采用每月 S$8,000 的普通工资（OW）上限。本工具不涵盖按年龄区分的 CPF 缴交率、额外工资、S$102,000 年薪上限或 S$37,740 CPF 年度上限。外国人一般不适用 CPF。",
     "For exact figures, always refer to the official CPF Board contribution tables. The allocation targets shown are budgeting guidelines and are not financial advice.":"如需准确数据，请以 CPF 公积金局官方缴交率表为准。这里的资金分配目标仅为预算参考，并非财务建议。",
     "Child Education Fund Planner":"子女教育基金规划器",
-    "View current fees (PDF) ↗":"查看最新学费（PDF）↗",
+    "View current fees ↗":"查看最新学费 ↗",
+    "Estimated university course fees, 2026 intake":"2026 年入学大学课程学费估算",
+    "For Singapore citizens, in S$.":"适用于新加坡公民，单位：新币。",
+    "University":"大学", "Per annum fee":"每年学费", "Total for a 3-year course":"3 年课程总学费", "Total for a 4-year course":"4 年课程总学费",
+    "* SUSS fees are estimated and charged per module, not per annum. ** SIT fees are paid per trimester.":"* SUSS 学费为估算，按科目收费，而非按年收费。** SIT 学费按学期（trimester）缴付。",
+    "Prices are for Singapore citizens. Permanent residents and international students can expect to pay more. International students generally pay more than twice the fees of Singaporeans.":"以上为新加坡公民的学费。永久居民和国际学生的学费会更高，国际学生通常需缴付新加坡人两倍以上的学费。",
+    "Source:":"资料来源：", "MoneySmart: Singapore university education cost ↗":"MoneySmart：新加坡大学教育费用 ↗",
+    "Fees are subject to change. Please check each university's website for the latest figures.":"学费可能会调整，请以各大学官方网站的最新数据为准。",
     "Estimate the future cost of university and the monthly amount to set aside, starting from your child's age today.":"根据孩子目前的年龄，估算未来大学教育费用以及每月需要预留的金额。",
     "Plan early. Make it easier.":"及早规划，更轻松无负担。",
     "See what university may cost by the time your child gets there, and what to set aside each month.":"了解孩子上大学时的费用，以及每月需要预留多少。",
