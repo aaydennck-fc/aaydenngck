@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Tools | Aayden Ng</title>
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/aaydennck-fc/aaydenngck/main/Aayde%20(1).png">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style type="text/tailwindcss">
+  @layer components {
+    .lbl { @apply block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2; }
+    .inp { @apply w-full px-4 py-3 bg-emerald-50/40 border border-emerald-100 rounded-xl text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all; }
+    .ro  { @apply w-full px-4 py-3 bg-slate-100 border border-slate-200 rounded-xl text-slate-900 text-sm font-semibold; }
+    .card { @apply bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100 mb-6; }
+    .step { @apply w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 text-xs font-bold flex items-center justify-center shrink-0; }
+    .btn  { @apply inline-flex items-center justify-center px-5 py-3 rounded-full bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition-colors cursor-pointer; }
+  }
+  html { scroll-behavior: smooth; }
+  body { background: #f6f5ef; }
+  .lang-btn { border:1px solid #dce2db; background:#f8f8f3; color:#185c3b; border-radius:999px; padding:9px 14px; font:600 12px/1 system-ui,sans-serif; cursor:pointer; white-space:nowrap; }
+  .lang-btn:hover { background:#e2eee7; }
+</style>
+</head>
+<body class="text-slate-900 antialiased">
+
+<!-- Header -->
+<header class="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md z-50 border-b border-gray-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
+    <a href="index.html" class="flex items-center shrink-0" aria-label="Aayden Ng - Home">
+      <img src="https://raw.githubusercontent.com/aaydennck-fc/aaydenngck/fc3b41add5ff462f4d7c2cb9683785619b3e537c/Aayden%20logo.png" alt="Aayden Ng logo" class="h-12 w-auto max-w-[180px] object-contain">
+    </a>
+    <div class="flex items-center gap-3">
+      <a href="index.html" class="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors" data-i18n="← Back to main site">← Back to main site</a>
+      <button type="button" id="langToggle" class="lang-btn" aria-label="Switch language">中文</button>
+    </div>
+  </div>
+</header>
+
+<!-- WhatsApp float -->
+<a class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center w-14 h-14" href="https://wa.me/+6591849632?text=Hi Aayden, let's chat!" target="_blank" rel="noopener" aria-label="WhatsApp Aayden">
+  <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.8-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.100 3.200 5.100 4.500.7.3 1.300.5 1.700.6.7.2 1.400.2 1.900.1.600-.1 1.700-.7 2-1.400.2-.7.2-1.300.2-1.400-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 00-8.600 15L2 22l5.200-1.400A10 10 0 1012 2z"/></svg>
+</a>
+
+<main class="pt-28 pb-20 px-4 sm:px-6">
+
+<!-- ===================== HUB ===================== -->
+<section id="view-hub" class="view max-w-5xl mx-auto">
+  <div class="text-center max-w-2xl mx-auto mb-12 pt-4">
+    <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4" data-i18n="Interactive Tools">Interactive Tools</h1>
+    <p class="text-slate-600" data-i18n="Simple calculators to help you understand your coverage and your monthly cash flow. No sign-up, nothing is saved.">Simple calculators to help you understand your coverage and your monthly cash flow. No sign-up, nothing is saved.</p>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-8">
+    <a href="#coverage" class="group bg-white p-8 rounded-2xl border border-slate-200/60 shadow-sm hover:-translate-y-1.5 hover:shadow-md hover:border-emerald-500/30 transition-all duration-300 flex flex-col">
+      <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 0C7 4 3 8 3 12h18c0-4-4-8-9-8zm0 8v6a2 2 0 004 0"/></svg>
+      </div>
+      <h2 class="text-xl font-bold mb-3" data-i18n="Coverage Estimator">Coverage Estimator</h2>
+      <p class="text-slate-600 text-sm leading-relaxed mb-6" data-i18n="Estimate how much protection your family may need based on your income, age, lifestyle and liabilities.">Estimate how much protection your family may need based on your income, age, lifestyle and liabilities.</p>
+      <span class="mt-auto text-sm font-semibold text-emerald-600" data-i18n="Open tool →">Open tool →</span>
+    </a>
+
+    <a href="#expenses" class="group bg-white p-8 rounded-2xl border border-slate-200/60 shadow-sm hover:-translate-y-1.5 hover:shadow-md hover:border-emerald-500/30 transition-all duration-300 flex flex-col">
+      <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7a2 2 0 012-2h13a1 1 0 011 1v2M3 7v10a2 2 0 002 2h14a1 1 0 001-1v-3M3 7h16a1 1 0 011 1v3m0 0h-4a2 2 0 100 4h4v-4z"/></svg>
+      </div>
+      <h2 class="text-xl font-bold mb-3" data-i18n="Personal Expenses Calculator">Personal Expenses Calculator</h2>
+      <p class="text-slate-600 text-sm leading-relaxed mb-6" data-i18n="See your monthly cash flow after CPF, compare your spending with a simple budgeting guide, and download a summary PDF.">See your monthly cash flow after CPF, compare your spending with a simple budgeting guide, and download a summary PDF.</p>
+      <span class="mt-auto text-sm font-semibold text-emerald-600" data-i18n="Open tool →">Open tool →</span>
+    </a>
+  </div>
+
+  <p class="text-center text-xs text-slate-500 mt-10" data-i18n="Illustrative tools only. They are not financial advice.">Illustrative tools only. They are not financial advice.</p>
+</section>
+
+<!-- ===================== COVERAGE ===================== -->
+<section id="view-coverage" class="view max-w-5xl mx-auto hidden">
+  <a href="#" class="inline-block text-sm font-semibold text-emerald-700 hover:text-emerald-900 mb-6" data-i18n="← Back to Interactive Tools">← Back to Interactive Tools</a>
+
+  <div class="rounded-[28px] text-white p-8 sm:p-12 mb-8 shadow-lg" style="background:linear-gradient(135deg,#164e35 0%,#1b6543 58%,#275f45 100%)">
+    <p class="text-xs tracking-widest uppercase text-emerald-100 mb-3" data-i18n="Coverage Estimator">Coverage Estimator</p>
+    <h1 class="text-3xl sm:text-5xl font-bold leading-tight mb-3" data-i18n="Understand your coverage. Cover the gaps.">Understand your coverage. Cover the gaps.</h1>
+    <p class="text-emerald-50" data-i18n="A simple way to understand your current coverage and cover the gaps">A simple way to understand your current coverage and cover the gaps</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+    <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100">
+      <form id="covForm" class="space-y-5">
+        <div>
+          <label class="lbl" for="income" data-i18n="Annual Income (SGD)">Annual Income (SGD)</label>
+          <input type="number" id="income" value="50000" min="0" class="inp">
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label class="lbl" for="age" data-i18n="Age">Age</label>
+            <input type="number" id="age" value="35" min="0" class="inp">
+          </div>
+          <div>
+            <label class="lbl" for="lifestyle" data-i18n="Lifestyle Preference">Lifestyle Preference</label>
+            <select id="lifestyle" class="inp">
+              <option value="1.3" selected data-i18n="Comfortable">Comfortable</option>
+              <option value="1.0" data-i18n="Essential">Essential</option>
+              <option value="1.5" data-i18n="Premium">Premium</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="lbl" for="liabilities" data-i18n="Outstanding Liabilities (SGD)">Outstanding Liabilities (SGD)</label>
+          <input type="number" id="liabilities" value="400000" min="0" class="inp">
+        </div>
+        <div class="flex justify-end">
+          <button type="reset" class="text-xs font-medium text-gray-400 hover:text-emerald-600" data-i18n="Reset all fields">Reset all fields</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="lg:col-span-5 bg-gradient-to-br from-emerald-950 via-gray-900 to-emerald-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col justify-between">
+      <div>
+        <h3 class="font-semibold text-lg text-emerald-100 border-b border-emerald-800/50 pb-4 mb-6" data-i18n="Your Coverage Estimate">Your Coverage Estimate</h3>
+        <div class="space-y-4 text-sm">
+          <div class="flex justify-between"><span class="text-gray-300" data-i18n="Income Replacement">Income Replacement</span><span id="resIncome" class="font-medium">S$0</span></div>
+          <div class="flex justify-between"><span class="text-gray-300" data-i18n="Liability Coverage">Liability Coverage</span><span id="resLiab" class="font-medium">S$0</span></div>
+          <div class="flex justify-between items-center"><span class="text-gray-300" data-i18n="Lifestyle Multiplier">Lifestyle Multiplier</span><span id="resLifestyle" class="font-medium text-emerald-400 bg-emerald-900/50 px-2.5 py-0.5 rounded-md border border-emerald-700/50">1.3x</span></div>
+        </div>
+        <div class="mt-8 pt-6 border-t border-emerald-800/50">
+          <span class="block text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-1" data-i18n="Recommended Sum Assured">Recommended Sum Assured</span>
+          <div id="resTotal" class="text-3xl sm:text-4xl font-extrabold tracking-tight">S$0</div>
+        </div>
+      </div>
+      <div class="mt-8">
+        <p class="text-xs text-emerald-200/70 italic mb-4" data-i18n="Indicative estimate only. Let's map it out precisely together.">Indicative estimate only. Let's map it out precisely together.</p>
+        <button type="button" id="covWhatsApp" class="w-full bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-semibold py-3.5 px-6 rounded-xl transition-all text-sm" data-i18n="WhatsApp for Full Analysis →">WhatsApp for Full Analysis →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EXPENSES ===================== -->
+<section id="view-expenses" class="view max-w-5xl mx-auto hidden">
+  <a href="#" class="inline-block text-sm font-semibold text-emerald-700 hover:text-emerald-900 mb-6" data-i18n="← Back to Interactive Tools">← Back to Interactive Tools</a>
+
+  <div class="rounded-[28px] text-white p-8 sm:p-12 mb-8 shadow-lg" style="background:linear-gradient(135deg,#164e35 0%,#1b6543 58%,#275f45 100%)">
+    <p class="text-xs tracking-widest uppercase text-emerald-100 mb-3" data-i18n="Personal Expenses Calculator">Personal Expenses Calculator</p>
+    <h1 class="text-3xl sm:text-5xl font-bold leading-tight mb-3" data-i18n="Know your numbers. Plan your savings.">Know your numbers. Plan your savings.</h1>
+    <p class="text-emerald-50" data-i18n="A simple way to understand your monthly cash flow, expenses, savings and current allocation — without the financial jargon.">A simple way to understand your monthly cash flow, expenses, savings and current allocation — without the financial jargon.</p>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="card">
+    <div class="flex items-center gap-3 mb-2"><span class="step">01</span><h2 class="text-xl font-bold" data-i18n="Your Profile">Your Profile</h2></div>
+    <p class="text-sm text-slate-500 mb-6" data-i18n="Your residency status determines the simplified CPF contribution rate used for this illustration.">Your residency status determines the simplified CPF contribution rate used for this illustration.</p>
+
+    <div class="grid sm:grid-cols-2 gap-5 mb-5">
+      <div>
+        <label class="lbl" for="residency" data-i18n="Residency Status">Residency Status</label>
+        <select id="residency" class="inp">
+          <option value="singaporean" data-i18n="Singaporean">Singaporean</option>
+          <option value="pr" data-i18n="Permanent Resident (PR)">Permanent Resident (PR)</option>
+          <option value="foreigner" data-i18n="Foreigner">Foreigner</option>
+        </select>
+      </div>
+      <div id="prYearWrap" class="hidden">
+        <label class="lbl" for="prYear" data-i18n="PR Year">PR Year</label>
+        <select id="prYear" class="inp">
+          <option value="1" data-i18n="1st Year (5%)">1st Year (5%)</option>
+          <option value="2" data-i18n="2nd Year (15%)">2nd Year (15%)</option>
+          <option value="3" data-i18n="3rd Year & Beyond (20%)">3rd Year &amp; Beyond (20%)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-5 mb-5">
+      <div>
+        <label class="lbl" for="grossIncome" data-i18n="Gross Monthly Income (S$)">Gross Monthly Income (S$)</label>
+        <input type="number" id="grossIncome" min="0" step="50" placeholder="0.00" inputmode="decimal" class="inp">
+      </div>
+      <div>
+        <label class="lbl" for="cpfRate" data-i18n="CPF Deduction Rate (%)">CPF Deduction Rate (%)</label>
+        <input type="number" id="cpfRate" min="0" max="100" step="0.5" value="20" class="inp">
+        <p class="text-xs text-slate-500 mt-1.5" id="cpfHint" data-i18n="Auto-filled from your profile — you can override it. 2026 OW ceiling: S$8,000/month.">Auto-filled from your profile — you can override it. 2026 OW ceiling: S$8,000/month.</p>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-5">
+      <div>
+        <span class="lbl" data-i18n="CPF Deducted (S$/mo)">CPF Deducted (S$/mo)</span>
+        <div class="ro" id="cpfAmountOut">$0.00</div>
+      </div>
+      <div>
+        <span class="lbl" data-i18n="Net Income / Take-Home (S$/mo)">Net Income / Take-Home (S$/mo)</span>
+        <div class="ro" id="netIncomeOut">$0.00</div>
+      </div>
+    </div>
+    <p class="text-xs text-slate-500 mt-4" data-i18n="CPF is applied to up to S$8,000 of monthly Ordinary Wages for 2026. Income above the OW ceiling is not included in this monthly CPF calculation.">CPF is applied to up to S$8,000 of monthly Ordinary Wages for 2026. Income above the OW ceiling is not included in this monthly CPF calculation.</p>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="card">
+    <div class="flex items-center gap-3 mb-2"><span class="step">02</span><h2 class="text-xl font-bold" data-i18n="Monthly Expenses">Monthly Expenses</h2></div>
+    <p class="text-sm text-slate-500 mb-6" data-i18n="Basic categories are pre-filled. Edit any label or amount, or add your own.">Basic categories are pre-filled. Edit any label or amount, or add your own.</p>
+    <div id="expenseList" class="border-t border-slate-200"></div>
+    <button type="button" id="addExpenseBtn" class="w-full mt-4 py-3 border border-dashed border-slate-300 rounded-xl bg-slate-50 text-emerald-700 text-sm font-bold hover:bg-emerald-50 hover:border-emerald-600 transition-colors" data-i18n="+ Add Another Expense">+ Add Another Expense</button>
+    <div class="flex justify-between items-baseline mt-5 pt-4 border-t-2 border-slate-800 font-bold text-lg">
+      <span data-i18n="Total Expenses">Total Expenses</span>
+      <span id="totalExpensesOut" class="font-mono text-base">$0.00</span>
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="card">
+    <div class="flex items-center gap-3 mb-2"><span class="step">03</span><h2 class="text-xl font-bold"><span data-i18n="Investment & Insurance">Investment &amp; Insurance</span> <span class="text-xs font-normal text-slate-500" data-i18n="(optional)">(optional)</span></h2></div>
+    <p class="text-sm text-slate-500 mb-6" data-i18n="What you currently set aside each month — used to compare against the illustrative targets below.">What you currently set aside each month — used to compare against the illustrative targets below.</p>
+    <div class="grid sm:grid-cols-2 gap-5">
+      <div>
+        <label class="lbl" for="investAmount" data-i18n="Current Investment (S$/mo)">Current Investment (S$/mo)</label>
+        <input type="number" id="investAmount" min="0" step="10" placeholder="0.00" class="inp">
+      </div>
+      <div>
+        <label class="lbl" for="insuranceAmount" data-i18n="Current Insurance Premiums (S$/mo)">Current Insurance Premiums (S$/mo)</label>
+        <input type="number" id="insuranceAmount" min="0" step="10" placeholder="0.00" class="inp">
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="rounded-3xl p-6 sm:p-8 text-white mb-6 shadow-xl" style="background:linear-gradient(145deg,#0f172a 0%,#111827 100%);border:1px solid rgba(52,211,153,.22)">
+    <div class="flex items-center gap-3 mb-2"><span class="step !bg-emerald-900 !text-emerald-200">04</span><h2 class="text-xl font-bold" data-i18n="Your Results">Your Results</h2></div>
+    <p class="text-sm text-slate-300 mb-6" data-i18n="Savings Available = Net Income − Expenses − Investment − Insurance.">Savings Available = Net Income − Expenses − Investment − Insurance.</p>
+
+    <div class="grid sm:grid-cols-3 gap-3 mb-6">
+      <div class="rounded-xl p-4 bg-white/5 border border-white/10">
+        <div class="text-[10px] font-bold uppercase tracking-wider text-slate-300 mb-1.5" data-i18n="Net Income">Net Income</div>
+        <div class="font-mono text-lg font-semibold" id="figNetIncome">$0.00</div>
+      </div>
+      <div class="rounded-xl p-4 bg-white/5 border border-white/10">
+        <div class="text-[10px] font-bold uppercase tracking-wider text-slate-300 mb-1.5" data-i18n="Total Expenses">Total Expenses</div>
+        <div class="font-mono text-lg font-semibold" id="figExpenses">$0.00</div>
+        <div class="text-xs text-slate-400 mt-1" data-i18n="Including investment & insurance">Including investment &amp; insurance</div>
+      </div>
+      <div class="rounded-xl p-4 border" id="figSavingsWrap" style="background:rgba(52,211,153,.10);border-color:rgba(52,211,153,.28)">
+        <div class="text-[10px] font-bold uppercase tracking-wider text-slate-300 mb-1.5" data-i18n="Savings Available">Savings Available</div>
+        <div class="font-mono text-lg font-semibold" id="figSavings">$0.00</div>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto rounded-xl bg-white">
+      <table class="w-full text-sm text-slate-900 min-w-[520px]">
+        <thead class="bg-slate-100 text-slate-900 text-[11px] uppercase tracking-wider">
+          <tr>
+            <th class="text-left font-extrabold p-3" data-i18n="Category">Category</th>
+            <th class="text-right font-extrabold p-3" data-i18n="Recommended">Recommended</th>
+            <th class="text-right font-extrabold p-3" data-i18n="Your Amount">Your Amount</th>
+            <th class="text-right font-extrabold p-3" data-i18n="Your %">Your %</th>
+          </tr>
+        </thead>
+        <tbody id="breakdownBody"></tbody>
+      </table>
+    </div>
+
+    <div class="flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center gap-4 mt-7">
+      <button type="button" id="resetBtn" class="text-xs text-slate-400 underline hover:text-red-300 self-center sm:self-auto" data-i18n="Reset all fields">Reset all fields</button>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <button type="button" class="btn" id="sendResultsBtn" data-i18n="WhatsApp My Results →">WhatsApp My Results →</button>
+        <button type="button" class="btn" id="downloadPdfBtn" data-i18n="Download Summary PDF ↓">Download Summary PDF ↓</button>
+      </div>
+    </div>
+  </div>
+
+  <aside class="text-xs text-slate-500 border border-slate-200 rounded-2xl bg-white/60 p-5 space-y-2">
+    <p><strong class="text-slate-700" data-i18n="Illustrative tool only.">Illustrative tool only.</strong> <span data-i18n="CPF rates shown are simplified illustrative employee-contribution rates (Singaporean: 20%; PR Year 1: 5%, Year 2: 15%, Year 3+: 20%). For 2026, this calculator applies the S$8,000 monthly Ordinary Wage (OW) ceiling. It does not model age-specific CPF rates, Additional Wages, the S$102,000 annual salary ceiling, or the S$37,740 CPF Annual Limit. Foreigners are generally not subject to CPF.">CPF rates shown are simplified illustrative employee-contribution rates (Singaporean: 20%; PR Year 1: 5%, Year 2: 15%, Year 3+: 20%). For 2026, this calculator applies the S$8,000 monthly Ordinary Wage (OW) ceiling. It does not model age-specific CPF rates, Additional Wages, the S$102,000 annual salary ceiling, or the S$37,740 CPF Annual Limit. Foreigners are generally not subject to CPF.</span></p>
+    <p data-i18n="For exact figures, always refer to the official CPF Board contribution tables. The allocation targets shown are budgeting guidelines and are not financial advice.">For exact figures, always refer to the official CPF Board contribution tables. The allocation targets shown are budgeting guidelines and are not financial advice.</p>
+  </aside>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-slate-900 text-slate-400 text-xs py-12 px-6 border-t border-slate-800 w-full">
+  <div class="max-w-5xl mx-auto flex flex-col gap-8">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-6 border-b border-slate-800 pb-8">
+      <div class="text-white font-semibold tracking-tight text-sm">Aayden Ng <span class="text-emerald-400 font-normal">| Manager Wealth Services</span></div>
+      <div class="flex flex-wrap justify-center gap-6 text-sm">
+        <a href="index.html#about" class="hover:text-emerald-400 transition-colors" data-i18n="About">About</a>
+        <a href="index.html#services" class="hover:text-emerald-400 transition-colors" data-i18n="Services">Services</a>
+        <a href="index.html#process" class="hover:text-emerald-400 transition-colors" data-i18n="Process">Process</a>
+        <a href="#" class="hover:text-emerald-400 transition-colors" data-i18n="Interactive Tools">Interactive Tools</a>
+        <a href="index.html#testimonials" class="hover:text-emerald-400 transition-colors" data-i18n="Testimonials">Testimonials</a>
+      </div>
+    </div>
+    <div class="text-slate-500 leading-relaxed text-[11px] text-center md:text-left">
+      <p class="mb-2">Aayden Ng is a Manager Wealth Services representing Prudential Assurance Company Singapore (Pte) Limited (Reg. No. 199002477Z). This website is for informational purposes only and does not constitute financial advice. All insurance product information is subject to the actual policy terms and conditions. MAS Licensed.</p>
+      <p>&copy; 2026 Aayden Ng. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============ Router (hub / coverage / expenses) ============ */
+(function () {
+  var titles = { hub: 'Interactive Tools', coverage: 'Coverage Estimator', expenses: 'Personal Expenses Calculator' };
+  function route() {
+    var h = location.hash.replace('#', '');
+    if (h !== 'coverage' && h !== 'expenses') h = 'hub';
+    document.querySelectorAll('.view').forEach(function (v) {
+      v.classList.toggle('hidden', v.id !== 'view-' + h);
+    });
+    document.title = titles[h] + ' | Aayden Ng';
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', route);
+  route();
+})();
+
+/* ============ Coverage Estimator ============ */
+(function () {
+  var inc = document.getElementById('income'), age = document.getElementById('age'),
+      liab = document.getElementById('liabilities'), life = document.getElementById('lifestyle');
+
+  function get() {
+    var income = parseFloat(inc.value) || 0, liabilities = parseFloat(liab.value) || 0, m = parseFloat(life.value) || 1;
+    var replacement = income * 9;
+    return { income: income, liabilities: liabilities, m: m, replacement: replacement, total: (replacement + liabilities) * m };
+  }
+  function calc() {
+    var d = get();
+    document.getElementById('resIncome').textContent = 'S$' + Math.round(d.replacement).toLocaleString('en-SG');
+    document.getElementById('resLiab').textContent = 'S$' + Math.round(d.liabilities).toLocaleString('en-SG');
+    document.getElementById('resLifestyle').textContent = d.m + 'x';
+    document.getElementById('resTotal').textContent = 'S$' + Math.round(d.total).toLocaleString('en-SG');
+  }
+  [inc, age, liab, life].forEach(function (el) { el.addEventListener('input', calc); el.addEventListener('change', calc); });
+  document.getElementById('covForm').addEventListener('reset', function () { setTimeout(calc, 0); });
+
+  document.getElementById('covWhatsApp').addEventListener('click', function () {
+    var d = get();
+    var msg = 'COVERAGE ESTIMATOR SUMMARY\n\n' +
+      'Annual Income: S$' + d.income.toLocaleString('en-SG') + '\n' +
+      'Age: ' + (parseFloat(age.value) || 0) + '\n' +
+      'Lifestyle Preference: ' + life.options[life.selectedIndex].text + ' (' + d.m + 'x)\n' +
+      'Outstanding Liabilities: S$' + d.liabilities.toLocaleString('en-SG') + '\n\n' +
+      'COVERAGE ESTIMATE\n' +
+      'Income Replacement: S$' + Math.round(d.replacement).toLocaleString('en-SG') + '\n' +
+      'Liability Coverage: S$' + Math.round(d.liabilities).toLocaleString('en-SG') + '\n' +
+      'Lifestyle Multiplier: ' + d.m + 'x\n' +
+      'Recommended Sum Assured: S$' + Math.round(d.total).toLocaleString('en-SG') + '\n\n' +
+      'Sent from the Coverage Estimator.';
+    window.open('https://wa.me/6591849632?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+  });
+  calc();
+})();
+
+/* ============ Personal Expenses Calculator ============ */
+(function () {
+  var CPF_OW_CEILING = 8000;
+  var defaults = [
+    ['Housing / Rent'], ['Food & Groceries'], ['Transport'], ['Utilities (Elec/Water/Gas)'],
+    ['Phone & Internet'], ['Entertainment & Leisure'], ['Personal Care'], ['Others / Miscellaneous']
+  ];
+  var expenses = [], uid = 0;
+  var $ = function (id) { return document.getElementById(id); };
+
+  function fmt(n) {
+    n = Number(n) || 0;
+    var s = '$' + Math.abs(n).toLocaleString('en-SG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return n < 0 ? '-' + s : s;
+  }
+  function money(n) { return 'S$' + Number(n || 0).toLocaleString('en-SG', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function makeDefaults() { return defaults.map(function (d) { return { id: 'd' + (uid++), label: d[0], amount: 0 }; }); }
+
+  /* CPF */
+  function autoRate() {
+    var r = $('residency').value;
+    if (r === 'singaporean') return 20;
+    if (r === 'foreigner') return 0;
+    var y = $('prYear').value;
+    return y === '1' ? 5 : (y === '2' ? 15 : 20);
+  }
+  function applyRate() {
+    $('cpfRate').value = autoRate();
+    var f = $('residency').value === 'foreigner';
+    $('cpfRate').disabled = f;
+    if (f) $('cpfHint').removeAttribute('data-i18n');
+    else $('cpfHint').setAttribute('data-i18n', 'Auto-filled from your profile — you can override it. 2026 OW ceiling: S$8,000/month.');
+    $('cpfHint').textContent = f
+      ? 'Foreigners are generally not subject to CPF. Override if applicable.'
+      : 'Auto-filled from your profile — you can override it. 2026 OW ceiling: S$8,000/month.';
+    if (window.__applyLang) window.__applyLang();
+  }
+  $('residency').addEventListener('change', function () {
+    $('prYearWrap').classList.toggle('hidden', $('residency').value !== 'pr');
+    applyRate(); calc();
+  });
+  $('prYear').addEventListener('change', function () { applyRate(); calc(); });
+
+  /* Expense rows */
+  function rowEl(item) {
+    var row = document.createElement('div');
+    row.className = 'flex items-center gap-2 py-2 border-b border-slate-200';
+
+    var label = document.createElement('input');
+    label.type = 'text'; label.value = item.label; label.placeholder = 'Expense name';
+    label.className = 'exp-label flex-1 min-w-0 px-2 py-2 text-sm bg-transparent focus:outline-none focus:bg-emerald-50 rounded';
+    label.addEventListener('input', function () { item.label = label.value; });
+
+    var wrap = document.createElement('div');
+    wrap.className = 'flex items-center gap-1 w-32 sm:w-40 shrink-0';
+    var pre = document.createElement('span'); pre.textContent = '$'; pre.className = 'text-slate-400 text-sm';
+    var amt = document.createElement('input');
+    amt.type = 'number'; amt.min = '0'; amt.step = '10'; amt.placeholder = '0.00';
+    amt.value = item.amount || '';
+    amt.className = 'inp !py-2 text-right font-mono';
+    amt.addEventListener('input', function () { item.amount = parseFloat(amt.value) || 0; calc(); });
+    wrap.appendChild(pre); wrap.appendChild(amt);
+
+    var rm = document.createElement('button');
+    rm.type = 'button'; rm.innerHTML = '&times;'; rm.setAttribute('aria-label', 'Remove');
+    rm.className = 'w-8 h-8 shrink-0 rounded-full border border-slate-200 text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors';
+    rm.addEventListener('click', function () {
+      expenses = expenses.filter(function (e) { return e.id !== item.id; });
+      render(); calc();
+    });
+
+    row.appendChild(label); row.appendChild(wrap); row.appendChild(rm);
+    return row;
+  }
+  function render() {
+    $('expenseList').innerHTML = '';
+    expenses.forEach(function (it) { $('expenseList').appendChild(rowEl(it)); });
+    if (window.__applyLang) window.__applyLang();
+  }
+  $('addExpenseBtn').addEventListener('click', function () {
+    var item = { id: 'c' + (uid++), label: '', amount: 0 };
+    expenses.push(item);
+    var r = rowEl(item);
+    $('expenseList').appendChild(r);
+    r.querySelector('.exp-label').focus();
+  });
+
+  /* Calculation */
+  function data() {
+    var gross = parseFloat($('grossIncome').value) || 0;
+    var rate = parseFloat($('cpfRate').value) || 0;
+    var cpf = Math.min(gross, CPF_OW_CEILING) * rate / 100;
+    var net = gross - cpf;
+    var tot = expenses.reduce(function (s, e) { return s + (parseFloat(e.amount) || 0); }, 0);
+    var inv = parseFloat($('investAmount').value) || 0;
+    var ins = parseFloat($('insuranceAmount').value) || 0;
+    var sav = net - tot - inv - ins;
+    return { gross: gross, rate: rate, cpf: cpf, net: net, tot: tot, inv: inv, ins: ins, sav: sav,
+             pct: function (a) { return net > 0 ? a / net * 100 : 0; } };
+  }
+  function calc() {
+    var d = data();
+    $('cpfAmountOut').textContent = fmt(d.cpf);
+    $('netIncomeOut').textContent = fmt(d.net);
+    $('totalExpensesOut').textContent = fmt(d.tot);
+    $('figNetIncome').textContent = fmt(d.net);
+    $('figExpenses').textContent = fmt(d.tot + d.inv + d.ins);
+    $('figSavings').textContent = fmt(d.sav);
+    var w = $('figSavingsWrap');
+    w.style.background = d.sav < 0 ? 'rgba(248,113,113,.14)' : 'rgba(52,211,153,.10)';
+    w.style.borderColor = d.sav < 0 ? 'rgba(248,113,113,.4)' : 'rgba(52,211,153,.28)';
+
+    var rows = [
+      ['Expenses', 40, d.tot], ['Investment', 30, d.inv], ['Savings', 20, d.sav], ['Insurance', 10, d.ins]
+    ];
+    var body = $('breakdownBody');
+    body.innerHTML = '';
+    rows.forEach(function (r) {
+      var tr = document.createElement('tr');
+      tr.className = 'border-t border-slate-200';
+      tr.innerHTML =
+        '<td class="p-3"><div class="font-bold" data-i18n="' + r[0] + '">' + r[0] + '</div><div class="text-[10px] text-slate-500 font-mono">' + r[1] + '% <span data-i18n="of income">of income</span></div></td>' +
+        '<td class="p-3 text-right font-mono">' + fmt(d.net * r[1] / 100) + '</td>' +
+        '<td class="p-3 text-right font-mono">' + fmt(r[2]) + '</td>' +
+        '<td class="p-3 text-right font-mono">' + d.pct(r[2]).toFixed(1) + '%</td>';
+      body.appendChild(tr);
+    });
+    if (window.__applyLang) window.__applyLang();
+  }
+  ['grossIncome', 'cpfRate', 'investAmount', 'insuranceAmount'].forEach(function (id) {
+    $(id).addEventListener('input', calc);
+  });
+
+  /* WhatsApp */
+  $('sendResultsBtn').addEventListener('click', function () {
+    var d = data();
+    var m = 'PERSONAL EXPENSES SUMMARY\n\n' +
+      'Gross Monthly Income: ' + money(d.gross) + '\n' +
+      'CPF (' + d.rate + '%): ' + money(d.cpf) + '\n' +
+      'Net Income: ' + money(d.net) + '\n\nEXPENSES\n';
+    expenses.forEach(function (e) { m += (e.label || 'Unnamed Expense') + ': ' + money(parseFloat(e.amount) || 0) + '\n'; });
+    m += 'Total Expenses: ' + money(d.tot) + ' (' + d.pct(d.tot).toFixed(1) + '%)\n\nALLOCATION\n' +
+      'Expenses: ' + money(d.tot) + '  [Target 40% | Current ' + d.pct(d.tot).toFixed(1) + '%]\n' +
+      'Investment: ' + money(d.inv) + '  [Target 30% | Current ' + d.pct(d.inv).toFixed(1) + '%]\n' +
+      'Savings: ' + money(d.sav) + '  [Target 20% | Current ' + d.pct(d.sav).toFixed(1) + '%]\n' +
+      'Insurance: ' + money(d.ins) + '  [Target 10% | Current ' + d.pct(d.ins).toFixed(1) + '%]\n\n' +
+      'Savings Available: ' + money(d.sav) + '\n\nSent from the Personal Expenses Calculator.';
+    window.open('https://wa.me/6591849632?text=' + encodeURIComponent(m), '_blank', 'noopener');
+  });
+
+  /* PDF summary */
+  $('downloadPdfBtn').addEventListener('click', function () {
+    if (!window.jspdf || !window.jspdf.jsPDF) {
+      alert('The PDF tool could not load. Please check your internet connection and try again.');
+      return;
+    }
+    var d = data();
+    var doc = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' });
+    var W = 210, M = 18, y;
+
+    function newPage() { doc.addPage(); y = 20; }
+    function title(t) {
+      if (y > 250) newPage();
+      doc.setFont(undefined, 'bold'); doc.setFontSize(11); doc.setTextColor(15, 23, 42);
+      doc.text(t, M, y); doc.setDrawColor(226, 232, 240); doc.line(M, y + 3, W - M, y + 3); y += 11;
+    }
+
+    doc.setFillColor(15, 23, 42); doc.rect(0, 0, W, 40, 'F');
+    doc.setTextColor(255, 255, 255); doc.setFont(undefined, 'bold'); doc.setFontSize(21);
+    doc.text('Personal Financial Summary', M, 18);
+    doc.setFont(undefined, 'normal'); doc.setFontSize(9.5); doc.setTextColor(203, 213, 225);
+    doc.text('Your monthly cash-flow & allocation snapshot', M, 26);
+    doc.text('Prepared using the Personal Expenses Calculator', M, 32);
+
+    y = 50;
+    var cw = (W - M * 2 - 8) / 3;
+    [['Gross Income', d.gross], ['CPF', d.cpf], ['Net Income', d.net]].forEach(function (c, i) {
+      var x = M + i * (cw + 4);
+      doc.setFillColor(248, 250, 252); doc.roundedRect(x, y, cw, 24, 4, 4, 'F');
+      doc.setFont(undefined, 'normal'); doc.setFontSize(8); doc.setTextColor(100, 116, 139); doc.text(c[0], x + 5, y + 8);
+      doc.setFont(undefined, 'bold'); doc.setFontSize(12); doc.setTextColor(15, 23, 42); doc.text(money(c[1]), x + 5, y + 17);
+    });
+    y += 34;
+
+    title('Expense Breakdown');
+    expenses.forEach(function (e, i) {
+      if (y > 270) newPage();
+      var a = parseFloat(e.amount) || 0;
+      if (i % 2 === 0) { doc.setFillColor(248, 250, 252); doc.rect(M, y - 4, W - M * 2, 7, 'F'); }
+      doc.setFont(undefined, 'normal'); doc.setFontSize(9);
+      doc.setTextColor(51, 65, 85); doc.text((e.label || 'Unnamed Expense').slice(0, 40), M + 3, y);
+      doc.setTextColor(15, 23, 42);
+      doc.text(money(a), W - 48, y, { align: 'right' });
+      doc.text(d.pct(a).toFixed(1) + '%', W - M - 3, y, { align: 'right' });
+      y += 7;
+    });
+    doc.setDrawColor(203, 213, 225); doc.line(M, y - 2, W - M, y - 2); y += 4;
+    doc.setFont(undefined, 'bold'); doc.setFontSize(9.5); doc.setTextColor(15, 23, 42);
+    doc.text('Total Expenses', M + 3, y);
+    doc.text(money(d.tot) + ' (' + d.pct(d.tot).toFixed(1) + '%)', W - M - 3, y, { align: 'right' });
+    y += 12;
+
+    if (y > 215) newPage();
+    title('Allocation (current vs. target)');
+    [['Expenses', 40, d.tot], ['Investment', 30, d.inv], ['Savings', 20, d.sav], ['Insurance', 10, d.ins]].forEach(function (a) {
+      var share = Math.max(0, Math.min(d.pct(a[2]), 100));
+      doc.setFillColor(248, 250, 252); doc.roundedRect(M, y, W - M * 2, 14, 3, 3, 'F');
+      doc.setFont(undefined, 'bold'); doc.setFontSize(9); doc.setTextColor(15, 23, 42); doc.text(a[0], M + 4, y + 6);
+      doc.setFont(undefined, 'normal'); doc.setTextColor(100, 116, 139); doc.text('Target ' + a[1] + '%', M + 34, y + 6);
+      doc.setFont(undefined, 'bold'); doc.setTextColor(15, 23, 42);
+      doc.text(money(a[2]), W - M - 30, y + 6, { align: 'right' });
+      doc.text(d.pct(a[2]).toFixed(1) + '%', W - M - 4, y + 6, { align: 'right' });
+      doc.setFillColor(226, 232, 240); doc.roundedRect(M + 4, y + 9, W - M * 2 - 8, 2, 1, 1, 'F');
+      if (share > 0) { doc.setFillColor(16, 185, 129); doc.roundedRect(M + 4, y + 9, (W - M * 2 - 8) * share / 100, 2, 1, 1, 'F'); }
+      y += 17;
+    });
+
+    y += 4; if (y > 255) newPage();
+    var neg = d.sav < 0;
+    doc.setFillColor(neg ? 254 : 236, neg ? 242 : 253, neg ? 242 : 245);
+    doc.roundedRect(M, y, W - M * 2, 22, 4, 4, 'F');
+    doc.setFont(undefined, 'normal'); doc.setFontSize(8.5); doc.setTextColor(neg ? 185 : 22, neg ? 28 : 101, neg ? 28 : 52);
+    doc.text('Savings Available', M + 6, y + 8);
+    doc.setFont(undefined, 'bold'); doc.setFontSize(15); doc.text(money(d.sav), M + 6, y + 17);
+    y += 32;
+
+    doc.setFont(undefined, 'normal'); doc.setFontSize(7.5); doc.setTextColor(100, 116, 139);
+    doc.text('Targets are illustrative budgeting guidelines and are not financial advice.', W / 2, 287, { align: 'center' });
+
+    doc.save('personal-financial-summary.pdf');
+  });
+
+  /* Reset */
+  $('resetBtn').addEventListener('click', function () {
+    if (!confirm('Reset all fields to default?')) return;
+    $('residency').value = 'singaporean';
+    $('prYearWrap').classList.add('hidden');
+    $('grossIncome').value = ''; $('investAmount').value = ''; $('insuranceAmount').value = '';
+    applyRate();
+    expenses = makeDefaults();
+    render(); calc();
+  });
+
+  applyRate();
+  expenses = makeDefaults();
+  render();
+  calc();
+})();
+
+/* ============ Language toggle (EN / 中文) ============ */
+(function () {
+  var zh = {
+    "← Back to main site":"← 返回主页", "← Back to Interactive Tools":"← 返回互动工具", "Interactive Tools":"互动工具",
+    "Simple calculators to help you understand your coverage and your monthly cash flow. No sign-up, nothing is saved.":"简单实用的计算器，帮助你了解自己的保障和每月现金流。无需注册，不会保存任何资料。",
+    "Coverage Estimator":"保障估算器", "Personal Expenses Calculator":"个人开支计算器", "Open tool →":"打开工具 →",
+    "Estimate how much protection your family may need based on your income, age, lifestyle and liabilities.":"根据你的收入、年龄、生活方式和负债，估算家人可能需要的保障额。",
+    "See your monthly cash flow after CPF, compare your spending with a simple budgeting guide, and download a summary PDF.":"了解扣除 CPF 后的每月现金流，对照简单的预算参考，并可下载摘要 PDF。",
+    "Illustrative tools only. They are not financial advice.":"仅供参考的示例工具，并非财务建议。",
+    "Understand your coverage. Cover the gaps.":"了解你的保障，填补保障缺口。",
+    "A simple way to understand your current coverage and cover the gaps":"简单了解目前的保障，并找出需要补足的缺口。",
+    "Annual Income (SGD)":"年收入（新币）", "Age":"年龄", "Lifestyle Preference":"生活方式偏好",
+    "Comfortable":"舒适型", "Essential":"基本型", "Premium":"优越型",
+    "Outstanding Liabilities (SGD)":"未偿还负债（新币）", "Reset all fields":"重置所有资料",
+    "Your Coverage Estimate":"你的保障估算", "Income Replacement":"收入替代", "Liability Coverage":"负债保障",
+    "Lifestyle Multiplier":"生活方式倍数", "Recommended Sum Assured":"建议保额",
+    "Indicative estimate only. Let's map it out precisely together.":"仅供参考估算。让我们一起更精准地规划。",
+    "WhatsApp for Full Analysis →":"WhatsApp 获取完整分析 →",
+    "Know your numbers. Plan your savings.":"了解你的数字，规划你的储蓄。",
+    "A simple way to understand your monthly cash flow, expenses, savings and current allocation — without the financial jargon.":"简单了解你的每月现金流、开支、储蓄和目前的资金分配——不需要复杂的财务术语。",
+    "Your Profile":"你的资料",
+    "Your residency status determines the simplified CPF contribution rate used for this illustration.":"你的居住身份将决定本示例采用的简化 CPF 公积金缴交率。",
+    "Residency Status":"居住身份", "Singaporean":"新加坡公民", "Permanent Resident (PR)":"永久居民（PR）", "Foreigner":"外国人",
+    "PR Year":"PR 年份", "1st Year (5%)":"第 1 年（5%）", "2nd Year (15%)":"第 2 年（15%）", "3rd Year & Beyond (20%)":"第 3 年及以后（20%）",
+    "Gross Monthly Income (S$)":"每月税前收入（新币）", "CPF Deduction Rate (%)":"CPF 扣缴率（%）",
+    "Auto-filled from your profile — you can override it. 2026 OW ceiling: S$8,000/month.":"根据你的资料自动填写——你可以自行修改。2026 年普通工资（OW）上限：每月 S$8,000。",
+    "CPF Deducted (S$/mo)":"CPF 扣除额（新币/月）", "Net Income / Take-Home (S$/mo)":"净收入／到手收入（新币/月）",
+    "CPF is applied to up to S$8,000 of monthly Ordinary Wages for 2026. Income above the OW ceiling is not included in this monthly CPF calculation.":"2026 年，CPF 仅适用于每月最高 S$8,000 的普通工资（Ordinary Wages）。超过普通工资上限的收入，不计入本月 CPF 计算。",
+    "Monthly Expenses":"每月开支", "Basic categories are pre-filled. Edit any label or amount, or add your own.":"基本类别已预先填写。你可以修改名称、金额或新增项目。",
+    "+ Add Another Expense":"+ 新增开支", "Total Expenses":"总开支",
+    "Investment & Insurance":"投资与保险", "(optional)":"（可选）",
+    "What you currently set aside each month — used to compare against the illustrative targets below.":"你目前每月预留的金额——用于与下方示例目标进行比较。",
+    "Current Investment (S$/mo)":"目前投资（新币/月）", "Current Insurance Premiums (S$/mo)":"目前保险保费（新币/月）",
+    "Your Results":"你的结果", "Savings Available = Net Income − Expenses − Investment − Insurance.":"可储蓄金额 = 净收入 − 开支 − 投资 − 保险。",
+    "Net Income":"净收入", "Including investment & insurance":"包括投资与保险", "Savings Available":"可储蓄金额",
+    "Category":"类别", "Recommended":"建议", "Your Amount":"你的金额", "Your %":"你的占比",
+    "Expenses":"开支", "Investment":"投资", "Savings":"储蓄", "Insurance":"保险", "of income":"占收入",
+    "WhatsApp My Results →":"WhatsApp 我的结果 →", "Download Summary PDF ↓":"下载摘要 PDF ↓",
+    "Illustrative tool only.":"仅供参考的示例工具。",
+    "CPF rates shown are simplified illustrative employee-contribution rates (Singaporean: 20%; PR Year 1: 5%, Year 2: 15%, Year 3+: 20%). For 2026, this calculator applies the S$8,000 monthly Ordinary Wage (OW) ceiling. It does not model age-specific CPF rates, Additional Wages, the S$102,000 annual salary ceiling, or the S$37,740 CPF Annual Limit. Foreigners are generally not subject to CPF.":"所示 CPF 缴交率为简化的示例性员工缴交率（新加坡公民：20%；PR 第 1 年：5%、第 2 年：15%、第 3 年及以后：20%）。2026 年，本计算器采用每月 S$8,000 的普通工资（OW）上限。本工具不涵盖按年龄区分的 CPF 缴交率、额外工资、S$102,000 年薪上限或 S$37,740 CPF 年度上限。外国人一般不适用 CPF。",
+    "For exact figures, always refer to the official CPF Board contribution tables. The allocation targets shown are budgeting guidelines and are not financial advice.":"如需准确数据，请以 CPF 公积金局官方缴交率表为准。这里的资金分配目标仅为预算参考，并非财务建议。",
+    "About":"关于我", "Services":"服务", "Process":"咨询流程", "Testimonials":"客户评价"
+  };
+  var rowLabels = {
+    "Housing / Rent":"住房／租金", "Food & Groceries":"餐饮与杂货", "Transport":"交通", "Utilities (Elec/Water/Gas)":"水电煤等公用事业",
+    "Phone & Internet":"电话与网络", "Entertainment & Leisure":"娱乐与休闲", "Personal Care":"个人护理", "Others / Miscellaneous":"其他／杂项"
+  };
+  var lang = 'en';
+  try { lang = localStorage.getItem('aaydenLang') === 'zh' ? 'zh' : 'en'; } catch (e) {}
+
+  function apply() {
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n');
+      if (!el.hasAttribute('data-en')) el.setAttribute('data-en', el.textContent);
+      el.textContent = (lang === 'zh' && zh[key]) ? zh[key] : el.getAttribute('data-en');
+    });
+    document.querySelectorAll('.exp-label').forEach(function (inp) {
+      if (!inp.hasAttribute('data-en')) inp.setAttribute('data-en', inp.value);
+      var en = inp.getAttribute('data-en');
+      if (rowLabels[en]) inp.value = lang === 'zh' ? rowLabels[en] : en;
+    });
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    var t = document.getElementById('langToggle');
+    t.textContent = lang === 'zh' ? 'English' : '中文';
+    try { localStorage.setItem('aaydenLang', lang); } catch (e) {}
+  }
+  window.__applyLang = function () { if (lang === 'zh') apply(); };
+  document.getElementById('langToggle').addEventListener('click', function () {
+    lang = lang === 'zh' ? 'en' : 'zh';
+    apply();
+  });
+  apply();
+})();
+</script>
+</body>
+</html>
