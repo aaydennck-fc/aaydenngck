@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Tools | Aayden Ng</title>
+  <link rel="icon" type="image/png" href="https://github.com/aaydennck-fc/aaydenngck/blob/main/Aayde%20(1).png?raw=true">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { background: #f6f5ef; }
+    .lang-toggle-btn{border:1px solid #dce2db;background:#f8f8f3;color:#185c3b;border-radius:999px;padding:9px 14px;font:600 12px/1 system-ui,sans-serif;cursor:pointer;white-space:nowrap;transition:all .18s ease}
+    .lang-toggle-btn:hover{background:#e2eee7}
+  </style>
+</head>
+<body class="text-slate-900 antialiased">
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md z-50 border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
+      <a href="index.html" class="flex items-center shrink-0" aria-label="Aayden Ng - Home">
+        <img src="https://raw.githubusercontent.com/aaydennck-fc/aaydenngck/fc3b41add5ff462f4d7c2cb9683785619b3e537c/Aayden%20logo.png" alt="Aayden Ng logo" class="h-12 w-auto max-w-[180px] object-contain">
+      </a>
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors" data-i18n="Back to main site">&larr; Back to main site</a>
+        <button type="button" id="langToggle" class="lang-toggle-btn" aria-label="Switch language">中文</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- WhatsApp button -->
+  <a class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white rounded-full shadow-lg hover:scale-110 transition-transform duration-200 flex items-center justify-center w-14 h-14 text-2xl"
+     href="https://wa.me/+6591849632?text=Hi Aayden, let's chat!" target="_blank" rel="noopener" aria-label="WhatsApp Aayden">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <main class="pt-32 pb-20 px-6">
+    <div class="max-w-5xl mx-auto">
+
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4" data-i18n="Interactive Tools">Interactive Tools</h1>
+        <p class="text-slate-600" data-i18n="Simple calculators to help you understand your coverage and your monthly cash flow. No sign-up, nothing is saved.">Simple calculators to help you understand your coverage and your monthly cash flow. No sign-up, nothing is saved.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+
+        <!-- Tool 1 -->
+        <a href="index.html?tool=coverage" class="group bg-white p-8 rounded-2xl border border-slate-200/60 shadow-sm hover:-translate-y-1.5 hover:shadow-md hover:border-emerald-500/30 transition-all duration-300 flex flex-col">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 text-xl group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+            <i class="fa-solid fa-umbrella"></i>
+          </div>
+          <h2 class="text-xl font-bold mb-3" data-i18n="Coverage Estimator">Coverage Estimator</h2>
+          <p class="text-slate-600 text-sm leading-relaxed mb-6" data-i18n="Estimate how much protection your family may need based on your income, age, lifestyle and liabilities.">Estimate how much protection your family may need based on your income, age, lifestyle and liabilities.</p>
+          <span class="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-emerald-600" data-i18n="Open tool">Open tool <i class="fa-solid fa-arrow-right text-xs"></i></span>
+        </a>
+
+        <!-- Tool 2 -->
+        <a href="index.html?tool=expenses" class="group bg-white p-8 rounded-2xl border border-slate-200/60 shadow-sm hover:-translate-y-1.5 hover:shadow-md hover:border-emerald-500/30 transition-all duration-300 flex flex-col">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 text-xl group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+            <i class="fa-solid fa-wallet"></i>
+          </div>
+          <h2 class="text-xl font-bold mb-3" data-i18n="Personal Expenses Calculator">Personal Expenses Calculator</h2>
+          <p class="text-slate-600 text-sm leading-relaxed mb-6" data-i18n="See your monthly cash flow after CPF, compare your spending with a simple budgeting guide, and download a summary PDF.">See your monthly cash flow after CPF, compare your spending with a simple budgeting guide, and download a summary PDF.</p>
+          <span class="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-emerald-600" data-i18n="Open tool">Open tool <i class="fa-solid fa-arrow-right text-xs"></i></span>
+        </a>
+
+      </div>
+
+      <p class="text-center text-xs text-slate-500 mt-10" data-i18n="Illustrative tools only. They are not financial advice.">Illustrative tools only. They are not financial advice.</p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-12 px-6 border-t border-slate-800 w-full">
+    <div class="max-w-5xl mx-auto flex flex-col gap-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6 border-b border-slate-800 pb-8">
+        <div class="text-white font-semibold tracking-tight text-sm">
+          Aayden Ng <span class="text-emerald-400 font-normal">| Manager Wealth Services</span>
+        </div>
+        <div class="flex gap-6 text-sm">
+          <a href="index.html#about" class="hover:text-emerald-600 transition-colors">About</a>
+          <a href="index.html#services" class="hover:text-emerald-600 transition-colors">Services</a>
+          <a href="index.html#process" class="hover:text-emerald-600 transition-colors">Process</a>
+          <a href="tools.html" class="hover:text-emerald-600 transition-colors">Interactive Tools</a>
+          <a href="index.html#testimonials" class="hover:text-emerald-600 transition-colors">Testimonials</a>
+        </div>
+      </div>
+      <div class="text-slate-500 leading-relaxed text-[11px] text-center md:text-left">
+        <p class="mb-2">
+          Aayden Ng is a Manager Wealth Services representing Prudential Assurance Company Singapore (Pte) Limited (Reg. No. 199002477Z).
+          This website is for informational purposes only and does not constitute financial advice. All insurance product information
+          is subject to the actual policy terms and conditions. MAS Licensed.
+        </p>
+        <p>&copy; 2026 Aayden Ng. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Language toggle (shares the same saved choice as the main site)
+    (function () {
+      var zh = {
+        "Back to main site": "← 返回主页",
+        "Interactive Tools": "互动工具",
+        "Simple calculators to help you understand your coverage and your monthly cash flow. No sign-up, nothing is saved.": "简单实用的计算器，帮助你了解自己的保障和每月现金流。无需注册，不会保存任何资料。",
+        "Coverage Estimator": "保障估算器",
+        "Estimate how much protection your family may need based on your income, age, lifestyle and liabilities.": "根据你的收入、年龄、生活方式和负债，估算家人可能需要的保障额。",
+        "Personal Expenses Calculator": "个人开支计算器",
+        "See your monthly cash flow after CPF, compare your spending with a simple budgeting guide, and download a summary PDF.": "了解扣除 CPF 后的每月现金流，对照简单的预算参考，并可下载摘要 PDF。",
+        "Open tool": "打开工具",
+        "Illustrative tools only. They are not financial advice.": "仅供参考的示例工具，并非财务建议。"
+      };
+      var nodes = document.querySelectorAll('[data-i18n]');
+      var original = new Map();
+      nodes.forEach(function (n) { original.set(n, n.innerHTML); });
+
+      function apply(lang) {
+        nodes.forEach(function (n) {
+          var key = n.getAttribute('data-i18n');
+          if (lang === 'zh' && zh[key]) {
+            var icon = n.querySelector('i');
+            n.textContent = zh[key];
+            if (icon) { n.appendChild(document.createTextNode(' ')); n.appendChild(icon); }
+          } else {
+            n.innerHTML = original.get(n);
+          }
+        });
+        document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+        var t = document.getElementById('langToggle');
+        t.textContent = lang === 'zh' ? 'English' : '中文';
+        try { localStorage.setItem('aaydenLang', lang); } catch (e) {}
+      }
+
+      var current = 'en';
+      try { current = localStorage.getItem('aaydenLang') === 'zh' ? 'zh' : 'en'; } catch (e) {}
+      document.getElementById('langToggle').addEventListener('click', function () {
+        current = current === 'zh' ? 'en' : 'zh';
+        apply(current);
+      });
+      apply(current);
+    })();
+  </script>
+</body>
+</html>
