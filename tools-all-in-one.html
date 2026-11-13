@@ -312,8 +312,14 @@
             <button type="button" id="eduFeesBtn" class="text-xs font-semibold text-emerald-700 hover:text-emerald-900 underline underline-offset-2 text-right" data-i18n="View current fees ↗">View current fees ↗</button>
           </div>
           <select id="eduPath" class="inp">
-            <option value="9000" selected data-i18n="Local public university (e.g. NUS / NTU)">Local public university (e.g. NUS / NTU)</option>
-            <option value="13000" data-i18n="Local university, higher fees (e.g. SMU / SUTD)">Local university, higher fees (e.g. SMU / SUTD)</option>
+            <option value="9700" selected>NUS (S$9,700)</option>
+            <option value="9500">NTU (S$9,500)</option>
+            <option value="11550">SMU (S$11,550)</option>
+            <option value="13500" data-years="4">SUTD (S$13,500)</option>
+            <option value="8460">SUSS (S$8,460)</option>
+            <option value="9360">SIT (S$9,360)</option>
+            <option value="9830" data-years="3">Lasalle (S$9,830)</option>
+            <option value="10270" data-years="3">NAFA University of the Arts (S$10,270)</option>
             <option value="45000" data-i18n="Overseas (e.g. UK / Australia)">Overseas (e.g. UK / Australia)</option>
             <option value="85000" data-i18n="Overseas (e.g. US)">Overseas (e.g. US)</option>
             <option value="custom" data-i18n="Custom amount">Custom amount</option>
@@ -323,7 +329,8 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
             <label class="lbl" for="eduAnnual" data-i18n="Annual cost today (S$)">Annual cost today (S$)</label>
-            <input type="number" id="eduAnnual" value="9000" min="0" step="500" class="inp">
+            <input type="number" id="eduAnnual" value="9700" min="0" step="500" class="inp">
+            <p class="text-xs text-slate-500 mt-1.5" data-i18n="Local options use the higher end of each fee range.">Local options use the higher end of each fee range.</p>
           </div>
           <div>
             <label class="lbl" for="eduYears" data-i18n="Years of study">Years of study</label>
@@ -347,7 +354,7 @@
           <input type="number" id="eduSaved" value="0" min="0" step="500" class="inp">
         </div>
 
-        <p class="text-xs text-slate-500" data-i18n="Local pathway amounts are based on subsidised tuition for Singapore citizens and exclude living costs. Overseas amounts are rough all-in assumptions. Please edit every figure to suit your plans.">Local pathway amounts are based on subsidised tuition for Singapore citizens and exclude living costs. Overseas amounts are rough all-in assumptions. Please edit every figure to suit your plans.</p>
+        <p class="text-xs text-slate-500" data-i18n="Local amounts use the higher end of each university's 2026 fee range for Singapore citizens (tuition only, excluding living costs). Overseas amounts are rough all-in assumptions. Please edit every figure to suit your plans.">Local amounts use the higher end of each university's 2026 fee range for Singapore citizens (tuition only, excluding living costs). Overseas amounts are rough all-in assumptions. Please edit every figure to suit your plans.</p>
 
         <div class="flex justify-end">
           <button type="reset" class="text-xs font-medium text-gray-400 hover:text-emerald-600" data-i18n="Reset all fields">Reset all fields</button>
@@ -791,6 +798,8 @@
   ids.forEach(function (id) { $(id).addEventListener('input', calc); $(id).addEventListener('change', calc); });
   $('eduPath').addEventListener('change', function () {
     if (this.value !== 'custom') $('eduAnnual').value = this.value;
+    var y = this.options[this.selectedIndex].getAttribute('data-years');
+    if (y) $('eduYears').value = y;
     calc();
   });
   $('eduAnnual').addEventListener('input', function () {
@@ -889,13 +898,12 @@
     "Plan early. Make it easier.":"及早规划，更轻松无负担。",
     "See what university may cost by the time your child gets there, and what to set aside each month.":"了解孩子上大学时的费用，以及每月需要预留多少。",
     "Child's current age":"孩子目前年龄", "Age starting university":"开始读大学的年龄", "Study pathway":"升学途径",
-    "Local public university (e.g. NUS / NTU)":"本地公立大学（如 NUS / NTU）",
-    "Local university, higher fees (e.g. SMU / SUTD)":"本地大学，学费较高（如 SMU / SUTD）",
+    "Local options use the higher end of each fee range.":"本地选项采用各学费区间的较高值。",
     "Overseas (e.g. UK / Australia)":"海外（如英国／澳洲）", "Overseas (e.g. US)":"海外（如美国）", "Custom amount":"自定义金额",
     "Annual cost today (S$)":"目前每年费用（新币）", "Years of study":"就读年数",
     "Education cost inflation (% a year)":"教育费用年通胀率（%）", "Expected return on savings (% a year)":"储蓄预期年回报率（%）",
     "Already set aside for education (S$)":"已为教育预留的金额（新币）",
-    "Local pathway amounts are based on subsidised tuition for Singapore citizens and exclude living costs. Overseas amounts are rough all-in assumptions. Please edit every figure to suit your plans.":"本地升学途径的金额以新加坡公民的津贴学费为参考，不含生活费。海外金额为粗略的总费用假设。请根据你的计划修改所有数字。",
+    "Local amounts use the higher end of each university's 2026 fee range for Singapore citizens (tuition only, excluding living costs). Overseas amounts are rough all-in assumptions. Please edit every figure to suit your plans.":"本地金额采用各大学 2026 年新加坡公民学费区间的较高值（仅学费，不含生活费）。海外金额为粗略的总费用假设。请根据你的计划修改所有数字。",
     "Your Education Estimate":"你的教育费用估算", "Years until university":"距离上大学的年数",
     "Cost in first year of study":"第一年的就读费用", "Total future cost":"未来总费用",
     "Value of savings by then":"届时储蓄的价值", "Shortfall to fund":"需要补足的差额", "Monthly amount to set aside":"每月需预留的金额",
