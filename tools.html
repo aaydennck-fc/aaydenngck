@@ -51,7 +51,7 @@
     <p class="text-slate-600" data-i18n="Simple calculators to help you understand your coverage and your monthly cash flow. No sign-up, nothing is saved.">Simple calculators to help you understand your coverage and your monthly cash flow. No sign-up, nothing is saved.</p>
   </div>
 
-  <div class="grid md:grid-cols-2 gap-8">
+  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
     <a href="#coverage" class="group bg-white p-8 rounded-2xl border border-slate-200/60 shadow-sm hover:-translate-y-1.5 hover:shadow-md hover:border-emerald-500/30 transition-all duration-300 flex flex-col">
       <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 0C7 4 3 8 3 12h18c0-4-4-8-9-8zm0 8v6a2 2 0 004 0"/></svg>
@@ -67,6 +67,15 @@
       </div>
       <h2 class="text-xl font-bold mb-3" data-i18n="Personal Expenses Calculator">Personal Expenses Calculator</h2>
       <p class="text-slate-600 text-sm leading-relaxed mb-6" data-i18n="See your monthly cash flow after CPF, compare your spending with a simple budgeting guide, and download a summary PDF.">See your monthly cash flow after CPF, compare your spending with a simple budgeting guide, and download a summary PDF.</p>
+      <span class="mt-auto text-sm font-semibold text-emerald-600" data-i18n="Open tool →">Open tool →</span>
+    </a>
+
+    <a href="#education" class="group bg-white p-8 rounded-2xl border border-slate-200/60 shadow-sm hover:-translate-y-1.5 hover:shadow-md hover:border-emerald-500/30 transition-all duration-300 flex flex-col">
+      <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+      </div>
+      <h2 class="text-xl font-bold mb-3" data-i18n="Child Education Fund Planner">Child Education Fund Planner</h2>
+      <p class="text-slate-600 text-sm leading-relaxed mb-6" data-i18n="Estimate the future cost of university and the monthly amount to set aside, starting from your child's age today.">Estimate the future cost of university and the monthly amount to set aside, starting from your child's age today.</p>
       <span class="mt-auto text-sm font-semibold text-emerald-600" data-i18n="Open tool →">Open tool →</span>
     </a>
   </div>
@@ -273,6 +282,100 @@
   </aside>
 </section>
 
+<!-- ===================== CHILD EDUCATION ===================== -->
+<section id="view-education" class="view max-w-5xl mx-auto hidden">
+  <a href="#" class="inline-block text-sm font-semibold text-emerald-700 hover:text-emerald-900 mb-6" data-i18n="← Back to Interactive Tools">← Back to Interactive Tools</a>
+
+  <div class="rounded-[28px] text-white p-8 sm:p-12 mb-8 shadow-lg" style="background:linear-gradient(135deg,#164e35 0%,#1b6543 58%,#275f45 100%)">
+    <p class="text-xs tracking-widest uppercase text-emerald-100 mb-3" data-i18n="Child Education Fund Planner">Child Education Fund Planner</p>
+    <h1 class="text-3xl sm:text-5xl font-bold leading-tight mb-3" data-i18n="Plan early. Make it easier.">Plan early. Make it easier.</h1>
+    <p class="text-emerald-50" data-i18n="See what university may cost by the time your child gets there, and what to set aside each month.">See what university may cost by the time your child gets there, and what to set aside each month.</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+    <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100">
+      <form id="eduForm" class="space-y-5" onsubmit="return false">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label class="lbl" for="eduChildAge" data-i18n="Child's current age">Child's current age</label>
+            <input type="number" id="eduChildAge" value="2" min="0" max="25" step="1" class="inp">
+          </div>
+          <div>
+            <label class="lbl" for="eduStartAge" data-i18n="Age starting university">Age starting university</label>
+            <input type="number" id="eduStartAge" value="19" min="1" max="30" step="1" class="inp">
+          </div>
+        </div>
+
+        <div>
+          <label class="lbl" for="eduPath" data-i18n="Study pathway">Study pathway</label>
+          <select id="eduPath" class="inp">
+            <option value="9000" selected data-i18n="Local public university (e.g. NUS / NTU)">Local public university (e.g. NUS / NTU)</option>
+            <option value="13000" data-i18n="Local university, higher fees (e.g. SMU / SUTD)">Local university, higher fees (e.g. SMU / SUTD)</option>
+            <option value="45000" data-i18n="Overseas (e.g. UK / Australia)">Overseas (e.g. UK / Australia)</option>
+            <option value="85000" data-i18n="Overseas (e.g. US)">Overseas (e.g. US)</option>
+            <option value="custom" data-i18n="Custom amount">Custom amount</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label class="lbl" for="eduAnnual" data-i18n="Annual cost today (S$)">Annual cost today (S$)</label>
+            <input type="number" id="eduAnnual" value="9000" min="0" step="500" class="inp">
+          </div>
+          <div>
+            <label class="lbl" for="eduYears" data-i18n="Years of study">Years of study</label>
+            <input type="number" id="eduYears" value="4" min="1" max="10" step="1" class="inp">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label class="lbl" for="eduInflation" data-i18n="Education cost inflation (% a year)">Education cost inflation (% a year)</label>
+            <input type="number" id="eduInflation" value="4" min="0" max="15" step="0.5" class="inp">
+          </div>
+          <div>
+            <label class="lbl" for="eduReturn" data-i18n="Expected return on savings (% a year)">Expected return on savings (% a year)</label>
+            <input type="number" id="eduReturn" value="3" min="0" max="15" step="0.5" class="inp">
+          </div>
+        </div>
+
+        <div>
+          <label class="lbl" for="eduSaved" data-i18n="Already set aside for education (S$)">Already set aside for education (S$)</label>
+          <input type="number" id="eduSaved" value="0" min="0" step="500" class="inp">
+        </div>
+
+        <p class="text-xs text-slate-500" data-i18n="Local pathway amounts are based on subsidised tuition for Singapore citizens and exclude living costs. Overseas amounts are rough all-in assumptions. Please edit every figure to suit your plans.">Local pathway amounts are based on subsidised tuition for Singapore citizens and exclude living costs. Overseas amounts are rough all-in assumptions. Please edit every figure to suit your plans.</p>
+
+        <div class="flex justify-end">
+          <button type="reset" class="text-xs font-medium text-gray-400 hover:text-emerald-600" data-i18n="Reset all fields">Reset all fields</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="lg:col-span-5 bg-gradient-to-br from-emerald-950 via-gray-900 to-emerald-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col justify-between">
+      <div>
+        <h3 class="font-semibold text-lg text-emerald-100 border-b border-emerald-800/50 pb-4 mb-6" data-i18n="Your Education Estimate">Your Education Estimate</h3>
+        <div class="space-y-4 text-sm">
+          <div class="flex justify-between gap-4"><span class="text-gray-300" data-i18n="Years until university">Years until university</span><span id="eduYearsTo" class="font-medium">0</span></div>
+          <div class="flex justify-between gap-4"><span class="text-gray-300" data-i18n="Cost in first year of study">Cost in first year of study</span><span id="eduFirstYear" class="font-medium">S$0</span></div>
+          <div class="flex justify-between gap-4"><span class="text-gray-300" data-i18n="Total future cost">Total future cost</span><span id="eduTotal" class="font-medium">S$0</span></div>
+          <div class="flex justify-between gap-4"><span class="text-gray-300" data-i18n="Value of savings by then">Value of savings by then</span><span id="eduSavedFv" class="font-medium">S$0</span></div>
+          <div class="flex justify-between gap-4"><span class="text-gray-300" data-i18n="Shortfall to fund">Shortfall to fund</span><span id="eduShortfall" class="font-medium text-emerald-400">S$0</span></div>
+        </div>
+        <div class="mt-8 pt-6 border-t border-emerald-800/50">
+          <span class="block text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-1" data-i18n="Monthly amount to set aside">Monthly amount to set aside</span>
+          <div id="eduMonthly" class="text-3xl sm:text-4xl font-extrabold tracking-tight">S$0</div>
+          <p id="eduNote" class="text-xs text-emerald-200/70 mt-2 min-h-[1rem]"></p>
+        </div>
+      </div>
+      <div class="mt-8">
+        <p class="text-xs text-emerald-200/70 italic mb-4" data-i18n="Indicative estimate only. Costs and returns are not guaranteed. Let's map it out precisely together.">Indicative estimate only. Costs and returns are not guaranteed. Let's map it out precisely together.</p>
+        <button type="button" id="eduWhatsApp" class="w-full bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-semibold py-3.5 px-6 rounded-xl transition-all text-sm" data-i18n="WhatsApp for Full Analysis →">WhatsApp for Full Analysis →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <!-- Footer -->
@@ -298,10 +401,10 @@
 <script>
 /* ============ Router (hub / coverage / expenses) ============ */
 (function () {
-  var titles = { hub: 'Interactive Tools', coverage: 'Coverage Estimator', expenses: 'Personal Expenses Calculator' };
+  var titles = { hub: 'Interactive Tools', coverage: 'Coverage Estimator', expenses: 'Personal Expenses Calculator', education: 'Child Education Fund Planner' };
   function route() {
     var h = location.hash.replace('#', '');
-    if (h !== 'coverage' && h !== 'expenses') h = 'hub';
+    if (h !== 'coverage' && h !== 'expenses' && h !== 'education') h = 'hub';
     document.querySelectorAll('.view').forEach(function (v) {
       v.classList.toggle('hidden', v.id !== 'view-' + h);
     });
@@ -599,6 +702,81 @@
   calc();
 })();
 
+/* ============ Child Education Fund Planner ============ */
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var ids = ['eduChildAge', 'eduStartAge', 'eduAnnual', 'eduYears', 'eduInflation', 'eduReturn', 'eduSaved'];
+  function num(id) { var v = parseFloat($(id).value); return isNaN(v) ? 0 : v; }
+  function sg(n) { return 'S$' + Math.round(n).toLocaleString('en-SG'); }
+
+  function get() {
+    var childAge = num('eduChildAge'), startAge = num('eduStartAge');
+    var annual = num('eduAnnual'), years = Math.max(1, Math.round(num('eduYears')));
+    var inf = num('eduInflation') / 100, ret = num('eduReturn') / 100, saved = num('eduSaved');
+    var n = Math.max(0, Math.round(startAge - childAge));
+    var total = 0;
+    for (var k = 0; k < years; k++) total += annual * Math.pow(1 + inf, n + k);
+    var first = annual * Math.pow(1 + inf, n);
+    var fvSaved = saved * Math.pow(1 + ret, n);
+    var shortfall = Math.max(0, total - fvSaved);
+    var months = n * 12, r = ret / 12, monthly = 0;
+    if (months > 0 && shortfall > 0) {
+      monthly = r === 0 ? shortfall / months : shortfall * r / (Math.pow(1 + r, months) - 1);
+    }
+    return { childAge: childAge, startAge: startAge, annual: annual, years: years, inf: inf * 100, ret: ret * 100,
+             saved: saved, n: n, total: total, first: first, fvSaved: fvSaved, shortfall: shortfall, months: months, monthly: monthly };
+  }
+
+  function calc() {
+    var d = get();
+    $('eduYearsTo').textContent = d.n + (d.n === 1 ? ' year' : ' years');
+    $('eduFirstYear').textContent = sg(d.first);
+    $('eduTotal').textContent = sg(d.total);
+    $('eduSavedFv').textContent = sg(d.fvSaved);
+    $('eduShortfall').textContent = sg(d.shortfall);
+    $('eduMonthly').textContent = d.shortfall <= 0 ? 'S$0' : (d.months === 0 ? sg(d.shortfall) : sg(d.monthly));
+    var note = '';
+    if (d.shortfall <= 0) note = 'Your current savings are projected to cover the full cost.';
+    else if (d.months === 0) note = 'University starts now, so the full shortfall is due at the start.';
+    else note = 'Monthly amount over ' + d.n + (d.n === 1 ? ' year' : ' years') + ', assuming ' + d.ret + '% a year growth.';
+    $('eduNote').textContent = note;
+  }
+
+  ids.forEach(function (id) { $(id).addEventListener('input', calc); $(id).addEventListener('change', calc); });
+  $('eduPath').addEventListener('change', function () {
+    if (this.value !== 'custom') $('eduAnnual').value = this.value;
+    calc();
+  });
+  $('eduAnnual').addEventListener('input', function () {
+    var match = Array.prototype.some.call($('eduPath').options, function (o) { return o.value === $('eduAnnual').value; });
+    $('eduPath').value = match ? $('eduAnnual').value : 'custom';
+  });
+  $('eduForm').addEventListener('reset', function () { setTimeout(calc, 0); });
+
+  $('eduWhatsApp').addEventListener('click', function () {
+    var d = get();
+    var path = $('eduPath').options[$('eduPath').selectedIndex].text;
+    var msg = 'CHILD EDUCATION FUND PLANNER SUMMARY\n\n' +
+      "Child's current age: " + d.childAge + '\n' +
+      'Age starting university: ' + d.startAge + '\n' +
+      'Pathway: ' + path + '\n' +
+      'Annual cost today: ' + sg(d.annual) + ' for ' + d.years + ' years\n' +
+      'Education cost inflation: ' + d.inf + '% a year\n' +
+      'Expected return on savings: ' + d.ret + '% a year\n' +
+      'Already set aside: ' + sg(d.saved) + '\n\n' +
+      'ESTIMATE\n' +
+      'Years until university: ' + d.n + '\n' +
+      'Cost in first year of study: ' + sg(d.first) + '\n' +
+      'Total future cost: ' + sg(d.total) + '\n' +
+      'Value of savings by then: ' + sg(d.fvSaved) + '\n' +
+      'Shortfall to fund: ' + sg(d.shortfall) + '\n' +
+      'Monthly amount to set aside: ' + (d.shortfall <= 0 ? 'S$0' : (d.months === 0 ? sg(d.shortfall) + ' (due now)' : sg(d.monthly))) + '\n\n' +
+      'Sent from the Child Education Fund Planner.';
+    window.open('https://wa.me/6591849632?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+  });
+  calc();
+})();
+
 /* ============ Language toggle (EN / 中文) ============ */
 (function () {
   var zh = {
@@ -640,6 +818,22 @@
     "Illustrative tool only.":"仅供参考的示例工具。",
     "CPF rates shown are simplified illustrative employee-contribution rates (Singaporean: 20%; PR Year 1: 5%, Year 2: 15%, Year 3+: 20%). For 2026, this calculator applies the S$8,000 monthly Ordinary Wage (OW) ceiling. It does not model age-specific CPF rates, Additional Wages, the S$102,000 annual salary ceiling, or the S$37,740 CPF Annual Limit. Foreigners are generally not subject to CPF.":"所示 CPF 缴交率为简化的示例性员工缴交率（新加坡公民：20%；PR 第 1 年：5%、第 2 年：15%、第 3 年及以后：20%）。2026 年，本计算器采用每月 S$8,000 的普通工资（OW）上限。本工具不涵盖按年龄区分的 CPF 缴交率、额外工资、S$102,000 年薪上限或 S$37,740 CPF 年度上限。外国人一般不适用 CPF。",
     "For exact figures, always refer to the official CPF Board contribution tables. The allocation targets shown are budgeting guidelines and are not financial advice.":"如需准确数据，请以 CPF 公积金局官方缴交率表为准。这里的资金分配目标仅为预算参考，并非财务建议。",
+    "Child Education Fund Planner":"子女教育基金规划器",
+    "Estimate the future cost of university and the monthly amount to set aside, starting from your child's age today.":"根据孩子目前的年龄，估算未来大学教育费用以及每月需要预留的金额。",
+    "Plan early. Make it easier.":"及早规划，更轻松无负担。",
+    "See what university may cost by the time your child gets there, and what to set aside each month.":"了解孩子上大学时的费用，以及每月需要预留多少。",
+    "Child's current age":"孩子目前年龄", "Age starting university":"开始读大学的年龄", "Study pathway":"升学途径",
+    "Local public university (e.g. NUS / NTU)":"本地公立大学（如 NUS / NTU）",
+    "Local university, higher fees (e.g. SMU / SUTD)":"本地大学，学费较高（如 SMU / SUTD）",
+    "Overseas (e.g. UK / Australia)":"海外（如英国／澳洲）", "Overseas (e.g. US)":"海外（如美国）", "Custom amount":"自定义金额",
+    "Annual cost today (S$)":"目前每年费用（新币）", "Years of study":"就读年数",
+    "Education cost inflation (% a year)":"教育费用年通胀率（%）", "Expected return on savings (% a year)":"储蓄预期年回报率（%）",
+    "Already set aside for education (S$)":"已为教育预留的金额（新币）",
+    "Local pathway amounts are based on subsidised tuition for Singapore citizens and exclude living costs. Overseas amounts are rough all-in assumptions. Please edit every figure to suit your plans.":"本地升学途径的金额以新加坡公民的津贴学费为参考，不含生活费。海外金额为粗略的总费用假设。请根据你的计划修改所有数字。",
+    "Your Education Estimate":"你的教育费用估算", "Years until university":"距离上大学的年数",
+    "Cost in first year of study":"第一年的就读费用", "Total future cost":"未来总费用",
+    "Value of savings by then":"届时储蓄的价值", "Shortfall to fund":"需要补足的差额", "Monthly amount to set aside":"每月需预留的金额",
+    "Indicative estimate only. Costs and returns are not guaranteed. Let's map it out precisely together.":"仅供参考估算。费用与回报均无保证。让我们一起更精准地规划。",
     "About":"关于我", "Services":"服务", "Process":"咨询流程", "Testimonials":"客户评价"
   };
   var rowLabels = {
