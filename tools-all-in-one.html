@@ -78,6 +78,16 @@
       <p class="text-slate-600 text-sm leading-relaxed mb-6" data-i18n="Estimate the future cost of university and the monthly amount to set aside, starting from your child's age today.">Estimate the future cost of university and the monthly amount to set aside, starting from your child's age today.</p>
       <span class="mt-auto text-sm font-semibold text-emerald-600" data-i18n="Open tool →">Open tool →</span>
     </a>
+
+    <a href="#cpflife" class="group bg-white p-8 rounded-2xl border border-slate-200/60 shadow-sm hover:-translate-y-1.5 hover:shadow-md hover:border-emerald-500/30 transition-all duration-300 flex flex-col">
+  <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+  </div>
+  <h2 class="text-xl font-bold mb-3" data-i18n="CPF LIFE Calculator">CPF LIFE Calculator</h2>
+  <p class="text-slate-600 text-sm leading-relaxed mb-6" data-i18n="Key in the Retirement Account balance to see the retirement sum tier and the estimated monthly CPF LIFE payout.">Key in the Retirement Account balance to see the retirement sum tier and the estimated monthly CPF LIFE payout.</p>
+  <span class="mt-auto text-sm font-semibold text-emerald-600" data-i18n="Open tool →">Open tool →</span>
+</a>
+    
   </div>
 
   <p class="text-center text-xs text-slate-500 mt-10" data-i18n="Illustrative tools only. They are not financial advice.">Illustrative tools only. They are not financial advice.</p>
@@ -413,6 +423,95 @@
   </div>
 </section>
 
+<!-- CPF LIFE CALCULATOR-->
+  <section id="view-cpflife" class="view max-w-5xl mx-auto hidden">
+  <a href="#" class="inline-block text-sm font-semibold text-emerald-700 hover:text-emerald-900 mb-6">← Back to Interactive Tools</a>
+
+  <div class="rounded-[28px] text-white p-8 sm:p-12 mb-8 shadow-lg" style="background:linear-gradient(135deg,#164e35 0%,#1b6543 58%,#275f45 100%)">
+    <p class="text-xs tracking-widest uppercase text-emerald-100 mb-3">CPF LIFE Calculator</p>
+    <h1 class="text-3xl sm:text-5xl font-bold leading-tight mb-3">Where do you stand in your retirement sums?</h1>
+    <p class="text-emerald-50">Key in the Retirement Account balance to see the tier and the estimated monthly CPF LIFE payout.</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+    <!-- Input -->
+    <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100">
+      <div class="space-y-5">
+        <div>
+          <label class="lbl" for="cpfAmt">Retirement Account (RA) balance (SGD)</label>
+          <input type="text" inputmode="numeric" id="cpfAmt" value="220,400" class="inp">
+          <div class="flex flex-wrap gap-2 mt-3">
+            <button type="button" data-set="brs" class="cpf-chip text-xs font-semibold px-3 py-1.5 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100">Set to BRS</button>
+            <button type="button" data-set="frs" class="cpf-chip text-xs font-semibold px-3 py-1.5 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100">Set to FRS</button>
+            <button type="button" data-set="ers" class="cpf-chip text-xs font-semibold px-3 py-1.5 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100">Set to ERS</button>
+          </div>
+        </div>
+
+        <div>
+          <label class="lbl" for="cpfCohort">Year the client turns / turned 55</label>
+          <select id="cpfCohort" class="inp">
+            <option value="2025">2025</option>
+            <option value="2026" selected>2026</option>
+            <option value="2027">2027</option>
+          </select>
+        </div>
+
+        <div class="rounded-2xl border border-slate-200 overflow-hidden text-sm">
+          <div class="grid grid-cols-3 bg-slate-50 text-xs font-semibold text-slate-500 uppercase tracking-wider px-4 py-2">
+            <span>Tier</span><span class="text-right">Amount</span><span class="text-right">Per month</span>
+          </div>
+          <div id="rowBrs" class="cpf-row grid grid-cols-3 px-4 py-3 border-t border-slate-100 transition-colors">
+            <span class="font-semibold text-slate-800">Basic</span><span id="amtBrs" class="text-right text-slate-600">–</span><span id="payBrs" class="text-right font-semibold text-slate-800">–</span>
+          </div>
+          <div id="rowFrs" class="cpf-row grid grid-cols-3 px-4 py-3 border-t border-slate-100 transition-colors">
+            <span class="font-semibold text-slate-800">Full</span><span id="amtFrs" class="text-right text-slate-600">–</span><span id="payFrs" class="text-right font-semibold text-slate-800">–</span>
+          </div>
+          <div id="rowErs" class="cpf-row grid grid-cols-3 px-4 py-3 border-t border-slate-100 transition-colors">
+            <span class="font-semibold text-slate-800">Enhanced</span><span id="amtErs" class="text-right text-slate-600">–</span><span id="payErs" class="text-right font-semibold text-slate-800">–</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="lg:col-span-7 bg-gradient-to-br from-emerald-950 via-gray-900 to-emerald-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col justify-between">
+      <div>
+        <h3 class="font-semibold text-lg text-emerald-100 border-b border-emerald-800/50 pb-4 mb-6">Your Result</h3>
+
+        <span class="block text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-1">Retirement Sum Tier</span>
+        <div id="cpfTier" class="text-2xl sm:text-3xl font-extrabold tracking-tight mb-1">–</div>
+        <p id="cpfNext" class="text-sm text-emerald-200/80 mb-6"></p>
+
+        <!-- Progress bar -->
+        <div class="mb-8">
+          <div class="relative h-3 rounded-full bg-emerald-900/60 overflow-hidden">
+            <div id="cpfBar" class="absolute inset-y-0 left-0 rounded-full bg-emerald-400 transition-all duration-500" style="width:0%"></div>
+          </div>
+          <div class="relative h-8 mt-1 text-[11px] text-emerald-200/80">
+            <span id="mkBrs" class="absolute -translate-x-1/2">BRS</span>
+            <span id="mkFrs" class="absolute -translate-x-1/2">FRS</span>
+            <span class="absolute right-0">ERS</span>
+          </div>
+        </div>
+
+        <div class="pt-6 border-t border-emerald-800/50">
+          <span class="block text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-1">Estimated CPF LIFE payout from age 65</span>
+          <div class="flex items-end gap-2">
+            <div id="cpfPayout" class="text-3xl sm:text-4xl font-extrabold tracking-tight">S$0</div>
+            <span id="cpfPer" class="text-sm text-emerald-200/80 pb-1">/ month</span>
+          </div>
+          <p id="cpfNote" class="text-xs text-emerald-200/70 mt-2"></p>
+        </div>
+      </div>
+
+      <p class="text-xs text-emerald-200/70 italic mt-8">
+        Indicative only. Based on CPF Board estimates for members turning 55 in 2026 (CPF LIFE Standard Plan, 4% interest). Amounts between tiers are interpolated. For an exact figure, use CPF's Retirement Payout Planner.
+      </p>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <!-- Fees pop-up -->
@@ -481,10 +580,10 @@
 <script>
 /* ============ Router (hub / coverage / expenses) ============ */
 (function () {
-  var titles = { hub: 'Interactive Tools', coverage: 'Coverage Estimator', expenses: 'Personal Expenses Calculator', education: 'Child Education Fund Planner' };
+ var titles = { hub: 'Interactive Tools', coverage: 'Coverage Estimator', expenses: 'Personal Expenses Calculator', education: 'Child Education Fund Planner', cpflife: 'CPF LIFE Calculator' };
   function route() {
     var h = location.hash.replace('#', '');
-    if (h !== 'coverage' && h !== 'expenses' && h !== 'education') h = 'hub';
+    if (h !== 'coverage' && h !== 'expenses' && h !== 'education' && h !== 'cpflife') h = 'hub';
     document.querySelectorAll('.view').forEach(function (v) {
       v.classList.toggle('hidden', v.id !== 'view-' + h);
     });
@@ -996,5 +1095,114 @@
   apply();
 })();
 </script>
+
+  // ===== CPF LIFE CALCULATOR =====
+<script> 
+(function () {
+  // ===== Update these each January from cpf.gov.sg =====
+  var CFG = {
+    ers: 440800,                                   // current Enhanced Retirement Sum
+    cohorts: {
+      2025: { brs: 106500, frs: 213000 },
+      2026: { brs: 110200, frs: 220400 },
+      2027: { brs: 114100, frs: 228200 }
+    },
+    // CPF estimated monthly payouts from 65 (members turning 55 in 2026)
+    anchors: [[110200, 950], [220400, 1780], [440800, 3440]],
+    minForLife: 60000                              // minimum RA to be in CPF LIFE
+  };
+
+  var amtEl = document.getElementById('cpfAmt');
+  var cohortEl = document.getElementById('cpfCohort');
+
+  function fmt(n) { return 'S$' + Math.round(n).toLocaleString('en-SG'); }
+  function read() { return Number(String(amtEl.value).replace(/[^\d]/g, '')) || 0; }
+
+  function payout(a) {
+    var p = CFG.anchors;
+    if (a < CFG.minForLife) return null;
+    if (a < p[0][0]) return a * (p[0][1] / p[0][0]);          // below BRS: scaled estimate
+    if (a >= p[2][0]) return p[2][1];                          // capped at ERS
+    for (var i = 0; i < p.length - 1; i++) {
+      if (a >= p[i][0] && a < p[i + 1][0]) {
+        var t = (a - p[i][0]) / (p[i + 1][0] - p[i][0]);
+        return p[i][1] + t * (p[i + 1][1] - p[i][1]);
+      }
+    }
+    return p[2][1];
+  }
+
+  function setRow(id, on) {
+    var el = document.getElementById(id);
+    ['bg-emerald-50', 'ring-1', 'ring-emerald-300'].forEach(function (c) { el.classList.toggle(c, on); });
+  }
+
+  function calc() {
+    var c = CFG.cohorts[cohortEl.value], ers = CFG.ers, a = read();
+
+    // reference table
+    document.getElementById('amtBrs').textContent = fmt(c.brs);
+    document.getElementById('amtFrs').textContent = fmt(c.frs);
+    document.getElementById('amtErs').textContent = fmt(ers);
+    document.getElementById('payBrs').textContent = fmt(CFG.anchors[0][1]);
+    document.getElementById('payFrs').textContent = fmt(CFG.anchors[1][1]);
+    document.getElementById('payErs').textContent = fmt(CFG.anchors[2][1]);
+
+    // tier
+    var tier, next = '', key = '';
+    if (a >= ers)        { tier = 'Enhanced Retirement Sum'; key = 'Ers'; next = 'Maximum tier reached.'; }
+    else if (a >= c.frs) { tier = 'Full Retirement Sum';     key = 'Frs'; next = fmt(ers - a) + ' more to reach the Enhanced Retirement Sum.'; }
+    else if (a >= c.brs) { tier = 'Basic Retirement Sum';    key = 'Brs'; next = fmt(c.frs - a) + ' more to reach the Full Retirement Sum.'; }
+    else                 { tier = 'Below Basic Retirement Sum'; next = fmt(c.brs - a) + ' more to reach the Basic Retirement Sum.'; }
+    if (a === 0) { tier = '–'; next = 'Enter the RA balance to begin.'; }
+
+    document.getElementById('cpfTier').textContent = tier;
+    document.getElementById('cpfNext').textContent = next;
+    setRow('rowBrs', key === 'Brs'); setRow('rowFrs', key === 'Frs'); setRow('rowErs', key === 'Ers');
+
+    // progress bar + markers
+    document.getElementById('cpfBar').style.width = Math.min(a / ers, 1) * 100 + '%';
+    document.getElementById('mkBrs').style.left = (c.brs / ers * 100) + '%';
+    document.getElementById('mkFrs').style.left = (c.frs / ers * 100) + '%';
+
+    // payout
+    var p = payout(a), out = document.getElementById('cpfPayout'),
+        per = document.getElementById('cpfPer'), note = document.getElementById('cpfNote');
+    if (p === null) {
+      out.textContent = a === 0 ? 'S$0' : 'Not in CPF LIFE';
+      per.textContent = '';
+      note.textContent = a === 0 ? '' : 'An RA balance of at least ' + fmt(CFG.minForLife) + ' is needed to be automatically included in CPF LIFE.';
+    } else {
+      out.textContent = fmt(p);
+      per.textContent = '/ month';
+      var msgs = [];
+      if (a < c.brs) msgs.push('Below the Basic Retirement Sum, so this is a rough scaled estimate.');
+      if (a > ers) msgs.push('RA balance above the ERS is shown at the ERS payout.');
+      if (cohortEl.value !== '2026') msgs.push('Payout is based on 2026 cohort rates; CPF has not published figures for this cohort here.');
+      note.textContent = msgs.join(' ');
+    }
+  }
+
+  // comma formatting as you type
+  amtEl.addEventListener('input', function () {
+    var n = read();
+    amtEl.value = n ? n.toLocaleString('en-SG') : '';
+    calc();
+  });
+  cohortEl.addEventListener('change', calc);
+
+  document.querySelectorAll('#view-cpflife .cpf-chip').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var c = CFG.cohorts[cohortEl.value];
+      var v = { brs: c.brs, frs: c.frs, ers: CFG.ers }[b.dataset.set];
+      amtEl.value = v.toLocaleString('en-SG');
+      calc();
+    });
+  });
+
+  calc();
+})();
+</script>
+  
 </body>
 </html>
