@@ -57,7 +57,7 @@
         <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 0C7 4 3 8 3 12h18c0-4-4-8-9-8zm0 8v6a2 2 0 004 0"/></svg>
       </div>
       <h2 class="text-xl font-bold mb-3" data-i18n="Coverage Estimator">Coverage Estimator</h2>
-      <p class="text-slate-600 text-sm leading-relaxed mb-6" data-i18n="Estimate how much protection your family may need based on your income, age, lifestyle and liabilities.">Estimate how much protection your family may need based on your income, age, lifestyle and liabilities.</p>
+      <p class="text-slate-600 text-sm leading-relaxed mb-6" data-i18n="Estimate how much protection your family may need based on your income, age, lifestyle and Liabilities.">Estimate how much protection your family may need based on your income, age, lifestyle and Liabilities.</p>
       <span class="mt-auto text-sm font-semibold text-emerald-600" data-i18n="Open tool →">Open tool →</span>
     </a>
 
@@ -107,8 +107,8 @@
           </div>
         </div>
         <div>
-          <label class="lbl" for="liabilities" data-i18n="Outstanding Liabilities (SGD)">Outstanding Liabilities (SGD)</label>
-          <input type="number" id="liabilities" value="400000" min="0" class="inp">
+          <label class="lbl" for="Liabilities" data-i18n="Liabilities (SGD)">Liabilities (SGD)</label>
+          <input type="number" id="Liabilities" value="400000" min="0" class="inp">
         </div>
         <div class="flex justify-end">
           <button type="reset" class="text-xs font-medium text-gray-400 hover:text-emerald-600" data-i18n="Reset all fields">Reset all fields</button>
@@ -499,7 +499,7 @@
 (function () {
   var inc = document.getElementById('income'),
       age = document.getElementById('age'),
-      liab = document.getElementById('liabilities'),
+      liab = document.getElementById('Liabilities'),
       mDeath = document.getElementById('multDeath'),
       mCI = document.getElementById('multCI'),
       mECI = document.getElementById('multECI');
@@ -511,14 +511,14 @@
   function fmt(n) { return 'S$' + Math.round(n).toLocaleString('en-SG'); }
 
   function get() {
-    var income = num(inc, 0), liabilities = num(liab, 0);
+    var income = num(inc, 0), Liabilities = num(liab, 0);
     var md = num(mDeath, 9), mc = num(mCI, 4), me = num(mECI, 2);
     var replacement = income * md;
     return {
-      income: income, liabilities: liabilities,
+      income: income, Liabilities: Liabilities,
       md: md, mc: mc, me: me,
       replacement: replacement,
-      death: replacement,                 // Death / TPD / TI (liabilities excluded)
+      death: replacement,                 // Death / TPD / TI (Liabilities excluded)
       ci: income * mc,                    // Critical Illness
       eci: income * me                    // Early Critical Illness
     };
@@ -527,7 +527,7 @@
   function calc() {
     var d = get();
     document.getElementById('resIncome').textContent = fmt(d.replacement);
-    document.getElementById('resLiab').textContent = fmt(d.liabilities);
+    document.getElementById('resLiab').textContent = fmt(d.Liabilities);
     document.getElementById('resDeath').textContent = fmt(d.death);
     document.getElementById('resCI').textContent = fmt(d.ci);
     document.getElementById('resECI').textContent = fmt(d.eci);
@@ -546,10 +546,10 @@
     var msg = 'COVERAGE ESTIMATOR SUMMARY\n\n' +
       'Annual Income: S$' + d.income.toLocaleString('en-SG') + '\n' +
       'Age: ' + num(age, 0) + '\n' +
-      'Outstanding Liabilities: S$' + d.liabilities.toLocaleString('en-SG') + '\n\n' +
+      'Liabilities: S$' + d.Liabilities.toLocaleString('en-SG') + '\n\n' +
       'COVERAGE ESTIMATE\n' +
       'Income Replacement (' + d.md + 'x): ' + fmt(d.replacement) + '\n' +
-      'Liability Coverage: ' + fmt(d.liabilities) + '\n\n' +
+      'Liability Coverage: ' + fmt(d.Liabilities) + '\n\n' +
       'RECOMMENDED SUM ASSURED\n' +
       'Death / TPD / TI (' + d.md + 'x): ' + fmt(d.death) + '\n' +
       'Critical Illness (' + d.mc + 'x): ' + fmt(d.ci) + '\n' +
@@ -905,14 +905,14 @@
     "← Back to main site":"← 返回主页", "← Back to Interactive Tools":"← 返回互动工具", "Interactive Tools":"互动工具",
     "Simple calculators to help you understand your coverage and your monthly cash flow. No sign-up, nothing is saved.":"简单实用的计算器，帮助你了解自己的保障和每月现金流。无需注册，不会保存任何资料。",
     "Coverage Estimator":"保障估算器", "Personal Expenses Calculator":"个人开支计算器", "Open tool →":"打开工具 →",
-    "Estimate how much protection your family may need based on your income, age, lifestyle and liabilities.":"根据你的收入、年龄、生活方式和负债，估算家人可能需要的保障额。",
+    "Estimate how much protection your family may need based on your income, age, lifestyle and Liabilities.":"根据你的收入、年龄、生活方式和负债，估算家人可能需要的保障额。",
     "See your monthly cash flow after CPF, compare your spending with a simple budgeting guide, and download a summary PDF.":"了解扣除 CPF 后的每月现金流，对照简单的预算参考，并可下载摘要 PDF。",
     "Illustrative tools only. They are not financial advice.":"仅供参考的示例工具，并非财务建议。",
     "Understand your coverage. Cover the gaps.":"了解你的保障，填补保障缺口。",
     "A simple way to understand your current coverage and cover the gaps":"简单了解目前的保障，并找出需要补足的缺口。",
     "Annual Income (SGD)":"年收入（新币）", "Age":"年龄", "Lifestyle Preference":"生活方式偏好",
     "Comfortable":"舒适型", "Essential":"基本型", "Premium":"优越型",
-    "Outstanding Liabilities (SGD)":"未偿还负债（新币）", "Reset all fields":"重置所有资料",
+    "Liabilities (SGD)":"未偿还负债（新币）", "Reset all fields":"重置所有资料",
     "Your Coverage Estimate":"你的保障估算", "Income Replacement":"收入替代", "Liability Coverage":"负债保障",
     "Lifestyle Multiplier":"生活方式倍数", "Recommended Sum Assured":"建议保额",
     "Indicative estimate only. Let's map it out precisely together.":"仅供参考估算。让我们一起更精准地规划。",
