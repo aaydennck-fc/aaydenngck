@@ -425,12 +425,12 @@
 
 <!-- CPF LIFE CALCULATOR-->
   <section id="view-cpflife" class="view max-w-5xl mx-auto hidden">
-  <a href="#" class="inline-block text-sm font-semibold text-emerald-700 hover:text-emerald-900 mb-6">← Back to Interactive Tools</a>
+  <a href="#" class="inline-block text-sm font-semibold text-emerald-700 hover:text-emerald-900 mb-6" data-i18n="← Back to Interactive Tools">← Back to Interactive Tools</a>
 
   <div class="rounded-[28px] text-white p-8 sm:p-12 mb-8 shadow-lg" style="background:linear-gradient(135deg,#164e35 0%,#1b6543 58%,#275f45 100%)">
-    <p class="text-xs tracking-widest uppercase text-emerald-100 mb-3">CPF LIFE Calculator</p>
-    <h1 class="text-3xl sm:text-5xl font-bold leading-tight mb-3">Where do you stand in your retirement sums?</h1>
-    <p class="text-emerald-50">Key in the Retirement Account balance to see the tier and the estimated monthly CPF LIFE payout.</p>
+    <p class="text-xs tracking-widest uppercase text-emerald-100 mb-3" data-i18n="CPF LIFE Calculator">CPF LIFE Calculator</p>
+    <h1 class="text-3xl sm:text-5xl font-bold leading-tight mb-3" data-i18n="Where do you stand in your retirement sums?">Where do you stand in your retirement sums?</h1>
+    <p class="text-emerald-50" data-i18n="Key in the Retirement Account balance to see the tier and the estimated monthly CPF LIFE payout.">Key in the Retirement Account balance to see the tier and the estimated monthly CPF LIFE payout.</p>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
@@ -439,17 +439,17 @@
     <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100">
       <div class="space-y-5">
         <div>
-          <label class="lbl" for="cpfAmt">Retirement Account (RA) balance (SGD)</label>
+          <label class="lbl" for="cpfAmt" data-i18n="Retirement Account (RA) balance (SGD)">Retirement Account (RA) balance (SGD)</label>
           <input type="text" inputmode="numeric" id="cpfAmt" value="220,400" class="inp">
           <div class="flex flex-wrap gap-2 mt-3">
-            <button type="button" data-set="brs" class="cpf-chip text-xs font-semibold px-3 py-1.5 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100">Set to BRS</button>
-            <button type="button" data-set="frs" class="cpf-chip text-xs font-semibold px-3 py-1.5 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100">Set to FRS</button>
-            <button type="button" data-set="ers" class="cpf-chip text-xs font-semibold px-3 py-1.5 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100">Set to ERS</button>
+            <button type="button" data-set="brs" class="cpf-chip text-xs font-semibold px-3 py-1.5 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100" data-i18n="Set to BRS">Set to BRS</button>
+            <button type="button" data-set="frs" class="cpf-chip text-xs font-semibold px-3 py-1.5 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100" data-i18n="Set to FRS">Set to FRS</button>
+            <button type="button" data-set="ers" class="cpf-chip text-xs font-semibold px-3 py-1.5 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100" data-i18n="Set to ERS">Set to ERS</button>
           </div>
         </div>
 
         <div>
-          <label class="lbl" for="cpfCohort">Year the client turns / turned 55</label>
+          <label class="lbl" for="cpfCohort" data-i18n="Year the client turns / turned 55">Year the client turns / turned 55</label>
           <select id="cpfCohort" class="inp">
             <option value="2025">2025</option>
             <option value="2026" selected>2026</option>
@@ -459,16 +459,16 @@
 
         <div class="rounded-2xl border border-slate-200 overflow-hidden text-sm">
           <div class="grid grid-cols-3 bg-slate-50 text-xs font-semibold text-slate-500 uppercase tracking-wider px-4 py-2">
-            <span>Tier</span><span class="text-right">Amount</span><span class="text-right">Per month</span>
+            <span data-i18n="Tier">Tier</span><span class="text-right" data-i18n="Amount">Amount</span><span class="text-right" data-i18n="Per month">Per month</span>
           </div>
           <div id="rowBrs" class="cpf-row grid grid-cols-3 px-4 py-3 border-t border-slate-100 transition-colors">
-            <span class="font-semibold text-slate-800">Basic</span><span id="amtBrs" class="text-right text-slate-600">–</span><span id="payBrs" class="text-right font-semibold text-slate-800">–</span>
+            <span class="font-semibold text-slate-800" data-i18n="Basic">Basic</span><span id="amtBrs" class="text-right text-slate-600">–</span><span id="payBrs" class="text-right font-semibold text-slate-800">–</span>
           </div>
           <div id="rowFrs" class="cpf-row grid grid-cols-3 px-4 py-3 border-t border-slate-100 transition-colors">
-            <span class="font-semibold text-slate-800">Full</span><span id="amtFrs" class="text-right text-slate-600">–</span><span id="payFrs" class="text-right font-semibold text-slate-800">–</span>
+            <span class="font-semibold text-slate-800" data-i18n="Full">Full</span><span id="amtFrs" class="text-right text-slate-600">–</span><span id="payFrs" class="text-right font-semibold text-slate-800">–</span>
           </div>
           <div id="rowErs" class="cpf-row grid grid-cols-3 px-4 py-3 border-t border-slate-100 transition-colors">
-            <span class="font-semibold text-slate-800">Enhanced</span><span id="amtErs" class="text-right text-slate-600">–</span><span id="payErs" class="text-right font-semibold text-slate-800">–</span>
+            <span class="font-semibold text-slate-800" data-i18n="Enhanced">Enhanced</span><span id="amtErs" class="text-right text-slate-600">–</span><span id="payErs" class="text-right font-semibold text-slate-800">–</span>
           </div>
         </div>
       </div>
@@ -477,13 +477,12 @@
     <!-- Result -->
     <div class="lg:col-span-7 bg-gradient-to-br from-emerald-950 via-gray-900 to-emerald-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col justify-between">
       <div>
-        <h3 class="font-semibold text-lg text-emerald-100 border-b border-emerald-800/50 pb-4 mb-6">Your Result</h3>
+        <h3 class="font-semibold text-lg text-emerald-100 border-b border-emerald-800/50 pb-4 mb-6" data-i18n="Your Result">Your Result</h3>
 
-        <span class="block text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-1">Retirement Sum Tier</span>
+        <span class="block text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-1" data-i18n="Retirement Sum Tier">Retirement Sum Tier</span>
         <div id="cpfTier" class="text-2xl sm:text-3xl font-extrabold tracking-tight mb-1">–</div>
         <p id="cpfNext" class="text-sm text-emerald-200/80 mb-6"></p>
 
-        <!-- Progress bar -->
         <div class="mb-8">
           <div class="relative h-3 rounded-full bg-emerald-900/60 overflow-hidden">
             <div id="cpfBar" class="absolute inset-y-0 left-0 rounded-full bg-emerald-400 transition-all duration-500" style="width:0%"></div>
@@ -496,7 +495,7 @@
         </div>
 
         <div class="pt-6 border-t border-emerald-800/50">
-          <span class="block text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-1">Estimated CPF LIFE payout from age 65</span>
+          <span class="block text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-1" data-i18n="Estimated CPF LIFE payout from age 65">Estimated CPF LIFE payout from age 65</span>
           <div class="flex items-end gap-2">
             <div id="cpfPayout" class="text-3xl sm:text-4xl font-extrabold tracking-tight">S$0</div>
             <span id="cpfPer" class="text-sm text-emerald-200/80 pb-1">/ month</span>
@@ -505,9 +504,7 @@
         </div>
       </div>
 
-      <p class="text-xs text-emerald-200/70 italic mt-8">
-        Indicative only. Based on CPF Board estimates for members turning 55 in 2026 (CPF LIFE Standard Plan, 4% interest). Amounts between tiers are interpolated. For an exact figure, use CPF's Retirement Payout Planner.
-      </p>
+      <p class="text-xs text-emerald-200/70 italic mt-8" data-i18n="Indicative only. Based on CPF Board estimates for members turning 55 in 2026 (CPF LIFE Standard Plan, 4% interest). Amounts between tiers are interpolated. For an exact figure, use CPF's Retirement Payout Planner.">Indicative only. Based on CPF Board estimates for members turning 55 in 2026 (CPF LIFE Standard Plan, 4% interest). Amounts between tiers are interpolated. For an exact figure, use CPF's Retirement Payout Planner.</p>
     </div>
   </div>
 </section>
@@ -1063,6 +1060,19 @@
     "Value of savings by then":"届时储蓄的价值", "Shortfall to fund":"需要补足的差额", "Monthly amount to set aside":"每月需预留的金额",
     "Indicative estimate only. Costs and returns are not guaranteed. Let's map it out precisely together.":"仅供参考估算。费用与回报均无保证。让我们一起更精准地规划。",
     "About":"关于我", "Services":"服务", "Process":"咨询流程", "Testimonials":"客户评价"
+    "CPF LIFE Calculator":"CPF LIFE 计算器",
+    "Key in the Retirement Account balance to see the retirement sum tier and the estimated monthly CPF LIFE payout.":"输入退休户头（RA）结余，即可查看所属的退休金额级别及预计每月 CPF LIFE 领取金额。",
+    "Where do you stand in your retirement sums?":"你的退休金额处于哪个级别？",
+    "Key in the Retirement Account balance to see the tier and the estimated monthly CPF LIFE payout.":"输入退休户头结余，查看所属级别及预计每月 CPF LIFE 领取金额。",
+    "Retirement Account (RA) balance (SGD)":"退休户头（RA）结余（新币）",
+    "Set to BRS":"设为 BRS", "Set to FRS":"设为 FRS", "Set to ERS":"设为 ERS",
+    "Year the client turns / turned 55":"客户年满 55 岁的年份",
+    "Tier":"级别", "Amount":"金额", "Per month":"每月",
+    "Basic":"基本", "Full":"完整", "Enhanced":"增强",
+    "Your Result":"你的结果",
+    "Retirement Sum Tier":"退休金额级别",
+    "Estimated CPF LIFE payout from age 65":"65 岁起预计 CPF LIFE 每月领取金额",
+    "Indicative only. Based on CPF Board estimates for members turning 55 in 2026 (CPF LIFE Standard Plan, 4% interest). Amounts between tiers are interpolated. For an exact figure, use CPF's Retirement Payout Planner.":"仅供参考。依据 CPF 公积金局对 2026 年满 55 岁会员的估算（CPF LIFE 标准计划，4% 利率）。级别之间的金额为插值估算。如需准确数字，请使用 CPF 的退休入息规划器（Retirement Payout Planner）。",
   };
   var rowLabels = {
     "Housing / Rent":"住房／租金", "Food & Groceries":"餐饮与杂货", "Transport":"交通", "Utilities (Elec/Water/Gas)":"水电煤等公用事业",
@@ -1097,32 +1107,33 @@
 </script>
 
   // ===== CPF LIFE CALCULATOR =====
-<script> 
+<script>
 (function () {
   // ===== Update these each January from cpf.gov.sg =====
   var CFG = {
-    ers: 440800,                                   // current Enhanced Retirement Sum
+    ers: 440800,
     cohorts: {
       2025: { brs: 106500, frs: 213000 },
       2026: { brs: 110200, frs: 220400 },
       2027: { brs: 114100, frs: 228200 }
     },
-    // CPF estimated monthly payouts from 65 (members turning 55 in 2026)
     anchors: [[110200, 950], [220400, 1780], [440800, 3440]],
-    minForLife: 60000                              // minimum RA to be in CPF LIFE
+    minForLife: 60000
   };
 
   var amtEl = document.getElementById('cpfAmt');
   var cohortEl = document.getElementById('cpfCohort');
 
+  function isZh() { return document.documentElement.lang === 'zh-CN'; }
+  function tr(en, zh) { return isZh() ? zh : en; }
   function fmt(n) { return 'S$' + Math.round(n).toLocaleString('en-SG'); }
   function read() { return Number(String(amtEl.value).replace(/[^\d]/g, '')) || 0; }
 
   function payout(a) {
     var p = CFG.anchors;
     if (a < CFG.minForLife) return null;
-    if (a < p[0][0]) return a * (p[0][1] / p[0][0]);          // below BRS: scaled estimate
-    if (a >= p[2][0]) return p[2][1];                          // capped at ERS
+    if (a < p[0][0]) return a * (p[0][1] / p[0][0]);
+    if (a >= p[2][0]) return p[2][1];
     for (var i = 0; i < p.length - 1; i++) {
       if (a >= p[i][0] && a < p[i + 1][0]) {
         var t = (a - p[i][0]) / (p[i + 1][0] - p[i][0]);
@@ -1137,10 +1148,19 @@
     ['bg-emerald-50', 'ring-1', 'ring-emerald-300'].forEach(function (c) { el.classList.toggle(c, on); });
   }
 
+  function gap(x, name) {
+    return isZh() ? '距离' + name + '还差 ' + fmt(x) + '。' : fmt(x) + ' more to reach the ' + name + '.';
+  }
+
   function calc() {
     var c = CFG.cohorts[cohortEl.value], ers = CFG.ers, a = read();
 
-    // reference table
+    var N = {
+      ers: tr('Enhanced Retirement Sum', '增强退休金额'),
+      frs: tr('Full Retirement Sum', '完整退休金额'),
+      brs: tr('Basic Retirement Sum', '基本退休金额')
+    };
+
     document.getElementById('amtBrs').textContent = fmt(c.brs);
     document.getElementById('amtFrs').textContent = fmt(c.frs);
     document.getElementById('amtErs').textContent = fmt(ers);
@@ -1148,42 +1168,40 @@
     document.getElementById('payFrs').textContent = fmt(CFG.anchors[1][1]);
     document.getElementById('payErs').textContent = fmt(CFG.anchors[2][1]);
 
-    // tier
     var tier, next = '', key = '';
-    if (a >= ers)        { tier = 'Enhanced Retirement Sum'; key = 'Ers'; next = 'Maximum tier reached.'; }
-    else if (a >= c.frs) { tier = 'Full Retirement Sum';     key = 'Frs'; next = fmt(ers - a) + ' more to reach the Enhanced Retirement Sum.'; }
-    else if (a >= c.brs) { tier = 'Basic Retirement Sum';    key = 'Brs'; next = fmt(c.frs - a) + ' more to reach the Full Retirement Sum.'; }
-    else                 { tier = 'Below Basic Retirement Sum'; next = fmt(c.brs - a) + ' more to reach the Basic Retirement Sum.'; }
-    if (a === 0) { tier = '–'; next = 'Enter the RA balance to begin.'; }
+    if (a >= ers)        { tier = N.ers; key = 'Ers'; next = tr('Maximum tier reached.', '已达最高级别。'); }
+    else if (a >= c.frs) { tier = N.frs; key = 'Frs'; next = gap(ers - a, N.ers); }
+    else if (a >= c.brs) { tier = N.brs; key = 'Brs'; next = gap(c.frs - a, N.frs); }
+    else                 { tier = tr('Below Basic Retirement Sum', '低于基本退休金额'); next = gap(c.brs - a, N.brs); }
+    if (a === 0) { tier = '–'; next = tr('Enter the RA balance to begin.', '请输入退休户头结余。'); }
 
     document.getElementById('cpfTier').textContent = tier;
     document.getElementById('cpfNext').textContent = next;
     setRow('rowBrs', key === 'Brs'); setRow('rowFrs', key === 'Frs'); setRow('rowErs', key === 'Ers');
 
-    // progress bar + markers
     document.getElementById('cpfBar').style.width = Math.min(a / ers, 1) * 100 + '%';
     document.getElementById('mkBrs').style.left = (c.brs / ers * 100) + '%';
     document.getElementById('mkFrs').style.left = (c.frs / ers * 100) + '%';
 
-    // payout
     var p = payout(a), out = document.getElementById('cpfPayout'),
         per = document.getElementById('cpfPer'), note = document.getElementById('cpfNote');
     if (p === null) {
-      out.textContent = a === 0 ? 'S$0' : 'Not in CPF LIFE';
+      out.textContent = a === 0 ? 'S$0' : tr('Not in CPF LIFE', '不在 CPF LIFE 范围内');
       per.textContent = '';
-      note.textContent = a === 0 ? '' : 'An RA balance of at least ' + fmt(CFG.minForLife) + ' is needed to be automatically included in CPF LIFE.';
+      note.textContent = a === 0 ? '' : (isZh()
+        ? '退休户头结余至少需有 ' + fmt(CFG.minForLife) + '，才会自动纳入 CPF LIFE。'
+        : 'An RA balance of at least ' + fmt(CFG.minForLife) + ' is needed to be automatically included in CPF LIFE.');
     } else {
       out.textContent = fmt(p);
-      per.textContent = '/ month';
+      per.textContent = tr('/ month', '/ 月');
       var msgs = [];
-      if (a < c.brs) msgs.push('Below the Basic Retirement Sum, so this is a rough scaled estimate.');
-      if (a > ers) msgs.push('RA balance above the ERS is shown at the ERS payout.');
-      if (cohortEl.value !== '2026') msgs.push('Payout is based on 2026 cohort rates; CPF has not published figures for this cohort here.');
+      if (a < c.brs) msgs.push(tr('Below the Basic Retirement Sum, so this is a rough scaled estimate.', '低于基本退休金额，此为粗略的按比例估算。'));
+      if (a > ers) msgs.push(tr('RA balance above the ERS is shown at the ERS payout.', '退休户头结余超过 ERS 的部分，按 ERS 的领取金额显示。'));
+      if (cohortEl.value !== '2026') msgs.push(tr("Payout uses 2026 cohort figures; CPF's page doesn't list payouts for this cohort.", '领取金额按 2026 年组别的数据估算；CPF 页面未列出该组别的领取金额。'));
       note.textContent = msgs.join(' ');
     }
   }
 
-  // comma formatting as you type
   amtEl.addEventListener('input', function () {
     var n = read();
     amtEl.value = n ? n.toLocaleString('en-SG') : '';
@@ -1199,6 +1217,9 @@
       calc();
     });
   });
+
+  // re-run when the language button is clicked
+  document.getElementById('langToggle').addEventListener('click', function () { setTimeout(calc, 0); });
 
   calc();
 })();
