@@ -448,14 +448,11 @@
           </div>
         </div>
 
-        <div>
-          <label class="lbl" for="cpfCohort" data-i18n="Year the client turns / turned 55">Year the client turns / turned 55</label>
-          <select id="cpfCohort" class="inp">
-            <option value="2025">2025</option>
-            <option value="2026" selected>2026</option>
-            <option value="2027">2027</option>
-          </select>
-        </div>
+      <div>
+        <label class="lbl" for="cpfAge" data-i18n="Client's current age">Client's current age</label>
+        <input type="number" id="cpfAge" value="55" min="18" max="100" class="inp">
+        <p id="cpfCohortNote" class="text-xs text-slate-500 mt-1.5"></p>
+      </div>
 
         <div class="rounded-2xl border border-slate-200 overflow-hidden text-sm">
           <div class="grid grid-cols-3 bg-slate-50 text-xs font-semibold text-slate-500 uppercase tracking-wider px-4 py-2">
@@ -1067,6 +1064,7 @@
     "Retirement Account (RA) balance (SGD)":"退休户头（RA）结余（新币）",
     "Set to BRS":"设为 BRS", "Set to FRS":"设为 FRS", "Set to ERS":"设为 ERS",
     "Year the client turns / turned 55":"客户年满 55 岁的年份",
+    "Client's current age":"客户目前年龄",
     "Tier":"级别", "Amount":"金额", "Per month":"每月",
     "Basic":"基本", "Full":"完整", "Enhanced":"增强",
     "Your Result":"你的结果",
@@ -1107,36 +1105,55 @@
 </script>
   
 <script>
-    // ===== CPF LIFE CALCULATOR =====
+// ===== CPF LIFE CALCULATOR =====
 (function () {
   // ===== Update these each January from cpf.gov.sg =====
   var CFG = {
-    ers: 440800,
-    cohorts: {
-      2025: { brs: 106500, frs: 213000 },
-      2026: { brs: 110200, frs: 220400 },
-      2027: { brs: 114100, frs: 228200 }
+    growth: 0.035,   // assumed yearly rise in the sums for years CPF hasn't announced
+    cohorts: {       // CPF-announced sums by the year the member turns 55
+      2025: { brs: 106500, frs: 213000, ers: 440800 },
+      2026: { brs: 110200, frs: 220400, ers: 440800 },
+      2027: { brs: 114100, frs: 228200, ers: 456400 }
     },
-    anchors: [[110200, 950], [220400, 1780], [440800, 3440]],
+    anchors: [[110200, 950], [220400, 1780], [440800, 3440]],  // CPF payouts from 65 (2026 cohort)
     minForLife: 60000
   };
 
   var amtEl = document.getElementById('cpfAmt');
-  var cohortEl = document.getElementById('cpfCohort');
+  var ageEl = document.getElementById('cpfAge');
 
   function isZh() { return document.documentElement.lang === 'zh-CN'; }
   function tr(en, zh) { return isZh() ? zh : en; }
   function fmt(n) { return 'S$' + Math.round(n).toLocaleString('en-SG'); }
   function read() { return Number(String(amtEl.value).replace(/[^\d]/g, '')) || 0; }
 
-  function payout(a) {
-    var p = CFG.anchors;
+  function clientAge() {
+    var a = parseInt(ageEl.value, 10);
+    return isNaN(a) ? 55 : Math.min(100, Math.max(0, a));
+  }
+
+  function cohortFor(year) {
+    var k = CFG.cohorts[year];
+    if (k) return { year: year, brs: k.brs, frs: k.frs, ers: k.ers, kind: 'known' };
+    if (year < 2025) {
+      var e = CFG.cohorts[2025];
+      return { year: year, brs: e.brs, frs: e.frs, ers: e.ers, kind: 'earlier' };
+    }
+    var base = CFG.cohorts[2027], f = Math.pow(1 + CFG.growth, year - 2027);
+    var brs = Math.round(base.brs * f / 100) * 100;
+    return { year: year, brs: brs, frs: brs * 2, ers: brs * 4, kind: 'projected' };
+  }
+
+  function payout(a, c) {
     if (a < CFG.minForLife) return null;
-    if (a < p[0][0]) return a * (p[0][1] / p[0][0]);
-    if (a >= p[2][0]) return p[2][1];
+    // Future cohorts: map onto the 2026 tier payouts (today's terms)
+    var s = c.year > 2026 ? CFG.cohorts[2026].brs / c.brs : 1;
+    var x = a * s, p = CFG.anchors;
+    if (x < p[0][0]) return x * (p[0][1] / p[0][0]);
+    if (x >= p[2][0]) return p[2][1];
     for (var i = 0; i < p.length - 1; i++) {
-      if (a >= p[i][0] && a < p[i + 1][0]) {
-        var t = (a - p[i][0]) / (p[i + 1][0] - p[i][0]);
+      if (x >= p[i][0] && x < p[i + 1][0]) {
+        var t = (x - p[i][0]) / (p[i + 1][0] - p[i][0]);
         return p[i][1] + t * (p[i + 1][1] - p[i][1]);
       }
     }
@@ -1153,7 +1170,22 @@
   }
 
   function calc() {
-    var c = CFG.cohorts[cohortEl.value], ers = CFG.ers, a = read();
+    var cur = new Date().getFullYear();
+    var year = cur + 55 - clientAge();
+    var c = cohortFor(year), ers = c.ers, a = read();
+
+    // note under the age box
+    var verb = year >= cur ? tr('Turns', '将于') : tr('Turned', '已于');
+    var cn = isZh()
+      ? verb + ' ' + year + ' 年满 55 岁。'
+      : verb + ' 55 in ' + year + '.';
+    if (c.kind === 'projected') cn += isZh()
+      ? ' 数据为推算值（假设每年上升 ' + (CFG.growth * 100) + '%；CPF 尚未公布该年度数字）。'
+      : ' Sums are projected (assumes ' + (CFG.growth * 100) + '% a year; CPF hasn\'t announced this year).';
+    if (c.kind === 'earlier') cn += isZh()
+      ? ' 此为较早年份组别，现显示 2025 年数字，请以 cpf.gov.sg 为准。'
+      : ' Earlier cohort: showing 2025 sums. Check cpf.gov.sg for exact figures.';
+    document.getElementById('cpfCohortNote').textContent = cn;
 
     var N = {
       ers: tr('Enhanced Retirement Sum', '增强退休金额'),
@@ -1183,7 +1215,7 @@
     document.getElementById('mkBrs').style.left = (c.brs / ers * 100) + '%';
     document.getElementById('mkFrs').style.left = (c.frs / ers * 100) + '%';
 
-    var p = payout(a), out = document.getElementById('cpfPayout'),
+    var p = payout(a, c), out = document.getElementById('cpfPayout'),
         per = document.getElementById('cpfPer'), note = document.getElementById('cpfNote');
     if (p === null) {
       out.textContent = a === 0 ? 'S$0' : tr('Not in CPF LIFE', '不在 CPF LIFE 范围内');
@@ -1197,7 +1229,8 @@
       var msgs = [];
       if (a < c.brs) msgs.push(tr('Below the Basic Retirement Sum, so this is a rough scaled estimate.', '低于基本退休金额，此为粗略的按比例估算。'));
       if (a > ers) msgs.push(tr('RA balance above the ERS is shown at the ERS payout.', '退休户头结余超过 ERS 的部分，按 ERS 的领取金额显示。'));
-      if (cohortEl.value !== '2026') msgs.push(tr("Payout uses 2026 cohort figures; CPF's page doesn't list payouts for this cohort.", '领取金额按 2026 年组别的数据估算；CPF 页面未列出该组别的领取金额。'));
+      if (c.year > 2026) msgs.push(tr("Estimate in today's terms, mapped from the 2026 tier payouts.", '按今日币值的估算，依据 2026 年各级别的领取金额推算。'));
+      if (c.year < 2026) msgs.push(tr("Payout uses 2026 cohort figures; CPF's page doesn't list payouts for this cohort.", '领取金额按 2026 年组别的数据估算；CPF 页面未列出该组别的领取金额。'));
       note.textContent = msgs.join(' ');
     }
   }
@@ -1207,18 +1240,18 @@
     amtEl.value = n ? n.toLocaleString('en-SG') : '';
     calc();
   });
-  cohortEl.addEventListener('change', calc);
+  ageEl.addEventListener('input', calc);
+  ageEl.addEventListener('change', calc);
 
   document.querySelectorAll('#view-cpflife .cpf-chip').forEach(function (b) {
     b.addEventListener('click', function () {
-      var c = CFG.cohorts[cohortEl.value];
-      var v = { brs: c.brs, frs: c.frs, ers: CFG.ers }[b.dataset.set];
+      var c = cohortFor(new Date().getFullYear() + 55 - clientAge());
+      var v = { brs: c.brs, frs: c.frs, ers: c.ers }[b.dataset.set];
       amtEl.value = v.toLocaleString('en-SG');
       calc();
     });
   });
 
-  // re-run when the language button is clicked
   document.getElementById('langToggle').addEventListener('click', function () { setTimeout(calc, 0); });
 
   calc();
