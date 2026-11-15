@@ -519,7 +519,7 @@
       income: income, liabilities: liabilities,
       md: md, mc: mc, me: me,
       replacement: replacement,
-      death: replacement + liabilities,   // Death / TPD / TI
+      death: replacement,                 // Death / TPD / TI (liabilities excluded)
       ci: income * mc,                    // Critical Illness
       eci: income * me                    // Early Critical Illness
     };
@@ -552,7 +552,7 @@
       'Income Replacement (' + d.md + 'x): ' + fmt(d.replacement) + '\n' +
       'Liability Coverage: ' + fmt(d.liabilities) + '\n\n' +
       'RECOMMENDED SUM ASSURED\n' +
-      'Death / TPD / TI (' + d.md + 'x + liabilities): ' + fmt(d.death) + '\n' +
+      'Death / TPD / TI (' + d.md + 'x): ' + fmt(d.death) + '\n' +
       'Critical Illness (' + d.mc + 'x): ' + fmt(d.ci) + '\n' +
       'Early Critical Illness (' + d.me + 'x): ' + fmt(d.eci) + '\n\n' +
       'Sent from the Coverage Estimator.';
