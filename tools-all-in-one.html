@@ -96,22 +96,14 @@
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
     <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100">
       <form id="covForm" class="space-y-5">
-        <div>
-          <label class="lbl" for="income" data-i18n="Annual Income (SGD)">Annual Income (SGD)</label>
-          <input type="number" id="income" value="50000" min="0" class="inp">
-        </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label class="lbl" for="income" data-i18n="Annual Income (SGD)">Annual Income (SGD)</label>
+            <input type="number" id="income" value="50000" min="0" class="inp">
+          </div>
           <div>
             <label class="lbl" for="age" data-i18n="Age">Age</label>
             <input type="number" id="age" value="35" min="0" class="inp">
-          </div>
-          <div>
-            <label class="lbl" for="lifestyle" data-i18n="Lifestyle Preference">Lifestyle Preference</label>
-            <select id="lifestyle" class="inp">
-              <option value="1.3" selected data-i18n="Comfortable">Comfortable</option>
-              <option value="1.0" data-i18n="Essential">Essential</option>
-              <option value="1.5" data-i18n="Premium">Premium</option>
-            </select>
           </div>
         </div>
         <div>
@@ -130,13 +122,49 @@
         <div class="space-y-4 text-sm">
           <div class="flex justify-between"><span class="text-gray-300" data-i18n="Income Replacement">Income Replacement</span><span id="resIncome" class="font-medium">S$0</span></div>
           <div class="flex justify-between"><span class="text-gray-300" data-i18n="Liability Coverage">Liability Coverage</span><span id="resLiab" class="font-medium">S$0</span></div>
-          <div class="flex justify-between items-center"><span class="text-gray-300" data-i18n="Lifestyle Multiplier">Lifestyle Multiplier</span><span id="resLifestyle" class="font-medium text-emerald-400 bg-emerald-900/50 px-2.5 py-0.5 rounded-md border border-emerald-700/50">1.3x</span></div>
         </div>
+
         <div class="mt-8 pt-6 border-t border-emerald-800/50">
           <span class="block text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-1" data-i18n="Recommended Sum Assured">Recommended Sum Assured</span>
-          <div id="resTotal" class="text-3xl sm:text-4xl font-extrabold tracking-tight">S$0</div>
+          <p class="text-[11px] text-emerald-200/60 mb-4" data-i18n="Adjust the multipliers to fit the client's budget.">Adjust the multipliers to fit the client's budget.</p>
+
+          <div class="space-y-4">
+            <div>
+              <div class="flex items-center justify-between gap-3">
+                <span class="text-sm text-gray-300" data-i18n="Death / TPD / TI">Death / TPD / TI</span>
+                <span class="flex items-center gap-1.5 text-emerald-400 text-xs">
+                  <input type="number" id="multDeath" form="covForm" value="9" min="0" step="0.5"
+                         class="w-16 bg-emerald-900/50 border border-emerald-700/50 rounded-md px-2 py-1 text-right text-white text-sm focus:outline-none focus:border-emerald-400">x
+                </span>
+              </div>
+              <div id="resDeath" class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-1">S$0</div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between gap-3">
+                <span class="text-sm text-gray-300" data-i18n="Critical Illness">Critical Illness</span>
+                <span class="flex items-center gap-1.5 text-emerald-400 text-xs">
+                  <input type="number" id="multCI" form="covForm" value="4" min="0" step="0.5"
+                         class="w-16 bg-emerald-900/50 border border-emerald-700/50 rounded-md px-2 py-1 text-right text-white text-sm focus:outline-none focus:border-emerald-400">x
+                </span>
+              </div>
+              <div id="resCI" class="text-xl sm:text-2xl font-bold tracking-tight mt-1">S$0</div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between gap-3">
+                <span class="text-sm text-gray-300" data-i18n="Early Critical Illness">Early Critical Illness</span>
+                <span class="flex items-center gap-1.5 text-emerald-400 text-xs">
+                  <input type="number" id="multECI" form="covForm" value="2" min="0" step="0.5"
+                         class="w-16 bg-emerald-900/50 border border-emerald-700/50 rounded-md px-2 py-1 text-right text-white text-sm focus:outline-none focus:border-emerald-400">x
+                </span>
+              </div>
+              <div id="resECI" class="text-xl sm:text-2xl font-bold tracking-tight mt-1">S$0</div>
+            </div>
+          </div>
         </div>
       </div>
+
       <div class="mt-8">
         <p class="text-xs text-emerald-200/70 italic mb-4" data-i18n="Indicative estimate only. Let's map it out precisely together.">Indicative estimate only. Let's map it out precisely together.</p>
         <button type="button" id="covWhatsApp" class="w-full bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-semibold py-3.5 px-6 rounded-xl transition-all text-sm" data-i18n="WhatsApp for Full Analysis →">WhatsApp for Full Analysis →</button>
@@ -470,39 +498,67 @@
 
 /* ============ Coverage Estimator ============ */
 (function () {
-  var inc = document.getElementById('income'), age = document.getElementById('age'),
-      liab = document.getElementById('liabilities'), life = document.getElementById('lifestyle');
+  var inc = document.getElementById('income'),
+      age = document.getElementById('age'),
+      liab = document.getElementById('liabilities'),
+      mDeath = document.getElementById('multDeath'),
+      mCI = document.getElementById('multCI'),
+      mECI = document.getElementById('multECI');
+
+  function num(el, fallback) {
+    var v = parseFloat(el.value);
+    return isNaN(v) ? fallback : v;
+  }
+  function fmt(n) { return 'S$' + Math.round(n).toLocaleString('en-SG'); }
 
   function get() {
-    var income = parseFloat(inc.value) || 0, liabilities = parseFloat(liab.value) || 0, m = parseFloat(life.value) || 1;
-    var replacement = income * 9;
-    return { income: income, liabilities: liabilities, m: m, replacement: replacement, total: (replacement + liabilities) * m };
+    var income = num(inc, 0), liabilities = num(liab, 0);
+    var md = num(mDeath, 9), mc = num(mCI, 4), me = num(mECI, 2);
+    var replacement = income * md;
+    return {
+      income: income, liabilities: liabilities,
+      md: md, mc: mc, me: me,
+      replacement: replacement,
+      death: replacement + liabilities,   // Death / TPD / TI
+      ci: income * mc,                    // Critical Illness
+      eci: income * me                    // Early Critical Illness
+    };
   }
+
   function calc() {
     var d = get();
-    document.getElementById('resIncome').textContent = 'S$' + Math.round(d.replacement).toLocaleString('en-SG');
-    document.getElementById('resLiab').textContent = 'S$' + Math.round(d.liabilities).toLocaleString('en-SG');
-    document.getElementById('resLifestyle').textContent = d.m + 'x';
-    document.getElementById('resTotal').textContent = 'S$' + Math.round(d.total).toLocaleString('en-SG');
+    document.getElementById('resIncome').textContent = fmt(d.replacement);
+    document.getElementById('resLiab').textContent = fmt(d.liabilities);
+    document.getElementById('resDeath').textContent = fmt(d.death);
+    document.getElementById('resCI').textContent = fmt(d.ci);
+    document.getElementById('resECI').textContent = fmt(d.eci);
   }
-  [inc, age, liab, life].forEach(function (el) { el.addEventListener('input', calc); el.addEventListener('change', calc); });
-  document.getElementById('covForm').addEventListener('reset', function () { setTimeout(calc, 0); });
+
+  [inc, age, liab, mDeath, mCI, mECI].forEach(function (el) {
+    el.addEventListener('input', calc);
+    el.addEventListener('change', calc);
+  });
+  document.getElementById('covForm').addEventListener('reset', function () {
+    setTimeout(calc, 0);
+  });
 
   document.getElementById('covWhatsApp').addEventListener('click', function () {
     var d = get();
     var msg = 'COVERAGE ESTIMATOR SUMMARY\n\n' +
       'Annual Income: S$' + d.income.toLocaleString('en-SG') + '\n' +
-      'Age: ' + (parseFloat(age.value) || 0) + '\n' +
-      'Lifestyle Preference: ' + life.options[life.selectedIndex].text + ' (' + d.m + 'x)\n' +
+      'Age: ' + num(age, 0) + '\n' +
       'Outstanding Liabilities: S$' + d.liabilities.toLocaleString('en-SG') + '\n\n' +
       'COVERAGE ESTIMATE\n' +
-      'Income Replacement: S$' + Math.round(d.replacement).toLocaleString('en-SG') + '\n' +
-      'Liability Coverage: S$' + Math.round(d.liabilities).toLocaleString('en-SG') + '\n' +
-      'Lifestyle Multiplier: ' + d.m + 'x\n' +
-      'Recommended Sum Assured: S$' + Math.round(d.total).toLocaleString('en-SG') + '\n\n' +
+      'Income Replacement (' + d.md + 'x): ' + fmt(d.replacement) + '\n' +
+      'Liability Coverage: ' + fmt(d.liabilities) + '\n\n' +
+      'RECOMMENDED SUM ASSURED\n' +
+      'Death / TPD / TI (' + d.md + 'x + liabilities): ' + fmt(d.death) + '\n' +
+      'Critical Illness (' + d.mc + 'x): ' + fmt(d.ci) + '\n' +
+      'Early Critical Illness (' + d.me + 'x): ' + fmt(d.eci) + '\n\n' +
       'Sent from the Coverage Estimator.';
     window.open('https://wa.me/6591849632?text=' + encodeURIComponent(msg), '_blank', 'noopener');
   });
+
   calc();
 })();
 
