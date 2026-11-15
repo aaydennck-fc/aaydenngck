@@ -1259,89 +1259,105 @@ section.pe-results-premium .breakdown tbody tr {
 </a>
 
 
-  <section id="about-intro" class="max-w-5xl mx-auto py-12 px-4">
-  <h2 class="text-3xl sm:text-5xl font-bold leading-tight text-gray-900 mb-10 text-center">
-    Securing Your Future Through <span class="text-emerald-600">Personalized Financial Planning</span>
-  </h2>
+  <!-- About Section (Now the Main Content Hub) -->
+<section id="about" class="pt-36 pb-12 px-6 max-w-5xl mx-auto">
+  <div class="grid md:grid-cols-2 gap-12 items-start">
 
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-
-    <!-- Tabs -->
-    <div class="lg:col-span-4 flex lg:flex-col gap-3">
-      <button type="button" data-tab="why"
-        class="about-tab flex-1 text-left rounded-2xl px-5 py-4 font-semibold border transition-all">
-        <span class="block text-xl mb-1">🏡</span>My Why
-      </button>
-      <button type="button" data-tab="who"
-        class="about-tab flex-1 text-left rounded-2xl px-5 py-4 font-semibold border transition-all">
-        <span class="block text-xl mb-1">👨‍👩‍👧</span>Who I Help
-      </button>
-      <button type="button" data-tab="how"
-        class="about-tab flex-1 text-left rounded-2xl px-5 py-4 font-semibold border transition-all">
-        <span class="block text-xl mb-1">🤝</span>How I Work
-      </button>
+    <!-- Left Column: Photo & Consultation Badge -->
+    <div class="flex flex-col gap-4">
+      <div class="relative group">
+        <div class="absolute -inset-1 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
+        <div class="relative aspect-[3/4] rounded-2xl overflow-hidden border border-slate-200 shadow-md">
+          <img src="https://github.com/aaydennck-fc/aaydenngck/raw/refs/heads/main/Professional%20Photo" alt="Aayden's Headshot" class="w-full h-full object-cover">
+        </div>
+      </div>
+      <div class="text-center md:text-left">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Available for Consultations
+        </span>
+      </div>
     </div>
 
-    <!-- Panels -->
-    <div class="lg:col-span-8 rounded-3xl p-6 sm:p-10 text-white shadow-lg min-h-[280px]"
-         style="background:linear-gradient(135deg,#164e35 0%,#1b6543 58%,#275f45 100%)">
+    <!-- Right Column: Profile details -->
+    <div>
+      <h1 class="hero-name text-4xl md:text-5xl font-extrabold text-slate-950 tracking-tight mb-2">
+        <span class="line">Aayden Ng</span>
+      </h1>
+      <p class="text-emerald-600 font-bold text-xs uppercase tracking-wider mb-4">Husband, Dad, Son, Manager Wealth Services</p>
 
-      <div data-panel="why" class="about-panel">
-        <p class="text-xs tracking-widest uppercase text-emerald-200 mb-4">My Why</p>
-        <p class="text-lg sm:text-2xl leading-relaxed">
-          I chose to leave the corporate grind for a career that lets me be more present for my family while helping other families prepare for the people and moments that matter most.
-        </p>
-      </div>
+      <h2 class="text-xl md:text-2xl font-bold text-slate-900 tracking-tight leading-snug mb-5 border-t border-slate-100 pt-4">
+        Securing Your Future Through
+        <div class="text-emerald-600">Personalized Financial Planning</div>
+      </h2>
 
-      <div data-panel="who" class="about-panel hidden">
-        <p class="text-xs tracking-widest uppercase text-emerald-200 mb-4">Who I Help</p>
-        <p class="text-lg sm:text-xl leading-relaxed mb-6">
-          I work with young families and the “sandwich generation” navigating the responsibilities of raising children, caring for aging parents, and planning for their own future.
-        </p>
-        <div class="flex flex-wrap gap-3">
-          <span class="bg-emerald-900/50 border border-emerald-700/50 rounded-full px-4 py-2 text-sm">👶 Raising children</span>
-          <span class="bg-emerald-900/50 border border-emerald-700/50 rounded-full px-4 py-2 text-sm">👴 Caring for aging parents</span>
-          <span class="bg-emerald-900/50 border border-emerald-700/50 rounded-full px-4 py-2 text-sm">🎯 Planning for their own future</span>
+      <!-- Click-to-reveal boxes -->
+      <div id="aboutAccordion" class="space-y-3">
+
+        <div class="acc-item rounded-2xl border border-slate-200 bg-white overflow-hidden transition-all">
+          <button type="button" class="acc-btn w-full flex items-center justify-between gap-3 px-5 py-4 text-left" aria-expanded="false">
+            <span class="flex items-center gap-3 font-semibold text-slate-900"><span class="text-xl">🏡</span> My Why</span>
+            <svg class="acc-chevron w-5 h-5 text-emerald-600 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+          </button>
+          <div class="acc-body grid grid-rows-[0fr] transition-all duration-300">
+            <div class="overflow-hidden">
+              <p class="px-5 pb-5 text-slate-600 leading-relaxed">I chose to leave the corporate grind for a career that lets me be more present for my family while helping other families prepare for the people and moments that matter most.</p>
+            </div>
+          </div>
         </div>
+
+        <div class="acc-item rounded-2xl border border-slate-200 bg-white overflow-hidden transition-all">
+          <button type="button" class="acc-btn w-full flex items-center justify-between gap-3 px-5 py-4 text-left" aria-expanded="false">
+            <span class="flex items-center gap-3 font-semibold text-slate-900"><span class="text-xl">👨‍👩‍👧</span> Who I Help</span>
+            <svg class="acc-chevron w-5 h-5 text-emerald-600 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+          </button>
+          <div class="acc-body grid grid-rows-[0fr] transition-all duration-300">
+            <div class="overflow-hidden">
+              <p class="px-5 text-slate-600 leading-relaxed">I work with young families and the “sandwich generation” navigating the responsibilities of raising children, caring for aging parents, and planning for their own future.</p>
+              <div class="flex flex-wrap gap-2 px-5 pt-3 pb-5">
+                <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full px-3 py-1 text-xs font-semibold">👶 Raising children</span>
+                <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full px-3 py-1 text-xs font-semibold">👴 Caring for aging parents</span>
+                <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full px-3 py-1 text-xs font-semibold">🎯 Planning for their own future</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item rounded-2xl border border-slate-200 bg-white overflow-hidden transition-all">
+          <button type="button" class="acc-btn w-full flex items-center justify-between gap-3 px-5 py-4 text-left" aria-expanded="false">
+            <span class="flex items-center gap-3 font-semibold text-slate-900"><span class="text-xl">🤝</span> How I Work</span>
+            <svg class="acc-chevron w-5 h-5 text-emerald-600 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+          </button>
+          <div class="acc-body grid grid-rows-[0fr] transition-all duration-300">
+            <div class="overflow-hidden">
+              <p class="px-5 pb-5 text-slate-600 leading-relaxed"><strong class="text-slate-900">No jargon. No pressure.</strong> Just honest conversations and practical financial planning the same way I’d approach it for my own family.</p>
+            </div>
+          </div>
+        </div>
+
       </div>
 
-      <div data-panel="how" class="about-panel hidden">
-        <p class="text-xs tracking-widest uppercase text-emerald-200 mb-4">How I Work</p>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
-          <div class="bg-emerald-900/50 border border-emerald-700/50 rounded-2xl p-4 text-center font-semibold">No jargon.</div>
-          <div class="bg-emerald-900/50 border border-emerald-700/50 rounded-2xl p-4 text-center font-semibold">No pressure.</div>
-          <div class="bg-emerald-900/50 border border-emerald-700/50 rounded-2xl p-4 text-center font-semibold">Honest conversations.</div>
-        </div>
-        <p class="text-lg leading-relaxed">
-          Practical financial planning, the same way I’d approach it for my own family.
-        </p>
-      </div>
+      <p class="mt-6 font-semibold text-emerald-600">“Because financial planning isn’t really about money. It’s about the people behind it.”</p>
     </div>
   </div>
 </section>
 
 <script>
 (function () {
-  var tabs = document.querySelectorAll('#about-intro .about-tab');
-  var panels = document.querySelectorAll('#about-intro .about-panel');
-  var on = ['bg-emerald-600', 'text-white', 'border-emerald-600', 'shadow-md'];
-  var off = ['bg-white', 'text-gray-700', 'border-gray-200', 'hover:border-emerald-300'];
-
-  function show(name) {
-    tabs.forEach(function (t) {
-      var active = t.dataset.tab === name;
-      on.forEach(function (c) { t.classList.toggle(c, active); });
-      off.forEach(function (c) { t.classList.toggle(c, !active); });
+  var items = document.querySelectorAll('#aboutAccordion .acc-item');
+  items.forEach(function (item) {
+    var btn = item.querySelector('.acc-btn');
+    var body = item.querySelector('.acc-body');
+    var chev = item.querySelector('.acc-chevron');
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      body.classList.toggle('grid-rows-[0fr]', open);
+      body.classList.toggle('grid-rows-[1fr]', !open);
+      chev.classList.toggle('rotate-180', !open);
+      item.classList.toggle('border-emerald-300', !open);
+      item.classList.toggle('shadow-sm', !open);
     });
-    panels.forEach(function (p) {
-      p.classList.toggle('hidden', p.dataset.panel !== name);
-    });
-  }
-
-  tabs.forEach(function (t) {
-    t.addEventListener('click', function () { show(t.dataset.tab); });
   });
-  show('why');
 })();
 </script>
         
