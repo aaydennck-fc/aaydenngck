@@ -1718,59 +1718,134 @@
       S(8, 'How much flat can they afford?', s8);
   }
 
-  // Client-friendly housing report PDF (uses the current calculator results)
+  // Premium client-ready Housing Affordability PDF
   $('hsPdfBtn').addEventListener('click', function () {
     if (!window.jspdf || !window.jspdf.jsPDF) {
       alert('The PDF tool could not load. Please check your internet connection and try again.');
       return;
     }
     var doc = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' });
-    var W = 210, M = 17, y = 48, page = 1;
+    var W = 210, H = 297, M = 15, CW = W - M * 2;
+    var green = [10, 76, 52], emerald = [16, 120, 82], pale = [235, 246, 240],
+        ink = [31, 41, 55], muted = [107, 119, 130], line = [224, 231, 228], white = [255, 255, 255];
+    var y = 46, pageNo = 1;
+    function moneyText(v) { return String(v || '').replace(/\s+/g, ' ').trim(); }
     function header() {
-      doc.setFillColor(15, 55, 39); doc.rect(0, 0, W, 34, 'F');
-      doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(18);
-      doc.text('Housing Affordability Report', M, 16);
-      doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(216, 239, 226);
-      doc.text('Prepared with Aayden Ng | Financial Consultant', M, 24);
+      doc.setFillColor(green[0], green[1], green[2]); doc.rect(0, 0, W, 34, 'F');
+      doc.setFillColor(emerald[0], emerald[1], emerald[2]); doc.rect(0, 34, W, 2, 'F');
+      doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(17);
+      doc.text('HOUSING AFFORDABILITY', M, 15);
+      doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(220,239,229);
+      doc.text('CLIENT PLANNING REPORT  |  Aayden Ng · Financial Consultant', M, 24);
     }
     function footer() {
-      doc.setDrawColor(226, 232, 240); doc.line(M, 285, W - M, 285);
-      doc.setFontSize(8); doc.setTextColor(120, 130, 140);
-      doc.text('Illustrative estimate only. Confirm figures with HDB, CPF and the lender.', M, 290);
-      doc.text('Page ' + page, W - M, 290, { align: 'right' });
+      doc.setDrawColor(line[0],line[1],line[2]); doc.line(M, 285, W-M, 285);
+      doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(muted[0],muted[1],muted[2]);
+      doc.text('Illustrative estimate only. Confirm final figures with HDB, CPF and the lender.', M, 290);
+      doc.text('Aayden Ng | Financial Consultant', M, 294);
+      doc.text('Page ' + pageNo, W-M, 290, {align:'right'});
     }
-    function newPage() { footer(); doc.addPage(); page++; header(); y = 44; }
-    function section(title) {
-      if (y > 265) newPage();
-      doc.setFillColor(232, 243, 237); doc.roundedRect(M, y - 5, W - M * 2, 9, 2, 2, 'F');
-      doc.setTextColor(18, 91, 59); doc.setFont('helvetica', 'bold'); doc.setFontSize(11);
-      doc.text(title, M + 3, y + 1); y += 11;
-    }
-    function bodyText(text) {
-      doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(55, 65, 81);
-      var lines = doc.splitTextToSize(text, W - M * 2);
-      lines.forEach(function (line) { if (y > 275) newPage(); doc.text(line, M, y); y += 5; });
+    function nextPage() { footer(); doc.addPage(); pageNo++; header(); y = 45; }
+    function ensure(h) { if (y + h > 278) nextPage(); }
+    function title(text, sub) {
+      ensure(sub ? 18 : 12);
+      doc.setTextColor(ink[0],ink[1],ink[2]); doc.setFont('helvetica','bold'); doc.setFontSize(13);
+      doc.text(text, M, y); y += 6;
+      if (sub) { doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor(muted[0],muted[1],muted[2]); doc.text(sub, M, y); y += 6; }
       y += 2;
     }
+    function card(x, top, w, h, label, value, detail) {
+      doc.setFillColor(248,250,249); doc.setDrawColor(line[0],line[1],line[2]); doc.roundedRect(x,top,w,h,2.5,2.5,'FD');
+      doc.setFont('helvetica','bold'); doc.setFontSize(7.5); doc.setTextColor(emerald[0],emerald[1],emerald[2]);
+      doc.text(label.toUpperCase(), x+4, top+7);
+      doc.setFontSize(14); doc.setTextColor(ink[0],ink[1],ink[2]); doc.text(value || '—', x+4, top+15);
+      if(detail) { doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor(muted[0],muted[1],muted[2]); doc.text(detail, x+4, top+h-4); }
+    }
+    function sectionBand(text) {
+      ensure(13); doc.setFillColor(pale[0],pale[1],pale[2]); doc.roundedRect(M,y,CW,8,1.8,1.8,'F');
+      doc.setFont('helvetica','bold'); doc.setFontSize(9.5); doc.setTextColor(green[0],green[1],green[2]); doc.text(text, M+3, y+5.4); y += 11;
+    }
+    function kv(label, value, bold) {
+      if (!label || !value) return;
+      ensure(7); doc.setDrawColor(line[0],line[1],line[2]); doc.line(M,y+1,W-M,y+1);
+      doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor(muted[0],muted[1],muted[2]); doc.text(label, M+1, y+5);
+      doc.setFont('helvetica', bold ? 'bold' : 'normal'); doc.setTextColor(ink[0],ink[1],ink[2]);
+      doc.text(value, W-M-1, y+5, {align:'right'}); y += 7;
+    }
+    function wrapped(text, size, color, spacing) {
+      if (!text) return;
+      doc.setFont('helvetica','normal'); doc.setFontSize(size || 8.5); doc.setTextColor((color||ink)[0],(color||ink)[1],(color||ink)[2]);
+      var lines = doc.splitTextToSize(text, CW-2);
+      lines.forEach(function(line){ ensure(5); doc.text(line, M+1, y); y += spacing || 4.5; }); y += 2;
+    }
+    function safeVal(id) { var el=document.getElementById(id); return el ? el.value : ''; }
+    function sg(n) { return Number(n||0).toLocaleString('en-SG',{maximumFractionDigits:0}); }
+    function incomeLabel() {
+      var a = sg(safeVal('hsInc1')); var b = Number(safeVal('hsInc2')||0);
+      return 'S$'+a+(b>0?'  +  S$'+sg(b):'');
+    }
     header();
-    doc.setFont('helvetica', 'bold'); doc.setFontSize(13); doc.setTextColor(15, 23, 42);
-    doc.text('Household & property snapshot', M, y); y += 8;
-    bodyText('Applicant 1 income: S$' + Number(document.getElementById('hsInc1').value || 0).toLocaleString('en-SG') + (Number(document.getElementById('hsInc2').value || 0) > 0 ? ' | Applicant 2 income: S$' + Number(document.getElementById('hsInc2').value).toLocaleString('en-SG') : '') + ' | Flat: ' + (document.getElementById('hsType').value === 'bto' ? 'BTO / new flat' : 'Resale') + ' | Purchase price: S$' + Number(document.getElementById('hsPrice').value || 0).toLocaleString('en-SG'));
-    section('Affordability overview');
-    var summary = document.getElementById('hsSummary');
-    bodyText(summary ? summary.innerText.replace(/\s+/g, ' ').trim() : 'Summary unavailable.');
-    section('Step-by-step calculation & considerations');
-    var steps = document.getElementById('hsSteps');
-    if (steps) Array.from(steps.children).forEach(function (step) {
-      var heading = step.querySelector('h3');
-      var title = heading ? heading.innerText.trim() : 'Calculation detail';
-      var content = step.innerText.replace(title, '').replace(/\s+/g, ' ').trim();
-      section(title); bodyText(content);
+    // Snapshot details
+    title('Household & Property Snapshot','Based on the information entered into the planner');
+    var type = safeVal('hsType') === 'bto' ? 'BTO / New Flat' : 'Resale Flat';
+    var overview = [
+      ['Applicant age(s)', safeVal('hsAge1') + (safeVal('hsAge2') ? ' / '+safeVal('hsAge2') : '')],
+      ['Combined monthly income', incomeLabel()],
+      ['Property type', type],
+      ['Target property price', 'S$'+sg(safeVal('hsPrice'))]
+    ];
+    var half=(CW-4)/2, oh=21;
+    overview.forEach(function(item,i){ var x=M+(i%2)*(half+4), top=y+Math.floor(i/2)*(oh+3); card(x,top,half,oh,item[0],item[1],''); });
+    y += 2*(oh+3)+3;
+    // Key calculator summary cards
+    var summary=document.getElementById('hsSummary');
+    var kpis=[];
+    if(summary) summary.querySelectorAll('.grid.grid-cols-2 > div').forEach(function(el){
+      var label=el.children[0] ? el.children[0].innerText.trim() : '';
+      var value=el.children[1] ? el.children[1].innerText.trim() : '';
+      var detail=el.children[2] ? el.children[2].innerText.trim() : '';
+      if(label && value) kpis.push({label:label,value:value,detail:detail});
     });
-    footer();
+    sectionBand('Selected Loan Scenario — Key Figures');
+    if(kpis.length) {
+      kpis.slice(0,4).forEach(function(k,i){var x=M+(i%2)*(half+4),top=y+Math.floor(i/2)*25;card(x,top,half,22,k.label,k.value,k.detail);});
+      y += Math.ceil(Math.min(kpis.length,4)/2)*25+3;
+    }
+    // HDB vs bank comparison
+    sectionBand('HDB Loan vs Bank Loan Comparison');
+    var tableRows=[];
+    if(summary) summary.querySelectorAll('table tbody tr').forEach(function(tr){
+      var cells=Array.from(tr.querySelectorAll('td')).map(function(td){return td.innerText.trim();});
+      if(cells.length>=3)tableRows.push(cells.slice(0,3));
+    });
+    var col1=M, col2=M+CW*.48, col3=M+CW*.73, rowH=8;
+    doc.setFillColor(green[0],green[1],green[2]); doc.roundedRect(M,y,CW,9,1.5,1.5,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(255,255,255);
+    doc.text('COMPARISON',col1+3,y+6);doc.text('HDB LOAN',col2+3,y+6);doc.text('BANK LOAN',col3+3,y+6);y+=10;
+    tableRows.forEach(function(r){ensure(rowH);doc.setDrawColor(line[0],line[1],line[2]);doc.line(M,y+1,W-M,y+1);doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(ink[0],ink[1],ink[2]);doc.text(r[0],col1+2,y+5);doc.text(r[1],col2+2,y+5);doc.text(r[2],col3+2,y+5);y+=rowH;});
+    y+=5;
+    // Detailed calculation steps rendered as clean rows rather than flattened paragraphs
+    var stepNodes=document.getElementById('hsSteps');
+    if(stepNodes) Array.from(stepNodes.children).forEach(function(step){
+      var h=step.querySelector('h3'); var heading=h?h.innerText.trim():'Planning Detail';
+      var rowNodes=step.querySelectorAll('div.flex.justify-between');
+      var extracted=[];
+      rowNodes.forEach(function(row){var spans=row.querySelectorAll('span');if(spans.length>=2){var l=spans[0].innerText.trim(),v=spans[1].innerText.trim();if(l&&v)extracted.push([l,v]);}});
+      if(!extracted.length)return;
+      sectionBand(heading);
+      extracted.forEach(function(r){kv(r[0],r[1],/total|eligible|shortfall|surplus|instalment|paid in cash/i.test(r[0]));});
+      y+=3;
+    });
+    // Recommendations/checks pulled from the calculator's live summary
+    if(summary) {
+      var notes=Array.from(summary.querySelectorAll('ul li')).map(function(li){return li.innerText.replace(/\s+/g,' ').trim();}).filter(Boolean);
+      if(notes.length){sectionBand('Key Considerations');notes.forEach(function(n){wrapped('• '+n,8.2,ink,4.5);});}
+    }
+    // Add footer to all pages after document is complete
+    var total=doc.internal.getNumberOfPages();
+    for(var p=1;p<=total;p++){doc.setPage(p);footer();}
     doc.save('Housing_Affordability_Client_Report.pdf');
   });
-
   function toggleType() {
     var bto = $('hsType').value === 'bto';
     document.querySelectorAll('#view-housing .hs-resale').forEach(function (e) { e.classList.toggle('hidden', bto); });
