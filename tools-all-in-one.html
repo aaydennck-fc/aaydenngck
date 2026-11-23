@@ -87,6 +87,15 @@
   <p class="text-slate-600 text-sm leading-relaxed mb-6" data-i18n="Key in the Retirement Account balance to see the retirement sum tier and the estimated monthly CPF LIFE payout.">Key in the Retirement Account balance to see the retirement sum tier and the estimated monthly CPF LIFE payout.</p>
   <span class="mt-auto text-sm font-semibold text-emerald-600" data-i18n="Open tool →">Open tool →</span>
 </a>
+
+    <a href="#housing" class="group bg-white p-8 rounded-2xl border border-slate-200/60 shadow-sm hover:-translate-y-1.5 hover:shadow-md hover:border-emerald-500/30 transition-all duration-300 flex flex-col">
+  <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3m10-11v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+  </div>
+  <h2 class="text-xl font-bold mb-3">Housing Affordability Planner</h2>
+  <p class="text-slate-600 text-sm leading-relaxed mb-6">Step-by-step: HFE loan eligibility, grants, downpayment, upfront costs and monthly instalment for an HDB flat.</p>
+  <span class="mt-auto text-sm font-semibold text-emerald-600">Open tool →</span>
+</a>
     
   </div>
 
@@ -506,6 +515,143 @@
   </div>
 </section>
 
+<!-- ===================== HOUSING ===================== -->
+<section id="view-housing" class="view max-w-5xl mx-auto hidden">
+  <a href="#" class="inline-block text-sm font-semibold text-emerald-700 hover:text-emerald-900 mb-6">← Back to Interactive Tools</a>
+
+  <div class="rounded-[28px] text-white p-8 sm:p-12 mb-8 shadow-lg" style="background:linear-gradient(135deg,#164e35 0%,#1b6543 58%,#275f45 100%)">
+    <p class="text-xs tracking-widest uppercase text-emerald-100 mb-3">Housing Affordability Planner</p>
+    <h1 class="text-3xl sm:text-5xl font-bold leading-tight mb-3">See exactly what a home will cost.</h1>
+    <p class="text-emerald-50">Loan eligibility, grants, downpayment, upfront costs and monthly instalment, calculated step by step.</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+    <!-- INPUTS -->
+    <div class="lg:col-span-5">
+
+      <div class="card">
+        <h2 class="text-lg font-bold mb-1">1. Household</h2>
+        <p class="text-xs text-slate-500 mb-5">Use average gross monthly income over the last 12 months.</p>
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div><label class="lbl" for="hsAge1">Applicant 1 age</label><input type="number" id="hsAge1" value="32" min="18" max="80" class="inp"></div>
+          <div><label class="lbl" for="hsInc1">Monthly income (S$)</label><input type="number" id="hsInc1" value="4500" min="0" step="100" class="inp"></div>
+          <div><label class="lbl" for="hsAge2">Applicant 2 age</label><input type="number" id="hsAge2" value="30" min="0" max="80" class="inp"></div>
+          <div><label class="lbl" for="hsInc2">Monthly income (S$)</label><input type="number" id="hsInc2" value="4000" min="0" step="100" class="inp"></div>
+        </div>
+        <div class="mb-4">
+          <label class="lbl" for="hsDebts">Other monthly debt payments (S$)</label>
+          <input type="number" id="hsDebts" value="0" min="0" step="50" class="inp">
+          <p class="text-xs text-slate-500 mt-1.5">Car loan, credit cards, personal loans. Counts toward the bank's TDSR.</p>
+        </div>
+        <div>
+          <label class="lbl" for="hsProfile">Grant profile</label>
+          <select id="hsProfile" class="inp">
+            <option value="firstSC">First-timer couple/family, both Singapore Citizens</option>
+            <option value="other">Other (key in grants manually below)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="text-lg font-bold mb-5">2. The flat</h2>
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <label class="lbl" for="hsType">Purchase type</label>
+            <select id="hsType" class="inp"><option value="resale">Resale</option><option value="bto">BTO / new flat</option></select>
+          </div>
+          <div>
+            <label class="lbl" for="hsSize">Flat size</label>
+            <select id="hsSize" class="inp"><option value="small">2 to 4-room</option><option value="big">5-room or larger</option></select>
+          </div>
+          <div>
+            <label class="lbl" for="hsPrice">Purchase price (S$)</label>
+            <input type="number" id="hsPrice" value="600000" min="0" step="5000" class="inp">
+          </div>
+          <div class="hs-resale">
+            <label class="lbl" for="hsVal">Valuation (S$)</label>
+            <input type="number" id="hsVal" value="" min="0" step="5000" placeholder="Same as price" class="inp">
+          </div>
+          <div class="hs-resale">
+            <label class="lbl" for="hsLease">Remaining lease (years)</label>
+            <input type="number" id="hsLease" value="70" min="1" max="99" class="inp">
+          </div>
+          <div class="hs-resale">
+            <label class="lbl" for="hsPhg">Proximity Housing Grant</label>
+            <select id="hsPhg" class="inp">
+              <option value="0">Not applicable</option>
+              <option value="20000">Near parents/child (within 4 km): $20,000</option>
+              <option value="30000">With parents/child: $30,000</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="lbl" for="hsGrantOverride">Total grants override (S$, optional)</label>
+          <input type="number" id="hsGrantOverride" value="" min="0" step="1000" placeholder="Leave blank to auto-calculate" class="inp">
+          <p class="text-xs text-slate-500 mt-1.5">Use the amount on the client's HFE letter if they have one.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="text-lg font-bold mb-5">3. Loan and funds</h2>
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <label class="lbl" for="hsLoanType">Loan to model</label>
+            <select id="hsLoanType" class="inp"><option value="hdb">HDB loan (2.6%)</option><option value="bank">Bank loan</option></select>
+          </div>
+          <div>
+            <label class="lbl" for="hsBankRate">Bank rate (% p.a.)</label>
+            <input type="number" id="hsBankRate" value="2.6" min="0" step="0.05" class="inp">
+          </div>
+          <div>
+            <label class="lbl" for="hsTenure">Loan tenure (years)</label>
+            <input type="number" id="hsTenure" value="25" min="1" max="30" class="inp">
+          </div>
+          <div>
+            <label class="lbl" for="hsLoanPick">Loan amount (S$)</label>
+            <input type="number" id="hsLoanPick" value="" min="0" step="5000" placeholder="Blank = maximum" class="inp">
+          </div>
+          <div>
+            <label class="lbl" for="hsCpf">Combined CPF OA balance (S$)</label>
+            <input type="number" id="hsCpf" value="70000" min="0" step="1000" class="inp">
+          </div>
+          <div>
+            <label class="lbl" for="hsCash">Cash savings (S$)</label>
+            <input type="number" id="hsCash" value="50000" min="0" step="1000" class="inp">
+          </div>
+          <div>
+            <label class="lbl" for="hsFees">Legal and other fees (S$)</label>
+            <input type="number" id="hsFees" value="3000" min="0" step="500" class="inp">
+          </div>
+          <div>
+            <label class="lbl" for="hsOaOverride">Monthly CPF OA credit (S$)</label>
+            <input type="number" id="hsOaOverride" value="" min="0" step="50" placeholder="Auto-estimate" class="inp">
+          </div>
+        </div>
+        <p class="text-xs text-slate-500">The bank rate is a placeholder. Replace it with the bank's quote.</p>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="lg:col-span-7">
+      <div class="lg:sticky lg:top-28">
+        <div id="hsSummary"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-10">
+    <h2 class="text-2xl font-bold tracking-tight mb-1">Step-by-step calculation</h2>
+    <p class="text-sm text-slate-500 mb-5">Walk the client through each step. Every number comes from the inputs above.</p>
+    <div id="hsSteps" class="space-y-5"></div>
+  </div>
+
+  <aside class="text-xs text-slate-500 border border-slate-200 rounded-2xl bg-white/60 p-5 mt-8 space-y-2">
+    <p><strong class="text-slate-700">Illustrative tool only.</strong> Figures are estimates based on HDB, MAS, IRAS and CPF Board rules as at Nov 2026. The HFE letter and the bank's letter of offer are the official amounts. Grants depend on full eligibility checks, including employment, citizenship and ownership conditions.</p>
+    <p>Not modelled: pro-rated LTV for short leases, CPF withdrawal limits, accrued interest on CPF refunds, variable income haircuts, extended-family and second-timer schemes, and ABSD for owners of other property.</p>
+  </aside>
+</section>
+  
 </main>
 
 <!-- Fees pop-up -->
@@ -574,10 +720,10 @@
 <script>
 /* ============ Router (hub / coverage / expenses) ============ */
 (function () {
- var titles = { hub: 'Interactive Tools', coverage: 'Coverage Estimator', expenses: 'Personal Expenses Calculator', education: 'Child Education Fund Planner', cpflife: 'CPF LIFE Calculator' };
+ var titles = { hub: 'Interactive Tools', coverage: 'Coverage Estimator', expenses: 'Personal Expenses Calculator', education: 'Child Education Fund Planner', cpflife: 'CPF LIFE Calculator', housing: 'Housing Affordability Planner' };
   function route() {
     var h = location.hash.replace('#', '');
-    if (h !== 'coverage' && h !== 'expenses' && h !== 'education' && h !== 'cpflife') h = 'hub';
+    if (h !== 'coverage' && h !== 'expenses' && h !== 'education' && h !== 'cpflife' && h !== 'housing') h = 'hub';
     document.querySelectorAll('.view').forEach(function (v) {
       v.classList.toggle('hidden', v.id !== 'view-' + h);
     });
@@ -1255,6 +1401,334 @@
   document.getElementById('langToggle').addEventListener('click', function () { setTimeout(calc, 0); });
 
   calc();
+})();
+</script>
+
+  <script>
+// ===== HOUSING AFFORDABILITY PLANNER =====
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  if (!$('hsPrice')) return;
+
+  // ===== Update when rules change =====
+  var CFG = {
+    ceiling: 16000,       // income ceiling for BTO / CPF Housing Grant / HDB loan (from 24 Aug 2026)
+    ehgCeiling: 9000,     // Enhanced CPF Housing Grant income ceiling
+    hdbRate: 2.6,         // HDB loan rate (CPF OA 2.5% + 0.1%), reviewed quarterly
+    hdbFloor: 3.0,        // rate floor HDB uses to compute eligible loan
+    bankStress: 4.0,      // MAS medium-term rate floor for bank loans
+    msr: 0.30, tdsr: 0.55, ltv: 0.75,
+    hdbMaxTenure: 25, bankMaxTenure: 30,
+    oaRetain: 20000,      // OA balance an HDB-loan buyer may keep
+    minCashBank: 0.05,    // minimum cash downpayment on a bank loan
+    owCeiling: 8000       // CPF monthly wage ceiling (2026)
+  };
+  // Enhanced CPF Housing Grant, first-timer families: [income up to, grant]
+  var EHG = [[1500,120000],[2000,110000],[2500,105000],[3000,95000],[3500,90000],[4000,80000],[4500,70000],[5000,65000],[5500,55000],[6000,50000],[6500,40000],[7000,30000],[7500,25000],[8000,20000],[8500,10000],[9000,5000]];
+
+  function num(id) { var v = parseFloat($(id).value); return isNaN(v) ? 0 : v; }
+  function money(x) { return 'S$' + Math.round(x).toLocaleString('en-SG'); }
+  function pc(x, d) { return (x * 100).toFixed(d == null ? 1 : d) + '%'; }
+  function pmt(P, ratePct, yrs) {
+    var r = ratePct / 1200, n = Math.round(yrs * 12);
+    if (P <= 0 || n <= 0) return 0;
+    return r === 0 ? P / n : P * r / (1 - Math.pow(1 + r, -n));
+  }
+  function pv(pay, ratePct, yrs) {
+    var r = ratePct / 1200, n = Math.round(yrs * 12);
+    if (pay <= 0 || n <= 0) return 0;
+    return r === 0 ? pay * n : pay * (1 - Math.pow(1 + r, -n)) / r;
+  }
+  function bsd(p) {
+    var t = [[180000,0.01],[180000,0.02],[640000,0.03],[500000,0.04],[1500000,0.05],[Infinity,0.06]];
+    var s = 0, rem = p;
+    for (var i = 0; i < t.length && rem > 0; i++) { var x = Math.min(rem, t[i][0]); s += x * t[i][1]; rem -= x; }
+    return Math.floor(s);
+  }
+  function ehgFor(inc) {
+    for (var i = 0; i < EHG.length; i++) if (inc <= EHG[i][0]) return EHG[i][1];
+    return 0;
+  }
+  // Share of wages credited to the CPF Ordinary Account (employee + employer), by age
+  function oaRate(age) { return age <= 35 ? 0.23 : age <= 45 ? 0.21 : age <= 50 ? 0.19 : age <= 55 ? 0.15 : 0; }
+
+  function inputs() {
+    var a1 = num('hsAge1'), a2 = num('hsAge2'), i1 = num('hsInc1'), i2 = num('hsInc2');
+    var ages = (i2 > 0 && a2 > 0) ? [a1, a2] : [a1];
+    var c = {
+      a1: a1, a2: a2, i1: i1, i2: i2, two: i2 > 0,
+      inc: i1 + i2,
+      avgAge: ages.reduce(function (s, x) { return s + x; }, 0) / ages.length,
+      youngest: Math.min.apply(null, ages),
+      debts: num('hsDebts'),
+      type: $('hsType').value,
+      price: num('hsPrice'),
+      cpf: num('hsCpf'), cash: num('hsCash'), fees: num('hsFees'),
+      bankRate: num('hsBankRate') || 2.6,
+      reqT: Math.max(num('hsTenure') || 25, 1),
+      pick: num('hsLoanPick')
+    };
+    var resale = c.type === 'resale';
+    c.val = (resale && num('hsVal') > 0) ? num('hsVal') : c.price;
+    c.base = resale ? Math.min(c.price, c.val) : c.price;
+    c.cov = resale ? Math.max(c.price - c.val, 0) : 0;
+    c.lease = resale ? (num('hsLease') || 99) : 99;
+    c.bsd = resale ? bsd(Math.max(c.price, c.val)) : 0;
+
+    // grants
+    var g = { ehg: 0, chg: 0, phg: 0 };
+    if ($('hsProfile').value === 'firstSC') {
+      if (c.inc > 0 && c.inc <= CFG.ehgCeiling) g.ehg = ehgFor(c.inc);
+      if (resale && c.inc <= CFG.ceiling) g.chg = $('hsSize').value === 'big' ? 50000 : 80000;
+    }
+    if (resale) g.phg = parseFloat($('hsPhg').value) || 0;
+    c.g = g;
+    c.autoGrants = g.ehg + g.chg + g.phg;
+    var ov = $('hsGrantOverride').value;
+    c.grantsManual = ov !== '';
+    c.grants = c.grantsManual ? Math.max(parseFloat(ov) || 0, 0) : c.autoGrants;
+
+    // CPF OA credit each month
+    c.oaEst = (i1 > 0 ? Math.min(i1, CFG.owCeiling) * oaRate(a1) : 0) + (i2 > 0 ? Math.min(i2, CFG.owCeiling) * oaRate(a2 || a1) : 0);
+    var oo = $('hsOaOverride').value;
+    c.oaMonthly = oo !== '' ? Math.max(parseFloat(oo) || 0, 0) : c.oaEst;
+    return c;
+  }
+
+  function scenario(kind, c) {
+    var o = { kind: kind };
+    if (kind === 'hdb') {
+      o.maxPay = CFG.msr * c.inc;
+      o.capTenure = Math.max(Math.floor(Math.min(CFG.hdbMaxTenure, 65 - c.avgAge, c.lease - 20)), 0);
+      o.actualRate = CFG.hdbRate;
+      o.assessRate = Math.max(CFG.hdbFloor, CFG.hdbRate);
+      o.usableCpf = Math.max(c.cpf - CFG.oaRetain, 0);
+      o.minCash = 0;
+    } else {
+      o.msrCap = CFG.msr * c.inc;
+      o.tdsrCap = CFG.tdsr * c.inc - c.debts;
+      o.maxPay = Math.max(Math.min(o.msrCap, o.tdsrCap), 0);
+      o.capTenure = CFG.bankMaxTenure;
+      o.actualRate = c.bankRate;
+      o.assessRate = Math.max(CFG.bankStress, c.bankRate);
+      o.usableCpf = c.cpf;
+      o.minCash = CFG.minCashBank * c.base;
+    }
+    o.tenure = Math.min(c.reqT, o.capTenure);
+    o.loanByIncome = pv(o.maxPay, o.assessRate, o.capTenure);
+    o.ltvCap = CFG.ltv * c.base;
+    o.eligible = Math.max(Math.min(o.loanByIncome, o.ltvCap), 0);
+    o.loan = c.pick > 0 ? Math.min(c.pick, o.eligible) : o.eligible;
+
+    o.down = Math.max(c.base - o.loan, 0);
+    o.pool = c.grants + o.usableCpf;
+    o.oaForDown = Math.min(o.pool, Math.max(o.down - o.minCash, 0));
+    o.grantsUsed = Math.min(c.grants, o.oaForDown);
+    o.cpfUsed = o.oaForDown - o.grantsUsed;
+    o.cashDown = o.down - o.oaForDown;
+    o.oaLeft = o.pool - o.oaForDown;
+    o.feesTotal = c.bsd + c.fees;
+    o.feesFromOa = Math.min(o.oaLeft, o.feesTotal);
+    o.cashFees = o.feesTotal - o.feesFromOa;
+    o.cashUpfront = o.cashDown + c.cov + o.cashFees;
+    o.shortfall = Math.max(o.cashUpfront - c.cash, 0);
+
+    o.pmt = pmt(o.loan, o.actualRate, o.tenure);
+    o.n = Math.round(o.tenure * 12);
+    o.interest = Math.max(o.pmt * o.n - o.loan, 0);
+    o.msrAct = c.inc > 0 ? o.pmt / c.inc : 0;
+    o.tdsrAct = c.inc > 0 ? (o.pmt + c.debts) / c.inc : 0;
+    o.cashMonthly = Math.max(o.pmt - c.oaMonthly, 0);
+
+    // budget guide: highest flat price the funds and income can support (no cash-over-valuation)
+    var funds0 = c.grants + o.usableCpf + c.cash, price = funds0;
+    for (var k = 0; k < 40; k++) {
+      var f = (c.type === 'resale' ? bsd(price) : 0) + c.fees;
+      var fu = Math.max(funds0 - f, 0);
+      price = Math.min(fu / (1 - CFG.ltv), o.loanByIncome + fu);
+      if (kind === 'bank') price = Math.min(price, c.cash / CFG.minCashBank);
+    }
+    o.budget = Math.max(price, 0);
+    return o;
+  }
+
+  // ---------- rendering helpers ----------
+  function R(l, v, b) {
+    return '<div class="flex justify-between gap-4 py-1.5 border-b border-slate-100 text-sm"><span class="text-slate-600">' + l +
+      '</span><span class="' + (b ? 'font-bold text-slate-900' : 'font-medium text-slate-800') + ' text-right">' + v + '</span></div>';
+  }
+  function F(t) { return '<p class="text-xs text-slate-500 mt-3 leading-relaxed">' + t + '</p>'; }
+  function S(n, title, body) {
+    return '<div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm"><div class="flex items-center gap-3 mb-3"><span class="step">' +
+      n + '</span><h3 class="font-bold text-slate-900">' + title + '</h3></div>' + body + '</div>';
+  }
+  function big(label, value, sub) {
+    return '<div class="rounded-2xl bg-white/5 border border-white/10 p-4"><div class="text-[10px] font-bold uppercase tracking-wider text-emerald-300 mb-1">' + label +
+      '</div><div class="text-xl sm:text-2xl font-extrabold tracking-tight">' + value + '</div>' +
+      (sub ? '<div class="text-[11px] text-emerald-200/70 mt-1">' + sub + '</div>' : '') + '</div>';
+  }
+  function chk(state, text) {
+    var ic = state === 'ok' ? '<span class="text-emerald-400">✓</span>' : state === 'warn' ? '<span class="text-amber-300">⚠</span>' : '<span class="text-red-400">✕</span>';
+    return '<li class="flex gap-2 text-sm text-emerald-50/90">' + ic + '<span>' + text + '</span></li>';
+  }
+
+  function render() {
+    var c = inputs();
+    var sum = $('hsSummary'), steps = $('hsSteps');
+    if (c.inc <= 0 || c.price <= 0) {
+      sum.innerHTML = '<div class="rounded-3xl p-8 text-white shadow-xl bg-gradient-to-br from-emerald-950 via-gray-900 to-emerald-900"><p class="text-emerald-100">Enter the household income and the flat price to see the results.</p></div>';
+      steps.innerHTML = '';
+      return;
+    }
+    var H = scenario('hdb', c), B = scenario('bank', c);
+    var sel = $('hsLoanType').value, X = sel === 'hdb' ? H : B;
+    var selName = sel === 'hdb' ? 'HDB loan' : 'Bank loan';
+    var resale = c.type === 'resale';
+
+    // ----- checks -----
+    var ck = [];
+    if (c.inc > CFG.ceiling) ck.push(chk('bad', 'Income is above the ' + money(CFG.ceiling) + ' ceiling: no BTO, no CPF Housing Grant, no HDB loan. A bank loan on a resale flat is still possible.'));
+    else ck.push(chk('ok', 'Income is within the ' + money(CFG.ceiling) + ' ceiling.'));
+    if (X.eligible <= 0) ck.push(chk('bad', 'No loan eligibility under the ' + selName + ' rules. Check tenure, lease and income.'));
+    else if (X.loan < X.down + X.loan - c.base + 0) { /* no-op */ }
+    if (X.shortfall > 0) ck.push(chk('bad', 'Cash shortfall of ' + money(X.shortfall) + ' for the upfront payments.'));
+    else ck.push(chk('ok', 'Cash savings cover the upfront payments (' + money(c.cash - X.cashUpfront) + ' left over).'));
+    if (X.msrAct > CFG.msr + 0.0001) ck.push(chk('bad', 'Instalment is ' + pc(X.msrAct) + ' of income, above the 30% MSR cap. Lengthen the tenure or borrow less.'));
+    else ck.push(chk('ok', 'Instalment is ' + pc(X.msrAct) + ' of income, within the 30% MSR cap.'));
+    if (resale && c.lease < 95 - c.youngest) ck.push(chk('warn', 'Remaining lease (' + c.lease + ' yrs) does not cover the youngest buyer to age 95. LTV and CPF usage will be reduced. Confirm with HDB.'));
+    if (sel === 'bank' && (X.tenure > 25 || c.avgAge + X.tenure > 65)) ck.push(chk('warn', 'Bank tenure over 25 years, or running past age 65, may lower the LTV. Confirm with the bank.'));
+    if (c.inc > CFG.ehgCeiling && c.grants === 0 && !c.grantsManual) ck.push(chk('warn', 'Income is above the ' + money(CFG.ehgCeiling) + ' EHG ceiling, so no EHG.'));
+
+    // ----- summary -----
+    var cmp = function (l, a, b) {
+      return '<tr class="border-t border-white/10"><td class="py-2 text-emerald-200/80">' + l + '</td><td class="py-2 text-right font-semibold">' + a + '</td><td class="py-2 text-right font-semibold">' + b + '</td></tr>';
+    };
+    sum.innerHTML =
+      '<div class="rounded-3xl p-6 sm:p-8 text-white shadow-xl bg-gradient-to-br from-emerald-950 via-gray-900 to-emerald-900">' +
+        '<h3 class="font-semibold text-lg text-emerald-100 border-b border-emerald-800/50 pb-4 mb-6">Your Housing Summary <span class="text-xs font-normal text-emerald-300">(' + selName + ')</span></h3>' +
+        '<div class="grid grid-cols-2 gap-3 mb-6">' +
+          big('Monthly instalment', money(X.pmt), 'CPF OA ≈ ' + money(Math.min(c.oaMonthly, X.pmt)) + ' · cash ≈ ' + money(X.cashMonthly)) +
+          big('Cash needed upfront', money(X.cashUpfront), 'after grants and CPF') +
+          big('Loan taken', money(X.loan), 'max eligible ' + money(X.eligible)) +
+          big('Budget guide', money(X.budget), 'highest flat price supported') +
+        '</div>' +
+        '<table class="w-full text-sm mb-6"><thead><tr class="text-[11px] uppercase tracking-wider text-emerald-300"><th class="text-left pb-2"> </th><th class="text-right pb-2">HDB loan</th><th class="text-right pb-2">Bank loan</th></tr></thead><tbody>' +
+          cmp('Eligible loan', money(H.eligible), money(B.eligible)) +
+          cmp('Interest rate', H.actualRate.toFixed(2) + '%', B.actualRate.toFixed(2) + '%') +
+          cmp('Monthly instalment', money(H.pmt), money(B.pmt)) +
+          cmp('Total interest', money(H.interest), money(B.interest)) +
+          cmp('Cash needed upfront', money(H.cashUpfront), money(B.cashUpfront)) +
+        '</tbody></table>' +
+        '<ul class="space-y-2 pt-5 border-t border-emerald-800/50">' + ck.join('') + '</ul>' +
+      '</div>';
+
+    // ----- step 1: income -----
+    var s1 = R('Applicant 1 monthly income', money(c.i1));
+    if (c.two) s1 += R('Applicant 2 monthly income', money(c.i2));
+    s1 += R('Combined average gross monthly income', money(c.inc), true) +
+      R('Average age of applicants', c.avgAge.toFixed(1) + ' yrs') +
+      R('Youngest applicant', c.youngest + ' yrs') +
+      R('Income ceiling check', c.inc <= CFG.ceiling ? 'Within ' + money(CFG.ceiling) : 'Above ' + money(CFG.ceiling));
+    s1 += F('HDB assesses average gross monthly income over the last 12 months, including bonuses, so use that figure rather than this month\'s pay.');
+
+    // ----- step 2: HDB loan -----
+    var s2 = R('Maximum instalment (MSR 30%)', '30% × ' + money(c.inc) + ' = ' + money(H.maxPay)) +
+      R('Longest loan tenure', 'shortest of 25, (65 − ' + c.avgAge.toFixed(0) + ') = ' + Math.floor(65 - c.avgAge) + ', (' + c.lease + ' − 20) = ' + (c.lease - 20) + ' → ' + H.capTenure + ' yrs') +
+      R('Rate used for eligibility', 'higher of ' + CFG.hdbFloor.toFixed(1) + '% floor and ' + CFG.hdbRate.toFixed(1) + '% = ' + H.assessRate.toFixed(1) + '%') +
+      R('Loan the income can support', money(H.loanByIncome)) +
+      R('LTV cap (75% of ' + (resale ? 'lower of price and valuation' : 'price') + ')', '75% × ' + money(c.base) + ' = ' + money(H.ltvCap)) +
+      R('Eligible HDB loan (the lower)', money(H.eligible), true) +
+      F('Loan from income = instalment × [1 − (1 + r)<sup>−n</sup>] ÷ r, where r = ' + H.assessRate.toFixed(1) + '% ÷ 12 and n = ' + (H.capTenure * 12) + ' months. This mirrors how the HFE letter sizes the loan. The HDB loan has no TDSR test, so other debts do not reduce it.');
+
+    // ----- step 3: bank loan -----
+    var s3 = R('MSR cap (30%)', '30% × ' + money(c.inc) + ' = ' + money(B.msrCap)) +
+      R('TDSR cap (55% less other debts)', '55% × ' + money(c.inc) + ' − ' + money(c.debts) + ' = ' + money(Math.max(B.tdsrCap, 0))) +
+      R('Maximum instalment (the lower)', money(B.maxPay)) +
+      R('Stress-test rate', 'higher of ' + CFG.bankStress.toFixed(1) + '% and bank rate = ' + B.assessRate.toFixed(2) + '%') +
+      R('Tenure', B.tenure + ' yrs (bank maximum ' + CFG.bankMaxTenure + ')') +
+      R('Loan the income can support', money(B.loanByIncome)) +
+      R('LTV cap (75%)', money(B.ltvCap)) +
+      R('Eligible bank loan (the lower)', money(B.eligible), true) +
+      F('For HDB flats, banks apply both MSR and TDSR. Eligibility is tested at the stress-test rate. The actual instalment uses the bank\'s real rate.');
+
+    // ----- step 4: grants -----
+    var s4 = '';
+    if (c.grantsManual) {
+      s4 += R('Total grants (manual entry)', money(c.grants), true);
+    } else {
+      s4 += R('Enhanced CPF Housing Grant (EHG)', money(c.g.ehg)) +
+        R('CPF Housing Grant (resale)', money(c.g.chg)) +
+        R('Proximity Housing Grant (resale)', money(c.g.phg)) +
+        R('Total grants', money(c.grants), true);
+    }
+    s4 += F('EHG is read from HDB\'s table by average monthly household income (up to $9,000). At ' + money(c.inc) + ' the tier gives ' + money(c.g.ehg) + '. The CPF Housing Grant is $80,000 for 2 to 4-room and $50,000 for 5-room or larger, for resale only, with an income ceiling of ' + money(CFG.ceiling) + '. First-timer, citizenship and employment conditions apply, so confirm on the HFE letter.');
+
+    // ----- step 5: downpayment -----
+    var s5 = R('Flat price', money(c.price));
+    if (resale) s5 += R('Valuation', money(c.val)) + R('Cash over valuation (paid in cash)', money(c.cov));
+    s5 += R('Loan taken (' + selName + ')', money(X.loan)) +
+      R('Downpayment = ' + (resale ? 'lower of price/valuation' : 'price') + ' − loan', money(c.base) + ' − ' + money(X.loan) + ' = ' + money(X.down), true) +
+      R('Paid by housing grants', money(X.grantsUsed)) +
+      R('Paid by CPF OA' + (sel === 'hdb' ? ' (keeping up to $20,000)' : ''), money(X.cpfUsed)) +
+      R('Paid in cash', money(X.cashDown), true);
+    s5 += F(sel === 'bank'
+      ? 'A bank loan needs at least 5% of the price (' + money(X.minCash) + ') in cash. Grants and CPF can cover the other 20%.'
+      : 'An HDB loan has no minimum cash if the CPF OA and grants cover the downpayment. CPF OA used must be refunded with accrued interest if the flat is sold.');
+
+    // ----- step 6: other upfront costs -----
+    var s6 = R('Buyer\'s Stamp Duty (BSD)', resale ? money(c.bsd) : 'n/a for BTO (see fees)') +
+      R('Legal and other fees (estimate)', money(c.fees)) +
+      R('Total stamp duty and fees', money(X.feesTotal), true) +
+      R('Paid from spare CPF OA', money(X.feesFromOa)) +
+      R('Paid in cash', money(X.cashFees)) +
+      R('Cash for downpayment', money(X.cashDown)) +
+      (resale ? R('Cash over valuation', money(c.cov)) : '') +
+      R('Total cash needed upfront', money(X.cashUpfront), true) +
+      R('Cash savings', money(c.cash)) +
+      R(X.shortfall > 0 ? 'Shortfall' : 'Surplus', X.shortfall > 0 ? money(X.shortfall) : money(c.cash - X.cashUpfront), true);
+    s6 += F('BSD rates: 1% on the first $180,000, 2% on the next $180,000, 3% on the next $640,000, 4% on the next $500,000, 5% on the next $1.5m and 6% above $3m. Spare CPF OA is assumed to pay stamp duty and fees before cash is used.');
+
+    // ----- step 7: monthly -----
+    var s7 = R('Loan', money(X.loan)) +
+      R('Interest rate', X.actualRate.toFixed(2) + '% p.a.') +
+      R('Tenure', X.tenure + ' yrs (' + X.n + ' months)') +
+      R('Monthly instalment', money(X.pmt), true) +
+      R('CPF OA credited each month (estimate)', money(c.oaMonthly)) +
+      R('Cash top-up needed each month', money(X.cashMonthly), true) +
+      R('Instalment ÷ income (MSR)', pc(X.msrAct) + ' (limit 30%)') +
+      R('Instalment + other debts ÷ income (TDSR)', pc(X.tdsrAct) + (sel === 'bank' ? ' (limit 55%)' : '')) +
+      R('Total interest over the loan', money(X.interest)) +
+      R('Total repaid', money(X.pmt * X.n));
+    s7 += F('Instalment = loan × r ÷ [1 − (1 + r)<sup>−n</sup>], with r = ' + X.actualRate.toFixed(2) + '% ÷ 12 and n = ' + X.n + '. The CPF OA estimate uses ' + (c.oaEst > 0 ? 'the age-based OA share of wages (23% to 15%, wages capped at $8,000)' : 'no estimate for applicants above 55') + '. Type the actual figure into the "Monthly CPF OA credit" box for accuracy.');
+
+    // ----- step 8: budget -----
+    var s8 = R('Estimated max flat price, HDB loan', money(H.budget), true) +
+      R('Estimated max flat price, bank loan', money(B.budget), true) +
+      F('Budget guide = the lower of (a) loan the income supports + available funds and (b) available funds ÷ 25%, where funds = grants + usable CPF OA + cash − stamp duty and fees. Assumes no cash over valuation. Keep a buffer for renovation, furniture and an emergency fund.');
+
+    steps.innerHTML =
+      S(1, 'Income and household', s1) +
+      S(2, 'How the HFE letter sizes an HDB loan', s2) +
+      S(3, 'How a bank sizes its loan (MSR + TDSR)', s3) +
+      S(4, 'Housing grants', s4) +
+      S(5, 'Downpayment: who pays what', s5) +
+      S(6, 'Stamp duty, fees and total cash needed', s6) +
+      S(7, 'Monthly instalment and cash flow', s7) +
+      S(8, 'How much flat can they afford?', s8);
+  }
+
+  function toggleType() {
+    var bto = $('hsType').value === 'bto';
+    document.querySelectorAll('#view-housing .hs-resale').forEach(function (e) { e.classList.toggle('hidden', bto); });
+  }
+  function run() { toggleType(); render(); }
+
+  ['hsAge1','hsInc1','hsAge2','hsInc2','hsDebts','hsProfile','hsType','hsSize','hsPrice','hsVal','hsLease','hsPhg',
+   'hsGrantOverride','hsLoanType','hsBankRate','hsTenure','hsLoanPick','hsCpf','hsCash','hsFees','hsOaOverride'].forEach(function (id) {
+    $(id).addEventListener('input', run);
+    $(id).addEventListener('change', run);
+  });
+  run();
 })();
 </script>
   
