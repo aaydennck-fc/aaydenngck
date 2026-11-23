@@ -2285,7 +2285,7 @@ section.pe-results-premium .breakdown tbody tr {
           Let's Build Your Financial Future Together
         </h2>
         <p class="text-slate-600 max-w-lg mx-auto mb-2">
-          Have questions about your coverage or want a tailored review?<br><span class="contact-invite-line">Click below to meet up for a casual cup of coffee or tea</span>
+          Not sure if your coverage still fits your life stage?<br><span class="contact-invite-line">Click Below and Let’s catch up over coffee or tea</span>
         </p>
     
     <!-- Action Button -->
@@ -2543,7 +2543,27 @@ calculateCoverage();
     "From Strangers to Friends":"从陌生人到朋友", "Every friendship starts with a first greeting.":"每一段友谊，都从一句问候开始。", "Client Stories":"客户故事", "Real impact, told by the people who matter most.":"由最重要的人，分享真实的改变。",
     "A simple way to understand your monthly cash flow, expenses, savings and current allocation — without the financial jargon.":"简单了解你的每月现金流、开支、储蓄与目前的资金分配——不需要复杂的财务术语。",
     "CPF is applied to up to S$8,000 of monthly Ordinary Wages for 2026. Income above the OW ceiling is not included in this monthly CPF calculation.":"2026 年 CPF 仅按每月最高 S$8,000 的普通工资计算。超过普通工资上限的收入不计入本月 CPF 计算。",
-    "Expenses":"开支", "Investment":"投资", "Savings":"储蓄", "Insurance":"保险", "Beliefs":"理念", "All rights reserved.":"版权所有。"
+    "Expenses":"开支", "Investment":"投资", "Savings":"储蓄", "Insurance":"保险", "Beliefs":"理念", "All rights reserved.":"版权所有。".
+
+     /* ---- ADDED ---- */
+    "THE REASON":"初衷",
+    "THE PEOPLE":"服务对象",
+    "THE WAY":"我的方式",
+    "👶 Raising children":"👶 养育孩子",
+    "👴 Caring for aging parents":"👴 照顾年迈父母",
+    "🎯 Planning for their own future":"🎯 规划自己的未来",
+    "No jargon. No pressure.":"没有复杂术语，也没有压力。",
+    "Just honest conversations and practical financial planning the same way I’d approach it for my own family.":"只有坦诚的交流，以及就像为自己的家庭规划一样，务实而贴近生活的财务规划。",
+    "Not sure if your coverage still fits your life stage?":"不确定目前的保障是否还贴合你现阶段的需求？",
+    "Click Below and Let’s catch up over coffee or tea“:"点击下方联系我，我们喝杯咖啡或茶轻松聊一聊。",
+    "| Manager Wealth Services":"| 财务顾问",
+    "Aayden Ng is a Manager Wealth Services representing Prudential Assurance Company Singapore (Pte) Limited (Reg. No. 199002477Z). This website is for informational purposes only and does not constitute financial advice. All insurance product information is subject to the actual policy terms and conditions. MAS Licensed.":"Aayden Ng 为保诚保险（新加坡）有限公司（注册号：199002477Z）的财务顾问。本网站仅供参考，不构成财务建议。所有保险产品资料均以实际保单条款为准。持有新加坡金融管理局（MAS）牌照。",
+    "© 2026 Aayden Ng. All rights reserved.":"© 2026 Aayden Ng。版权所有。",
+    "Aayden Ng logo":"Aayden Ng 标志",
+    "Aayden Ng - Home":"Aayden Ng - 首页",
+    "Aayden's Headshot":"Aayden 的头像照片",
+    "The Reason - Aayden Ng":"初衷 - Aayden 黄",
+    "WhatsApp Aayden":"通过 WhatsApp 联系 Aayden"
   };
 
 
@@ -2583,7 +2603,7 @@ calculateCoverage();
   function translateTextNode(node, lang) {
     const originalValue = originalText.get(node);
     if (originalValue == null || isExcluded(node)) return;
-    const trimmed = originalValue.trim();
+    const trimmed = originalValue.trim().replace(/\s+/g, ' ');
     let translated = lang === 'zh' ? translations[trimmed] : null;
     if (lang === 'zh' && !translated) {
       const pctMatch = trimmed.match(/^(\d+(?:\.\d+)?)% of income$/);
@@ -2596,7 +2616,7 @@ calculateCoverage();
   }
 
   function translateAttributes(lang) {
-    const attrs = ['placeholder','aria-label','title'];
+    const attrs = ['placeholder','aria-label','title','alt'];
     document.querySelectorAll('body *:not(#carousel-grid):not(#carousel-grid *)').forEach(el => {
       attrs.forEach(attr => {
         if (!el.hasAttribute(attr)) return;
@@ -2652,6 +2672,9 @@ calculateCoverage();
 
   function apply(lang) {
     currentLang = lang;
+    if (!document.documentElement.hasAttribute('data-tool')) {
+  document.title = lang === 'zh' ? 'Aayden Ng｜财务顾问' : 'Aayden Ng | Manager Wealth Services';
+}
     if (observer) observer.disconnect();
     collectTextNodes(document.body);
     textNodes.forEach(node => translateTextNode(node, lang));
